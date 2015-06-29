@@ -2,13 +2,16 @@
 
 namespace easybill\SDK;
 
+use easybill\SDK\Collection\CustomerGroupCollection;
 use easybill\SDK\Exception\AuthenticationFailedException;
 use easybill\SDK\Exception\CustomerContactNotFoundException;
+use easybill\SDK\Exception\CustomerGroupNotFoundException;
 use easybill\SDK\Exception\CustomerNotFoundException;
 use easybill\SDK\Exception\ModelDataNotValidException;
 use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\Customer;
 use easybill\SDK\Model\CustomerContact;
+use easybill\SDK\Model\CustomerGroup;
 
 class Client
 {
@@ -23,8 +26,10 @@ class Client
             'classmap'   => array(
                 'SearchCustomersType'               => '\easybill\SDK\Collection\CustomerCollection',
                 'GetContactsByCustomerResponseType' => '\easybill\SDK\Collection\CustomerContactCollection',
+                'AllCustomerGroupsResponseType'     => '\easybill\SDK\Collection\CustomerGroupCollection',
                 'customertype'                      => '\easybill\SDK\Model\Customer',
                 'customerContactType'               => '\easybill\SDK\Model\CustomerContact',
+                'customergrouptype'                 => '\easybill\SDK\Model\CustomerGroup',
             )
         ));
         $header = new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey);
@@ -224,6 +229,70 @@ class Client
     }
 
     /**
+     * @return CustomerGroupCollection
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCustomerGroups()
+    {
+        try {
+            return $this->soapClient->getAllCustomerGroups();
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param integer $groupID
+     *
+     * @return CustomerGroup
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCustomerGroup($groupID)
+    {
+        try {
+            return $this->soapClient->getCustomerGroup((int)$groupID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault, array(102));
+        }
+    }
+
+    /**
+     * @param \easybill\SDK\Model\CustomerGroup $group
+     *
+     * @return \easybill\SDK\Model\CustomerGroup
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function createCustomerGroup(CustomerGroup $group)
+    {
+        $this->updateCustomerGroup($group);
+    }
+
+    /**
+     * @param \easybill\SDK\Model\CustomerGroup $group
+     *
+     * @return \easybill\SDK\Model\CustomerGroup
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function updateCustomerGroup(CustomerGroup $group)
+    {
+        try {
+            return $this->soapClient->setCustomerGroup($group);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
      * @param \SoapFault $soapFault
      * @param array      $ignoreCode
      *
@@ -233,12 +302,13 @@ class Client
      * @throws \easybill\SDK\Exception\ModelDataNotValidException
      * @throws \easybill\SDK\Exception\ServerException
      * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
+     * @throws \easybill\SDK\Exception\CustomerGroupNotFoundException
      */
     private function handleSoapFault(\SoapFault $soapFault, $ignoreCode = array())
     {
         if (property_exists($soapFault, 'faultcode')) {
 
-            if (in_array($soapFault->faultcode, $ignoreCode)) {
+            if (in_array((int)$soapFault->faultcode, $ignoreCode)) {
                 return;
             }
 
@@ -261,6 +331,8 @@ class Client
                     throw new ModelDataNotValidException($message, 3, $soapFault);
                 case "101":
                     throw new CustomerNotFoundException($soapFault->getMessage(), 101, $soapFault);
+                case "102":
+                    throw new CustomerGroupNotFoundException($soapFault->getMessage(), 102, $soapFault);
                 case "104":
                     throw new CustomerContactNotFoundException($soapFault->getMessage(), 104, $soapFault);
             }
