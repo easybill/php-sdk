@@ -7,7 +7,7 @@ use easybill\SDK\Exception\CustomerNotFoundException;
 use easybill\SDK\Exception\ModelDataNotValidException;
 use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\Customer;
-use easybill\SDK\Model\CustomerCollection;
+use easybill\SDK\Collection\CustomerCollection;
 
 class Client
 {
@@ -15,12 +15,12 @@ class Client
 
     function __construct($wsdlPath, $apiKey)
     {
-        ini_set("soap.wsdl_cache_enabled", "0");
+        ini_set('soap.wsdl_cache_enabled', '0');
         $this->soapClient = new \SoapClient($wsdlPath, array(
             'trace'      => 1,
             'exceptions' => 1,
             'classmap'   => array(
-                'SearchCustomersType' => '\easybill\SDK\Model\CustomerCollection',
+                'SearchCustomersType' => '\easybill\SDK\Collection\CustomerCollection',
                 'customertype'        => '\easybill\SDK\Model\Customer',
             )
         ));
@@ -31,7 +31,7 @@ class Client
     /**
      * @param string $term
      *
-     * @return \easybill\SDK\Model\CustomerCollection
+     * @return \easybill\SDK\Collection\CustomerCollection
      * @throws \SoapFault
      * @throws \easybill\SDK\Exception\AuthenticationFailedException
      * @throws \easybill\SDK\Exception\ServerException

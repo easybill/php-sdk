@@ -1,6 +1,6 @@
 <?php
 
-namespace easybill\SDK\Model;
+namespace easybill\SDK\Collection;
 
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
