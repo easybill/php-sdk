@@ -3,11 +3,12 @@
 namespace easybill\SDK;
 
 use easybill\SDK\Exception\AuthenticationFailedException;
+use easybill\SDK\Exception\CustomerContactNotFoundException;
 use easybill\SDK\Exception\CustomerNotFoundException;
 use easybill\SDK\Exception\ModelDataNotValidException;
 use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\Customer;
-use easybill\SDK\Collection\CustomerCollection;
+use easybill\SDK\Model\CustomerContact;
 
 class Client
 {
@@ -20,8 +21,10 @@ class Client
             'trace'      => 1,
             'exceptions' => 1,
             'classmap'   => array(
-                'SearchCustomersType' => '\easybill\SDK\Collection\CustomerCollection',
-                'customertype'        => '\easybill\SDK\Model\Customer',
+                'SearchCustomersType'               => '\easybill\SDK\Collection\CustomerCollection',
+                'GetContactsByCustomerResponseType' => '\easybill\SDK\Collection\CustomerContactCollection',
+                'customertype'                      => '\easybill\SDK\Model\Customer',
+                'customerContactType'               => '\easybill\SDK\Model\CustomerContact',
             )
         ));
         $header = new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey);
@@ -42,7 +45,6 @@ class Client
             return $this->soapClient->searchCustomers((string)$term);
         } catch (\SoapFault $soapFault) {
             $this->handleSoapFault($soapFault);
-            return new CustomerCollection();
         }
     }
 
@@ -94,11 +96,7 @@ class Client
      */
     public function createCustomer(Customer $customer)
     {
-        try {
-            return $this->updateCustomer($customer);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->updateCustomer($customer);
     }
 
     /**
@@ -138,6 +136,94 @@ class Client
     }
 
     /**
+     * @param $customerID
+     *
+     * @return \easybill\SDK\Collection\CustomerContactCollection
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\CustomerNotFoundException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCustomerContactsByCustomer($customerID)
+    {
+        try {
+            return $this->soapClient->getContactsByCustomer($customerID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param $contactID
+     *
+     * @return \easybill\SDK\Model\Customer|null
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCustomerContact($contactID)
+    {
+        try {
+            return $this->soapClient->getCustomerContact($contactID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault, array(104));
+            return null;
+        }
+    }
+
+    /**
+     * @param \easybill\SDK\Model\CustomerContact $contact
+     *
+     * @return \easybill\SDK\Model\CustomerContact
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\CustomerNotFoundException
+     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function createCustomerContact(CustomerContact $contact)
+    {
+        return $this->updateCustomerContact($contact);
+    }
+
+    /**
+     * @param \easybill\SDK\Model\CustomerContact $contact
+     *
+     * @return CustomerContact
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\CustomerNotFoundException
+     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function updateCustomerContact(CustomerContact $contact)
+    {
+        try {
+            return $this->soapClient->setCustomerContact($contact);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param integer $contactID
+     *
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function deleteCustomerContact($contactID)
+    {
+        try {
+            $this->soapClient->deleteCustomerContact((int)$contactID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
      * @param \SoapFault $soapFault
      * @param array      $ignoreCode
      *
@@ -146,6 +232,7 @@ class Client
      * @throws \easybill\SDK\Exception\CustomerNotFoundException
      * @throws \easybill\SDK\Exception\ModelDataNotValidException
      * @throws \easybill\SDK\Exception\ServerException
+     * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
      */
     private function handleSoapFault(\SoapFault $soapFault, $ignoreCode = array())
     {
@@ -162,7 +249,6 @@ class Client
                     throw new AuthenticationFailedException($soapFault->getMessage(), 2, $soapFault);
                 case "3":
                     $message = $soapFault->getMessage();
-
                     if (
                         property_exists($soapFault, 'detail')
                         && is_object($soapFault->detail)
@@ -172,11 +258,11 @@ class Client
                     ) {
                         $message = $soapFault->detail->DataNotValidFault->datafield;
                     }
-
-
                     throw new ModelDataNotValidException($message, 3, $soapFault);
                 case "101":
                     throw new CustomerNotFoundException($soapFault->getMessage(), 101, $soapFault);
+                case "104":
+                    throw new CustomerContactNotFoundException($soapFault->getMessage(), 104, $soapFault);
             }
         }
         throw $soapFault;
