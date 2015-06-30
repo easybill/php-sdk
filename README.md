@@ -56,6 +56,12 @@ Client::deleteCompanyPositionGroup($groupID): void
 Client::findDocument($documentID): Document
 Client::findDocumentsByDocumentNumber($documentNumber): Documents
 Client::findDocuments(DocumentsParams $params): Documents
+
+Client::findDocumentPDF($documentID): DocumentFile
+Client::findDocumentPayments($documentID): Payments
+Client::findDocumentSent($documentID): Outbox
+
+Client::createPayment(Payment $payment): boolean
 ```
 
 ## Usage

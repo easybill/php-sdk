@@ -5,6 +5,8 @@ namespace easybill\SDK;
 use easybill\SDK\Collection\CompanyPositionGroups;
 use easybill\SDK\Collection\CustomerGroups;
 use easybill\SDK\Collection\Documents;
+use easybill\SDK\Collection\Outbox;
+use easybill\SDK\Collection\Payments;
 use easybill\SDK\Exception\AuthenticationFailed;
 use easybill\SDK\Exception\CompanyPositionGroupNotFound;
 use easybill\SDK\Exception\CompanyPositionNotFound;
@@ -20,6 +22,8 @@ use easybill\SDK\Model\Customer;
 use easybill\SDK\Model\CustomerContact;
 use easybill\SDK\Model\CustomerGroup;
 use easybill\SDK\Model\Document;
+use easybill\SDK\Model\DocumentFile;
+use easybill\SDK\Model\Payment;
 use easybill\SDK\Request\DocumentsParams;
 
 class Client
@@ -39,6 +43,8 @@ class Client
                 'AllCustomerGroupsResponseType'        => '\easybill\SDK\Collection\CustomerGroups',
                 'SearchCompanyPositionsType'           => '\easybill\SDK\Collection\CompanyPositions',
                 'AllCompanyPositionGroupsResponseType' => '\easybill\SDK\Collection\CompanyPositionGroups',
+                'GetDocumentPaymentsType'              => '\easybill\SDK\Collection\Payments',
+                'DocumentSentType'                     => '\easybill\SDK\Collection\Outbox',
                 // Models
                 'GetDocumentsResponseType'             => '\easybill\SDK\Collection\Documents',
                 'customertype'                         => '\easybill\SDK\Model\Customer',
@@ -47,6 +53,9 @@ class Client
                 'companypositiontype'                  => '\easybill\SDK\Model\CompanyPosition',
                 'companypositiongrouptype'             => '\easybill\SDK\Model\CompanyPositionGroup',
                 'GetDocumentType'                      => '\easybill\SDK\Model\Document',
+                'GetDocumentPDFResponseType'           => '\easybill\SDK\Model\DocumentFile',
+                'documentpaymenttype'                  => '\easybill\SDK\Model\Payment',
+                'DocumentSentItemType'                 => '\easybill\SDK\Model\Sent',
                 // Requests
                 'GetDocumentsRequestType'              => '\easybill\SDK\Request\DocumentsParams',
             )
@@ -554,7 +563,6 @@ class Client
      * @return Documents|Document[]
      * @throws \SoapFault
      * @throws \easybill\SDK\Exception\AuthenticationFailed
-     * @throws \easybill\SDK\Exception\DocumentNotFound
      * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
@@ -570,6 +578,80 @@ class Client
             $this->handleSoapFault($soapFault);
         }
     }
+
+    /**
+     * @param int $documentID
+     *
+     * @return DocumentFile|null
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findDocumentPDF($documentID)
+    {
+        try {
+            return $this->soapClient->getDocumentPDF((int)$documentID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault, array(103));
+            return null;
+        }
+    }
+
+    /**
+     * @param integer $documentID
+     *
+     * @return Payments|Payment[]
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     * @throws \easybill\SDK\Exception\DocumentNotFound
+     */
+    public function findDocumentPayments($documentID)
+    {
+        try {
+            return $this->soapClient->getDocumentPayments((int)$documentID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+
+    /**
+     * @param integer $documentID
+     *
+     * @return Outbox
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findDocumentSent($documentID)
+    {
+        try {
+            return $this->soapClient->getDocumentSent((int)$documentID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param \easybill\SDK\Model\Payment $payment
+     *
+     * @return bool
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\DocumentNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function createPayment(Payment $payment)
+    {
+        try {
+            return $this->soapClient->addDocumentPayment($payment);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
 
     /**
      * @param \SoapFault $soapFault
