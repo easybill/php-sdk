@@ -2,13 +2,13 @@
 
 namespace easybill\SDK;
 
-use easybill\SDK\Collection\CustomerGroupCollection;
-use easybill\SDK\Exception\AuthenticationFailedException;
+use easybill\SDK\Collection\CustomerGroups;
+use easybill\SDK\Exception\AuthenticationFailed;
 use easybill\SDK\Exception\CompanyPositionNotFound;
-use easybill\SDK\Exception\CustomerContactNotFoundException;
-use easybill\SDK\Exception\CustomerGroupNotFoundException;
-use easybill\SDK\Exception\CustomerNotFoundException;
-use easybill\SDK\Exception\ModelDataNotValidException;
+use easybill\SDK\Exception\CustomerContactNotFound;
+use easybill\SDK\Exception\CustomerGroupNotFound;
+use easybill\SDK\Exception\CustomerNotFound;
+use easybill\SDK\Exception\ModelDataNotValid;
 use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\CompanyPosition;
 use easybill\SDK\Model\Customer;
@@ -26,9 +26,9 @@ class Client
             'trace'      => 1,
             'exceptions' => 1,
             'classmap'   => array(
-                'SearchCustomersType'               => '\easybill\SDK\Collection\CustomerCollection',
-                'GetContactsByCustomerResponseType' => '\easybill\SDK\Collection\CustomerContactCollection',
-                'AllCustomerGroupsResponseType'     => '\easybill\SDK\Collection\CustomerGroupCollection',
+                'SearchCustomersType'               => '\easybill\SDK\Collection\Customers',
+                'GetContactsByCustomerResponseType' => '\easybill\SDK\Collection\CustomerContacts',
+                'AllCustomerGroupsResponseType'     => '\easybill\SDK\Collection\CustomerGroups',
                 'SearchCompanyPositionsType'        => '\easybill\SDK\Collection\CompanyPositions',
                 'customertype'                      => '\easybill\SDK\Model\Customer',
                 'customerContactType'               => '\easybill\SDK\Model\CustomerContact',
@@ -43,9 +43,9 @@ class Client
     /**
      * @param string $term
      *
-     * @return \easybill\SDK\Collection\CustomerCollection
+     * @return \easybill\SDK\Collection\Customers
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function searchCustomers($term)
@@ -62,7 +62,7 @@ class Client
      *
      * @return \easybill\SDK\Model\Customer|null
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function findCustomer($customerID)
@@ -80,7 +80,7 @@ class Client
      *
      * @return \easybill\SDK\Model\Customer|null
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function findCustomerByCustomerNumber($customerNumber)
@@ -98,9 +98,9 @@ class Client
      *
      * @return \easybill\SDK\Model\Customer
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function createCustomer(Customer $customer)
@@ -113,9 +113,9 @@ class Client
      *
      * @return \easybill\SDK\Model\Customer
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function updateCustomer(Customer $customer)
@@ -131,8 +131,8 @@ class Client
      * @param integer $customerID
      *
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function deleteCustomer($customerID)
@@ -147,10 +147,10 @@ class Client
     /**
      * @param $customerID
      *
-     * @return \easybill\SDK\Collection\CustomerContactCollection
+     * @return \easybill\SDK\Collection\CustomerContacts
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function findCustomerContactsByCustomer($customerID)
@@ -167,8 +167,8 @@ class Client
      *
      * @return \easybill\SDK\Model\Customer|null
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerContactNotFound
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function findCustomerContact($contactID)
@@ -186,9 +186,9 @@ class Client
      *
      * @return \easybill\SDK\Model\CustomerContact
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function createCustomerContact(CustomerContact $contact)
@@ -201,9 +201,9 @@ class Client
      *
      * @return CustomerContact
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function updateCustomerContact(CustomerContact $contact)
@@ -219,8 +219,8 @@ class Client
      * @param integer $contactID
      *
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerContactNotFound
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function deleteCustomerContact($contactID)
@@ -233,9 +233,9 @@ class Client
     }
 
     /**
-     * @return CustomerGroupCollection
+     * @return CustomerGroups
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function findCustomerGroups()
@@ -252,7 +252,7 @@ class Client
      *
      * @return CustomerGroup
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function findCustomerGroup($groupID)
@@ -269,8 +269,8 @@ class Client
      *
      * @return \easybill\SDK\Model\CustomerGroup
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function createCustomerGroup(CustomerGroup $group)
@@ -283,8 +283,8 @@ class Client
      *
      * @return \easybill\SDK\Model\CustomerGroup
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function updateCustomerGroup(CustomerGroup $group)
@@ -301,7 +301,7 @@ class Client
      *
      * @return void
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function deleteCustomerGroup($groupID)
@@ -318,7 +318,7 @@ class Client
      *
      * @return \easybill\SDK\Collection\CompanyPositions
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function searchCompanyPositions($term)
@@ -335,7 +335,7 @@ class Client
      *
      * @return CompanyPosition|null
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\CompanyPositionNotFound
      * @throws \easybill\SDK\Exception\ServerException
      */
@@ -354,9 +354,9 @@ class Client
      *
      * @return CompanyPosition
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\CompanyPositionNotFound
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function createCompanyPosition(CompanyPosition $position)
@@ -369,9 +369,9 @@ class Client
      *
      * @return CompanyPosition
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
      * @throws \easybill\SDK\Exception\CompanyPositionNotFound
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
      */
     public function updateCompanyPosition(CompanyPosition $position)
@@ -388,12 +388,12 @@ class Client
      * @param array      $ignoreCode
      *
      * @throws \SoapFault
-     * @throws \easybill\SDK\Exception\AuthenticationFailedException
-     * @throws \easybill\SDK\Exception\CustomerNotFoundException
-     * @throws \easybill\SDK\Exception\ModelDataNotValidException
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CustomerNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
      * @throws \easybill\SDK\Exception\ServerException
-     * @throws \easybill\SDK\Exception\CustomerContactNotFoundException
-     * @throws \easybill\SDK\Exception\CustomerGroupNotFoundException
+     * @throws \easybill\SDK\Exception\CustomerContactNotFound
+     * @throws \easybill\SDK\Exception\CustomerGroupNotFound
      * @throws \easybill\SDK\Exception\CompanyPositionNotFound
      */
     private function handleSoapFault(\SoapFault $soapFault, $ignoreCode = array())
@@ -408,7 +408,7 @@ class Client
                 case 1:
                     throw new ServerException($soapFault->getMessage(), 1, $soapFault);
                 case 2:
-                    throw new AuthenticationFailedException($soapFault->getMessage(), 2, $soapFault);
+                    throw new AuthenticationFailed($soapFault->getMessage(), 2, $soapFault);
                 case 3:
                     $message = $soapFault->getMessage();
                     if (
@@ -420,13 +420,13 @@ class Client
                     ) {
                         $message = $soapFault->detail->DataNotValidFault->datafield;
                     }
-                    throw new ModelDataNotValidException($message, 3, $soapFault);
+                    throw new ModelDataNotValid($message, 3, $soapFault);
                 case 101:
-                    throw new CustomerNotFoundException($soapFault->getMessage(), 101, $soapFault);
+                    throw new CustomerNotFound($soapFault->getMessage(), 101, $soapFault);
                 case 102:
-                    throw new CustomerGroupNotFoundException($soapFault->getMessage(), 102, $soapFault);
+                    throw new CustomerGroupNotFound($soapFault->getMessage(), 102, $soapFault);
                 case 104:
-                    throw new CustomerContactNotFoundException($soapFault->getMessage(), 104, $soapFault);
+                    throw new CustomerContactNotFound($soapFault->getMessage(), 104, $soapFault);
                 case 111:
                     throw new CompanyPositionNotFound($soapFault->getMessage(), 111, $soapFault);
             }

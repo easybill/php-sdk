@@ -5,7 +5,7 @@ namespace easybill\SDK\Collection;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class CustomerContactCollection extends AbstractLazyCollection
+class CustomerContacts extends AbstractLazyCollection
 {
 
     /**
