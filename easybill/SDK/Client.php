@@ -399,6 +399,23 @@ class Client
     }
 
     /**
+     * @param $positionID
+     *
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CompanyPositionNotFound
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function deleteCompanyPosition($positionID)
+    {
+        try {
+            $this->soapClient->deleteCompanyPosition($positionID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
      * @param \SoapFault $soapFault
      * @param array      $ignoreCode
      *

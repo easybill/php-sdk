@@ -43,6 +43,7 @@ Client::searchCompanyPositions($term): CompanyPositions
 Client::findCompanyPosition($positionID): CompanyPosition|null
 Client::createCompanyPosition(CompanyPosition $position): CompanyPosition
 Client::updateCompanyPosition(CompanyPosition $position): CompanyPosition
+Client::deleteCompanyPosition($positionID): void
 
 ```
 
