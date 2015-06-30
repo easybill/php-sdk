@@ -10,7 +10,7 @@
   ],
   "type": "library",
   "minimum-stability": "dev",
-  "license": "",
+  "license": "MIT",
   "homepage": "https://www.easybill.de",
   "authors": [
     {
