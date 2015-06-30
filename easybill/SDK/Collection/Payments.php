@@ -2,10 +2,7 @@
 
 namespace easybill\SDK\Collection;
 
-use Doctrine\Common\Collections\AbstractLazyCollection;
-use Doctrine\Common\Collections\ArrayCollection;
-
-class Payments extends AbstractLazyCollection
+class Payments extends Collection
 {
     /** @var boolean */
     public $payed;
@@ -13,21 +10,10 @@ class Payments extends AbstractLazyCollection
     public $toPay;
 
     /**
-     * Do the initialization logic
-     *
-     * @return void
+     * @return string
      */
-    protected function doInitialize()
+    public function getCollectionProperty()
     {
-        $customers = array();
-        if (property_exists($this, 'Payment')) {
-            if (is_array($this->Payment)) {
-                $customers = $this->Payment;
-            } else {
-                $customers[] = $this->Payment;
-            }
-        }
-
-        $this->collection = new ArrayCollection($customers);
+        return 'Payment';
     }
 }

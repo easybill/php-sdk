@@ -64,6 +64,13 @@ Client::findDocumentSent($documentID): Outbox
 Client::createPayment(Payment $payment): boolean
 ```
 
+## Todo
+- createDocument()
+- createDunning()
+- createReminder()
+- toCancelDocument()
+- toCreditDocument()
+
 ## Usage
 
 ```php

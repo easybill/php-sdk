@@ -60,8 +60,10 @@ class Client
                 'GetDocumentsRequestType'              => '\easybill\SDK\Request\DocumentsParams',
             )
         ));
-        $header = new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey);
-        $this->soapClient->__setSoapHeaders($header);
+        $this->soapClient->__setSoapHeaders(array(
+            new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey),
+            new \SoapHeader('http://www.easybill.de/webservice', 'UserAgent', 'easybill-php-sdk v1.0')
+        ));
     }
 
     /**

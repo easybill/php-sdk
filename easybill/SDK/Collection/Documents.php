@@ -2,28 +2,13 @@
 
 namespace easybill\SDK\Collection;
 
-use Doctrine\Common\Collections\AbstractLazyCollection;
-use Doctrine\Common\Collections\ArrayCollection;
-
-class Documents extends AbstractLazyCollection
+class Documents extends Collection
 {
-
     /**
-     * Do the initialization logic
-     *
-     * @return void
+     * @return string
      */
-    protected function doInitialize()
+    public function getCollectionProperty()
     {
-        $customers = array();
-        if (property_exists($this, 'Document')) {
-            if (is_array($this->Document)) {
-                $customers = $this->Document;
-            } else {
-                $customers[] = $this->Document;
-            }
-        }
-
-        $this->collection = new ArrayCollection($customers);
+        return 'Document';
     }
 }
