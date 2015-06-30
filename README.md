@@ -12,6 +12,40 @@ Add this repository to your composer information using the following command
 composer require easybill/php-sdk dev-master
 ```
 
+## Structure/ Functions
+
+```
+// Customer
+Client::searchCustomers($term): Customers
+Client::findCustomer($customerID): Customer|null
+Client::findCustomerByCustomerNumber($customerNumber): Customer|null
+Client::createCustomer(Customer $customer): Customer
+Client::updateCustomer(Customer $customer): Customer
+Client::deleteCustomer($customerID): void
+
+// Customer contact
+Client::findCustomerContacts(): CustomerContacts
+Client::findCustomerContactsByCustomer($customerID): CustomerContacts
+Client::findCustomerContact($contactID): CustomerContact|null
+Client::createCustomerContact(CustomerContact $contact): CustomerContact
+Client::updateCustomerContact(CustomerContact $contact): CustomerContact
+Client::deleteCustomerContact($contactID): void
+
+// Customer group
+Client::findCustomerGroups(): CustomerGroups
+Client::findCustomerGroup($groupID): CustomerGroup|null
+Client::createCustomerGroup(CustomerGroup $group): CustomerGroup
+Client::updateCustomerGroup(CustomerGroup $group): CustomerGroup
+Client::deleteCustomerGroup($groupID): void
+
+// Company position
+Client::searchCompanyPositions($term): CompanyPositions
+Client::findCompanyPosition($positionID): CompanyPosition|null
+Client::createCompanyPosition(CompanyPosition $position): CompanyPosition
+Client::updateCompanyPosition(CompanyPosition $position): CompanyPosition
+
+```
+
 ## Usage
 
 ```php

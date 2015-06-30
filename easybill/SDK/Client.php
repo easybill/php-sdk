@@ -145,6 +145,21 @@ class Client
     }
 
     /**
+     * @return \easybill\SDK\Collection\CustomerContacts
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCustomerContacts()
+    {
+        try {
+            return $this->soapClient->getCustomerContacts();
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
      * @param $customerID
      *
      * @return \easybill\SDK\Collection\CustomerContacts
