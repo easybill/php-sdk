@@ -2,8 +2,10 @@
 
 namespace easybill\SDK;
 
+use easybill\SDK\Collection\CompanyPositionGroups;
 use easybill\SDK\Collection\CustomerGroups;
 use easybill\SDK\Exception\AuthenticationFailed;
+use easybill\SDK\Exception\CompanyPositionGroupNotFound;
 use easybill\SDK\Exception\CompanyPositionNotFound;
 use easybill\SDK\Exception\CustomerContactNotFound;
 use easybill\SDK\Exception\CustomerGroupNotFound;
@@ -11,6 +13,7 @@ use easybill\SDK\Exception\CustomerNotFound;
 use easybill\SDK\Exception\ModelDataNotValid;
 use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\CompanyPosition;
+use easybill\SDK\Model\CompanyPositionGroup;
 use easybill\SDK\Model\Customer;
 use easybill\SDK\Model\CustomerContact;
 use easybill\SDK\Model\CustomerGroup;
@@ -26,14 +29,16 @@ class Client
             'trace'      => 1,
             'exceptions' => 1,
             'classmap'   => array(
-                'SearchCustomersType'               => '\easybill\SDK\Collection\Customers',
-                'GetContactsByCustomerResponseType' => '\easybill\SDK\Collection\CustomerContacts',
-                'AllCustomerGroupsResponseType'     => '\easybill\SDK\Collection\CustomerGroups',
-                'SearchCompanyPositionsType'        => '\easybill\SDK\Collection\CompanyPositions',
-                'customertype'                      => '\easybill\SDK\Model\Customer',
-                'customerContactType'               => '\easybill\SDK\Model\CustomerContact',
-                'customergrouptype'                 => '\easybill\SDK\Model\CustomerGroup',
-                'companypositiontype'               => '\easybill\SDK\Model\CompanyPosition',
+                'SearchCustomersType'                  => '\easybill\SDK\Collection\Customers',
+                'GetContactsByCustomerResponseType'    => '\easybill\SDK\Collection\CustomerContacts',
+                'AllCustomerGroupsResponseType'        => '\easybill\SDK\Collection\CustomerGroups',
+                'SearchCompanyPositionsType'           => '\easybill\SDK\Collection\CompanyPositions',
+                'AllCompanyPositionGroupsResponseType' => '\easybill\SDK\Collection\CompanyPositionGroups',
+                'customertype'                         => '\easybill\SDK\Model\Customer',
+                'customerContactType'                  => '\easybill\SDK\Model\CustomerContact',
+                'customergrouptype'                    => '\easybill\SDK\Model\CustomerGroup',
+                'companypositiontype'                  => '\easybill\SDK\Model\CompanyPosition',
+                'companypositiongrouptype'             => '\easybill\SDK\Model\CompanyPositionGroup',
             )
         ));
         $header = new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey);
@@ -416,6 +421,90 @@ class Client
     }
 
     /**
+     * @return CompanyPositionGroups
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCompanyPositionGroups()
+    {
+        try {
+            return $this->soapClient->getAllCompanyPositionGroups();
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param integer $groupID
+     *
+     * @return CompanyPositionGroup|null
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findCompanyPositionGroup($groupID)
+    {
+        try {
+            return $this->soapClient->getCompanyPositionGroup((int)$groupID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault, array(112));
+            return null;
+        }
+    }
+
+    /**
+     * @param \easybill\SDK\Model\CompanyPositionGroup $group
+     *
+     * @return CompanyPositionGroup
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function createCompanyPositionGroup(CompanyPositionGroup $group)
+    {
+        return $this->updateCompanyPositionGroup($group);
+    }
+
+    /**
+     * @param \easybill\SDK\Model\CompanyPositionGroup $group
+     *
+     * @return CompanyPositionGroup
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CompanyPositionGroupNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function updateCompanyPositionGroup(CompanyPositionGroup $group)
+    {
+        try {
+            return $this->soapClient->setCompanyPositionGroup($group);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param integer $groupID
+     *
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CompanyPositionGroupNotFound
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function deleteCompanyPositionGroup($groupID)
+    {
+        try {
+            $this->soapClient->deleteCompanyPositionGroup((int)$groupID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+
+    /**
      * @param \SoapFault $soapFault
      * @param array      $ignoreCode
      *
@@ -427,6 +516,7 @@ class Client
      * @throws \easybill\SDK\Exception\CustomerContactNotFound
      * @throws \easybill\SDK\Exception\CustomerGroupNotFound
      * @throws \easybill\SDK\Exception\CompanyPositionNotFound
+     * @throws \easybill\SDK\Exception\CompanyPositionGroupNotFound
      */
     private function handleSoapFault(\SoapFault $soapFault, $ignoreCode = array())
     {
@@ -461,6 +551,8 @@ class Client
                     throw new CustomerContactNotFound($soapFault->getMessage(), 104, $soapFault);
                 case 111:
                     throw new CompanyPositionNotFound($soapFault->getMessage(), 111, $soapFault);
+                case 112:
+                    throw new CompanyPositionGroupNotFound($soapFault->getMessage(), 112, $soapFault);
             }
         }
         throw $soapFault;

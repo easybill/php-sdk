@@ -45,6 +45,12 @@ Client::createCompanyPosition(CompanyPosition $position): CompanyPosition
 Client::updateCompanyPosition(CompanyPosition $position): CompanyPosition
 Client::deleteCompanyPosition($positionID): void
 
+// Company position group
+Client::findCompanyPositionGroups(): CompanyPositionGroups
+Client::findCompanyPositionGroup($groupID): CompanyPositionGroup
+Client::createCompanyPositionGroup(CompanyPositionGroup $group): CompanyPositionGroup
+Client::updateCompanyPositionGroup(CompanyPositionGroup $group): CompanyPositionGroup
+Client::deleteCompanyPositionGroup($groupID): void
 ```
 
 ## Usage
