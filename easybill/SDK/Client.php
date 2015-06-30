@@ -4,12 +4,14 @@ namespace easybill\SDK;
 
 use easybill\SDK\Collection\CompanyPositionGroups;
 use easybill\SDK\Collection\CustomerGroups;
+use easybill\SDK\Collection\Documents;
 use easybill\SDK\Exception\AuthenticationFailed;
 use easybill\SDK\Exception\CompanyPositionGroupNotFound;
 use easybill\SDK\Exception\CompanyPositionNotFound;
 use easybill\SDK\Exception\CustomerContactNotFound;
 use easybill\SDK\Exception\CustomerGroupNotFound;
 use easybill\SDK\Exception\CustomerNotFound;
+use easybill\SDK\Exception\DocumentNotFound;
 use easybill\SDK\Exception\ModelDataNotValid;
 use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\CompanyPosition;
@@ -17,6 +19,8 @@ use easybill\SDK\Model\CompanyPositionGroup;
 use easybill\SDK\Model\Customer;
 use easybill\SDK\Model\CustomerContact;
 use easybill\SDK\Model\CustomerGroup;
+use easybill\SDK\Model\Document;
+use easybill\SDK\Request\DocumentsParams;
 
 class Client
 {
@@ -29,16 +33,22 @@ class Client
             'trace'      => 1,
             'exceptions' => 1,
             'classmap'   => array(
+                // Collections
                 'SearchCustomersType'                  => '\easybill\SDK\Collection\Customers',
                 'GetContactsByCustomerResponseType'    => '\easybill\SDK\Collection\CustomerContacts',
                 'AllCustomerGroupsResponseType'        => '\easybill\SDK\Collection\CustomerGroups',
                 'SearchCompanyPositionsType'           => '\easybill\SDK\Collection\CompanyPositions',
                 'AllCompanyPositionGroupsResponseType' => '\easybill\SDK\Collection\CompanyPositionGroups',
+                // Models
+                'GetDocumentsResponseType'             => '\easybill\SDK\Collection\Documents',
                 'customertype'                         => '\easybill\SDK\Model\Customer',
                 'customerContactType'                  => '\easybill\SDK\Model\CustomerContact',
                 'customergrouptype'                    => '\easybill\SDK\Model\CustomerGroup',
                 'companypositiontype'                  => '\easybill\SDK\Model\CompanyPosition',
                 'companypositiongrouptype'             => '\easybill\SDK\Model\CompanyPositionGroup',
+                'GetDocumentType'                      => '\easybill\SDK\Model\Document',
+                // Requests
+                'GetDocumentsRequestType'              => '\easybill\SDK\Request\DocumentsParams',
             )
         ));
         $header = new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey);
@@ -503,6 +513,63 @@ class Client
         }
     }
 
+    /**
+     * @param integer $documentID
+     *
+     * @return Document
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findDocument($documentID)
+    {
+        try {
+            return $this->soapClient->getDocument((int)$documentID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault, array(103));
+            return null;
+        }
+    }
+
+    /**
+     * @param $documentNumber
+     *
+     * @return Documents|Document[]
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findDocumentsByDocumentNumber($documentNumber)
+    {
+        try {
+            return $this->soapClient->findDocumentsByDocumentNumber($documentNumber);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param \easybill\SDK\Request\DocumentsParams $params
+     *
+     * @return Documents|Document[]
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\DocumentNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function findDocuments(DocumentsParams $params)
+    {
+        if ($params->LimitPeriod->from == null || $params->LimitPeriod->until == null) {
+            unset($params->LimitPeriod);
+        }
+
+        try {
+            return $this->soapClient->getDocuments($params);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
 
     /**
      * @param \SoapFault $soapFault
@@ -517,6 +584,7 @@ class Client
      * @throws \easybill\SDK\Exception\CustomerGroupNotFound
      * @throws \easybill\SDK\Exception\CompanyPositionNotFound
      * @throws \easybill\SDK\Exception\CompanyPositionGroupNotFound
+     * @throws \easybill\SDK\Exception\DocumentNotFound
      */
     private function handleSoapFault(\SoapFault $soapFault, $ignoreCode = array())
     {
@@ -547,6 +615,8 @@ class Client
                     throw new CustomerNotFound($soapFault->getMessage(), 101, $soapFault);
                 case 102:
                     throw new CustomerGroupNotFound($soapFault->getMessage(), 102, $soapFault);
+                case 103:
+                    throw new DocumentNotFound($soapFault->getMessage(), 103, $soapFault);
                 case 104:
                     throw new CustomerContactNotFound($soapFault->getMessage(), 104, $soapFault);
                 case 111:

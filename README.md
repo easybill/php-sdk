@@ -51,6 +51,11 @@ Client::findCompanyPositionGroup($groupID): CompanyPositionGroup
 Client::createCompanyPositionGroup(CompanyPositionGroup $group): CompanyPositionGroup
 Client::updateCompanyPositionGroup(CompanyPositionGroup $group): CompanyPositionGroup
 Client::deleteCompanyPositionGroup($groupID): void
+
+// Document
+Client::findDocument($documentID): Document
+Client::findDocumentsByDocumentNumber($documentNumber): Documents
+Client::findDocuments(DocumentsParams $params): Documents
 ```
 
 ## Usage
