@@ -1,12 +1,8 @@
 {
   "name": "easybill/php-sdk",
-  "description": "easybill.de PHP SDK (SOAP)",
+  "description": "easybill PHP SDK (SOAP API)",
   "keywords": [
-    "PHP",
-    "easybill",
-    "API",
-    "SDK",
-    "SOAP"
+    "PHP", "easybill", "API", "SDK", "SOAP"
   ],
   "type": "library",
   "minimum-stability": "dev",
