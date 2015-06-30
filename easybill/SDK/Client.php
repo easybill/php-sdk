@@ -293,6 +293,23 @@ class Client
     }
 
     /**
+     * @param integer $groupID
+     *
+     * @return void
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailedException
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function deleteCustomerGroup($groupID)
+    {
+        try {
+            $this->soapClient->deleteCustomerGroup((int)$groupID);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
      * @param \SoapFault $soapFault
      * @param array      $ignoreCode
      *
