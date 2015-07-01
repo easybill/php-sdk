@@ -2,19 +2,18 @@
 
 namespace easybill\SDK\Model;
 
-/**
- * Class Payment
- *
- * @package easybill\SDK\Model
- *
- * @property int     $documentID
- * @property float   $amount
- * @property string  $paymentdate // date("c", time());
- * @property string  $paymenttype
- * @property string  $notice
- * @property bool $payed
- */
 class Payment
 {
-
+    /** @var  int */
+    public $documentID;
+    /** @var  float */
+    public $amount;
+    /** @var  string */
+    public $paymentdate;
+    /** @var  string */
+    public $paymenttype;
+    /** @var  string */
+    public $notice;
+    /** @var  boolean */
+    public $payed;
 }

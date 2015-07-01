@@ -2,8 +2,12 @@
 
 namespace easybill\SDK\Model;
 
-
-abstract class DocumentDescriber
+/**
+ * Class DocumentDescriber
+ *
+ * @package easybill\SDK\Model
+ */
+class DocumentDescriber
 {
     public $documentType;
     public $documentID;
@@ -13,6 +17,7 @@ abstract class DocumentDescriber
     public $text;
     public $contactLabel;
     public $contactText;
+    /** @var  DocumentPosition[] */
     public $documentPosition;
     public $taxOptions;
     public $documentDate;

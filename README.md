@@ -56,6 +56,7 @@ Client::deleteCompanyPositionGroup($groupID): void
 Client::findDocument($documentID): Document
 Client::findDocumentsByDocumentNumber($documentNumber): Documents
 Client::findDocuments(DocumentsParams $params): Documents
+Client::createDocument(CreatedDocument $document): DocumentCreated
 
 Client::findDocumentPDF($documentID): DocumentFile
 Client::findDocumentPayments($documentID): Payments
@@ -65,7 +66,6 @@ Client::createPayment(Payment $payment): boolean
 ```
 
 ## Todo
-- createDocument()
 - createDunning()
 - createReminder()
 - toCancelDocument()
