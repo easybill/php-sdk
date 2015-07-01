@@ -56,18 +56,23 @@ Client::deleteCompanyPositionGroup($groupID): void
 Client::findDocument($documentID): Document
 Client::findDocumentsByDocumentNumber($documentNumber): Documents
 Client::findDocuments(DocumentsParams $params): Documents
-Client::createDocument(CreatedDocument $document): DocumentCreated
+Client::createDocument(CreateDocument $document): DocumentCreated
 
 Client::findDocumentPDF($documentID): DocumentFile
 Client::findDocumentPayments($documentID): Payments
 Client::findDocumentSent($documentID): Outbox
 
 Client::createPayment(Payment $payment): boolean
+
+// Reminder
+Client::createReminder(CreateReminder $document): DocumentCreated
+
+// Dunning
+Client::createReminder(CreateReminder $document): DocumentCreated
+
 ```
 
 ## Todo
-- createDunning()
-- createReminder()
 - toCancelDocument()
 - toCreditDocument()
 

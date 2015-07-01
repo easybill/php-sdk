@@ -20,6 +20,7 @@ use easybill\SDK\Exception\ServerException;
 use easybill\SDK\Model\CompanyPosition;
 use easybill\SDK\Model\CompanyPositionGroup;
 use easybill\SDK\Model\CreateDocument;
+use easybill\SDK\Model\CreateReminder;
 use easybill\SDK\Model\Customer;
 use easybill\SDK\Model\CustomerContact;
 use easybill\SDK\Model\CustomerGroup;
@@ -63,6 +64,7 @@ class Client
                 'documentcreatedtype'                  => '\easybill\SDK\Model\DocumentCreated',
                 'documentdescriptiontype'              => '\easybill\SDK\Model\DocumentDescriber',
                 'documentpositiontype'                 => '\easybill\SDK\Model\DocumentPosition',
+                'createReminderType'                   => '\easybill\SDK\Model\CreateReminder',
                 // Requests
                 'GetDocumentsRequestType'              => '\easybill\SDK\Request\DocumentsParams',
             )
@@ -678,6 +680,42 @@ class Client
                 $documentCreated->document->documentPosition = array($documentCreated->document->documentPosition);
             }
             return $documentCreated;
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param CreateReminder $createReminder
+     *
+     * @return DocumentCreated
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\DocumentNotFound
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function createReminder(CreateReminder $createReminder)
+    {
+        try {
+            return $this->soapClient->createReminder($createReminder);
+        } catch (\SoapFault $soapFault) {
+            $this->handleSoapFault($soapFault);
+        }
+    }
+
+    /**
+     * @param CreateReminder $createReminder
+     *
+     * @return DocumentCreated
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\DocumentNotFound
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    public function createDunning(CreateReminder $createReminder)
+    {
+        try {
+            return $this->soapClient->createReminder($createReminder);
         } catch (\SoapFault $soapFault) {
             $this->handleSoapFault($soapFault);
         }
