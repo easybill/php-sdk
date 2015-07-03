@@ -76,6 +76,10 @@ Client::createReminder(CreateReminder $document): DocumentCreated
 - toCancelDocument()
 - toCreditDocument()
 
+## Todo new SOAP functions
+- upload attachments via soap
+- use attachment by create new document
+
 ## Usage
 
 ```php
