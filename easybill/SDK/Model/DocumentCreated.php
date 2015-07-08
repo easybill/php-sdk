@@ -27,4 +27,12 @@ class DocumentCreated
     public $postsendexception;
     /** @var  DocumentDescriber */
     public $document;
+
+    public function savePDF($destinationPath)
+    {
+        $handle = fopen($destinationPath, 'w');
+        fwrite($handle, base64_decode($this->file));
+        fclose($handle);
+    }
+
 }
