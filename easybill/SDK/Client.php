@@ -3,6 +3,7 @@
 namespace easybill\SDK;
 
 use easybill\SDK\Collection\CompanyPositionGroups;
+use easybill\SDK\Collection\CompanyPositions;
 use easybill\SDK\Collection\CustomerContacts;
 use easybill\SDK\Collection\CustomerGroups;
 use easybill\SDK\Collection\Documents;
@@ -29,10 +30,15 @@ use easybill\SDK\Model\DocumentCreated;
 use easybill\SDK\Model\DocumentFile;
 use easybill\SDK\Model\Payment;
 use easybill\SDK\Request\DocumentsParams;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class Client
 {
+    /** @var \SoapClient */
     private $soapClient;
+    /** @var  LoggerInterface */
+    private $logger;
 
     function __construct($wsdlPath, $apiKey)
     {
@@ -73,6 +79,7 @@ class Client
             new \SoapHeader('http://www.easybill.de/webservice', 'UserAuthKey', $apiKey),
             new \SoapHeader('http://www.easybill.de/webservice', 'UserAgent', 'easybill-php-sdk v1.0')
         ));
+        $this->logger = new NullLogger();
     }
 
     /**
@@ -85,11 +92,7 @@ class Client
      */
     public function searchCustomers($term)
     {
-        try {
-            return $this->soapClient->searchCustomers((string)$term);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('searchCustomers', (string)$term);
     }
 
     /**
@@ -102,12 +105,7 @@ class Client
      */
     public function findCustomer($customerID)
     {
-        try {
-            return $this->soapClient->getCustomer((int)$customerID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(101));
-            return null;
-        }
+        return $this->call('getCustomer', (int)$customerID, array(101));
     }
 
     /**
@@ -120,12 +118,7 @@ class Client
      */
     public function findCustomerByCustomerNumber($customerNumber)
     {
-        try {
-            return $this->soapClient->getCustomerByCustomerNumber($customerNumber);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(101));
-            return null;
-        }
+        return $this->call('getCustomerByCustomerNumber', (string)$customerNumber, array(101));
     }
 
     /**
@@ -155,11 +148,7 @@ class Client
      */
     public function updateCustomer(Customer $customer)
     {
-        try {
-            return $this->soapClient->setCustomer($customer);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('setCustomer', $customer);
     }
 
     /**
@@ -172,11 +161,7 @@ class Client
      */
     public function deleteCustomer($customerID)
     {
-        try {
-            $this->soapClient->deleteCustomer($customerID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        $this->call('deleteCustomer', (int)$customerID);
     }
 
     /**
@@ -187,15 +172,11 @@ class Client
      */
     public function findCustomerContacts()
     {
-        try {
-            return $this->soapClient->getCustomerContacts();
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getCustomerContacts');
     }
 
     /**
-     * @param $customerID
+     * @param integer $customerID
      *
      * @return CustomerContacts
      * @throws \SoapFault
@@ -205,15 +186,11 @@ class Client
      */
     public function findCustomerContactsByCustomer($customerID)
     {
-        try {
-            return $this->soapClient->getContactsByCustomer($customerID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getContactsByCustomer', (int)$customerID);
     }
 
     /**
-     * @param $contactID
+     * @param integer $contactID
      *
      * @return Customer|null
      * @throws \SoapFault
@@ -223,12 +200,7 @@ class Client
      */
     public function findCustomerContact($contactID)
     {
-        try {
-            return $this->soapClient->getCustomerContact($contactID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(104));
-            return null;
-        }
+        return $this->call('getCustomerContact', (int)$contactID, array(104));
     }
 
     /**
@@ -258,11 +230,7 @@ class Client
      */
     public function updateCustomerContact(CustomerContact $contact)
     {
-        try {
-            return $this->soapClient->setCustomerContact($contact);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('setCustomerContact', $contact);
     }
 
     /**
@@ -275,11 +243,7 @@ class Client
      */
     public function deleteCustomerContact($contactID)
     {
-        try {
-            $this->soapClient->deleteCustomerContact((int)$contactID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        $this->call('deleteCustomerContact', (int)$contactID);
     }
 
     /**
@@ -290,11 +254,7 @@ class Client
      */
     public function findCustomerGroups()
     {
-        try {
-            return $this->soapClient->getAllCustomerGroups();
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getAllCustomerGroups');
     }
 
     /**
@@ -307,11 +267,7 @@ class Client
      */
     public function findCustomerGroup($groupID)
     {
-        try {
-            return $this->soapClient->getCustomerGroup((int)$groupID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(102));
-        }
+        return $this->call('getCustomerGroup', (int)$groupID, array(102));
     }
 
     /**
@@ -325,7 +281,7 @@ class Client
      */
     public function createCustomerGroup(CustomerGroup $group)
     {
-        $this->updateCustomerGroup($group);
+        return $this->updateCustomerGroup($group);
     }
 
     /**
@@ -339,11 +295,7 @@ class Client
      */
     public function updateCustomerGroup(CustomerGroup $group)
     {
-        try {
-            return $this->soapClient->setCustomerGroup($group);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('setCustomerGroup', $group);
     }
 
     /**
@@ -356,11 +308,7 @@ class Client
      */
     public function deleteCustomerGroup($groupID)
     {
-        try {
-            $this->soapClient->deleteCustomerGroup((int)$groupID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        $this->call('deleteCustomerGroup', (int)$groupID);
     }
 
     /**
@@ -373,11 +321,7 @@ class Client
      */
     public function searchCompanyPositions($term)
     {
-        try {
-            return $this->soapClient->searchCompanyPositions((string)$term);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('searchCompanyPositions', (string)$term);
     }
 
     /**
@@ -391,12 +335,7 @@ class Client
      */
     public function findCompanyPosition($positionID)
     {
-        try {
-            return $this->soapClient->getCompanyPosition((int)$positionID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(111));
-            return null;
-        }
+        return $this->call('getCompanyPosition', (int)$positionID, array(111));
     }
 
     /**
@@ -426,15 +365,11 @@ class Client
      */
     public function updateCompanyPosition(CompanyPosition $position)
     {
-        try {
-            return $this->soapClient->setCompanyPosition($position);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('setCompanyPosition', $position);
     }
 
     /**
-     * @param $positionID
+     * @param integer $positionID
      *
      * @throws \SoapFault
      * @throws AuthenticationFailed
@@ -443,11 +378,7 @@ class Client
      */
     public function deleteCompanyPosition($positionID)
     {
-        try {
-            $this->soapClient->deleteCompanyPosition($positionID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        $this->call('deleteCompanyPosition', (int)$positionID);
     }
 
     /**
@@ -458,11 +389,7 @@ class Client
      */
     public function findCompanyPositionGroups()
     {
-        try {
-            return $this->soapClient->getAllCompanyPositionGroups();
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getAllCompanyPositionGroups');
     }
 
     /**
@@ -475,12 +402,7 @@ class Client
      */
     public function findCompanyPositionGroup($groupID)
     {
-        try {
-            return $this->soapClient->getCompanyPositionGroup((int)$groupID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(112));
-            return null;
-        }
+        return $this->call('getCompanyPositionGroup', (int)$groupID, array(112));
     }
 
     /**
@@ -509,11 +431,7 @@ class Client
      */
     public function updateCompanyPositionGroup(CompanyPositionGroup $group)
     {
-        try {
-            return $this->soapClient->setCompanyPositionGroup($group);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('setCompanyPositionGroup', $group);
     }
 
     /**
@@ -526,11 +444,7 @@ class Client
      */
     public function deleteCompanyPositionGroup($groupID)
     {
-        try {
-            $this->soapClient->deleteCompanyPositionGroup((int)$groupID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        $this->call('deleteCompanyPositionGroup', (int)$groupID);
     }
 
     /**
@@ -543,12 +457,7 @@ class Client
      */
     public function findDocument($documentID)
     {
-        try {
-            return $this->soapClient->getDocument((int)$documentID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(103));
-            return null;
-        }
+        $this->call('getDocument', (int)$documentID, array(103));
     }
 
     /**
@@ -561,11 +470,7 @@ class Client
      */
     public function findDocumentsByDocumentNumber($documentNumber)
     {
-        try {
-            return $this->soapClient->findDocumentsByDocumentNumber($documentNumber);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        $this->call('findDocumentsByDocumentNumber', (string)$documentNumber, array(103));
     }
 
     /**
@@ -582,12 +487,7 @@ class Client
         if ($params->LimitPeriod->from == null || $params->LimitPeriod->until == null) {
             unset($params->LimitPeriod);
         }
-
-        try {
-            return $this->soapClient->getDocuments($params);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getDocuments', $params);
     }
 
     /**
@@ -596,16 +496,12 @@ class Client
      * @return DocumentFile|null
      * @throws \SoapFault
      * @throws AuthenticationFailed
+     * @throws DocumentNotFound
      * @throws ServerException
      */
     public function findDocumentPDF($documentID)
     {
-        try {
-            return $this->soapClient->getDocumentPDF((int)$documentID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault, array(103));
-            return null;
-        }
+        return $this->call('getDocumentPDF', (int)$documentID);
     }
 
     /**
@@ -619,11 +515,7 @@ class Client
      */
     public function findDocumentPayments($documentID)
     {
-        try {
-            return $this->soapClient->getDocumentPayments((int)$documentID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getDocumentPayments', (int)$documentID);
     }
 
 
@@ -637,11 +529,7 @@ class Client
      */
     public function findDocumentSent($documentID)
     {
-        try {
-            return $this->soapClient->getDocumentSent((int)$documentID);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('getDocumentSent', (int)$documentID);
     }
 
     /**
@@ -656,11 +544,7 @@ class Client
      */
     public function createPayment(Payment $payment)
     {
-        try {
-            return $this->soapClient->addDocumentPayment($payment);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('addDocumentPayment', $payment);
     }
 
     /**
@@ -673,16 +557,12 @@ class Client
      */
     public function createDocument(CreateDocument $createDocument)
     {
-        try {
-            /** @var DocumentCreated $documentCreated */
-            $documentCreated = $this->soapClient->createDocument($createDocument);
-            if (is_object($documentCreated->document->documentPosition)) {
-                $documentCreated->document->documentPosition = array($documentCreated->document->documentPosition);
-            }
-            return $documentCreated;
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
+        /** @var DocumentCreated $documentCreated */
+        $documentCreated = $this->call('createDocument', $createDocument);
+        if (is_object($documentCreated->document->documentPosition)) {
+            $documentCreated->document->documentPosition = array($documentCreated->document->documentPosition);
         }
+        return $documentCreated;
     }
 
     /**
@@ -696,11 +576,7 @@ class Client
      */
     public function createReminder(CreateReminder $createReminder)
     {
-        try {
-            return $this->soapClient->createReminder($createReminder);
-        } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
-        }
+        return $this->call('createReminder', $createReminder);
     }
 
     /**
@@ -714,10 +590,38 @@ class Client
      */
     public function createDunning(CreateReminder $createReminder)
     {
+        return $this->call('createReminder', $createReminder);
+    }
+
+    /**
+     * @param string $method
+     * @param mixed  $args
+     * @param array  $ignoreCodes
+     * @param null   $return
+     *
+     * @return mixed|null
+     * @throws \SoapFault
+     * @throws \easybill\SDK\Exception\AuthenticationFailed
+     * @throws \easybill\SDK\Exception\CompanyPositionGroupNotFound
+     * @throws \easybill\SDK\Exception\CompanyPositionNotFound
+     * @throws \easybill\SDK\Exception\CustomerContactNotFound
+     * @throws \easybill\SDK\Exception\CustomerGroupNotFound
+     * @throws \easybill\SDK\Exception\CustomerNotFound
+     * @throws \easybill\SDK\Exception\DocumentNotFound
+     * @throws \easybill\SDK\Exception\ModelDataNotValid
+     * @throws \easybill\SDK\Exception\ServerException
+     */
+    private function call($method, $args = null, $ignoreCodes = array(), $return = null)
+    {
+        if (!is_array($args)) {
+            $args = array($args);
+        }
+        $this->logger->debug('call ' . $method . '()', $args);
         try {
-            return $this->soapClient->createReminder($createReminder);
+            return call_user_func_array(array($this->soapClient, $method), $args);
         } catch (\SoapFault $soapFault) {
-            $this->handleSoapFault($soapFault);
+            $this->handleSoapFault($soapFault, $ignoreCodes);
+            return $return;
         }
     }
 
@@ -784,5 +688,13 @@ class Client
     public function getSoapClient()
     {
         return $this->soapClient;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }
