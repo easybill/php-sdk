@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xsd:schema xmlns:companyposition="http://www.easybill.de/webservice/companyposition/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.easybill.de/webservice/companyposition/"
+            version="1.0">
+
+    <!-- Faults -->
+    <xsd:element name="CompanyPositionNotFoundFault" type="companyposition:CompanyPositionNotFoundFaultType"/>
+    <xsd:complexType name="CompanyPositionNotFoundFaultType">
+        <xsd:sequence>
+            <xsd:element name="positionID" type="xsd:unsignedLong"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="CompanyPositionGroupNotFoundFault" type="companyposition:CompanyPositionGroupNotFoundFaultType"/>
+    <xsd:complexType name="CompanyPositionGroupNotFoundFaultType">
+        <xsd:sequence>
+            <xsd:element name="groupID" type="xsd:unsignedLong"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- DATA -->
+    <xsd:complexType name="companypositiontype">
+
+        <xsd:sequence>
+            <xsd:element name="positionID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation></xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="groupID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>GruppenID</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="positionType" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="SERVICE"/>
+                        <xsd:enumeration value="PRODUCT"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="itemNumber" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="100"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="itemDescription" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="1000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="itemNote" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="unit" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="10"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="ustPercent" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Umsatzsteuer</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="5"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="costPrice" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Einkaufspreis (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice" minOccurs="1" maxOccurs="1" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice2" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 2 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice3" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 3 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice4" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 4 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice5" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 5 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice6" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 6 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice7" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 7 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice8" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 8 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice9" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 9 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePrice10" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Verkaufspreis Preisgruppe 10 (cent)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="stock" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="NO"/>
+                        <xsd:enumeration value="YES"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="stockCount" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:integer">
+                <xsd:annotation>
+                    <xsd:documentation>Lagerbestand</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="importID" minOccurs="0" maxOccurs="1" nillable="true" type="xsd:unsignedLong">
+                <xsd:annotation>
+                    <xsd:documentation>import id</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="exportID" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:annotation>
+                    <xsd:documentation>FiBu Konto</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="GetCompanyPositionRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="GetCompanyPositionResponse" type="companyposition:companypositiontype"/>
+
+    <xsd:element name="SetCompanyPositionRequest" type="companyposition:companypositiontype"/>
+    <xsd:element name="SetCompanyPositionResponse" type="companyposition:companypositiontype"/>
+
+    <xsd:element name="SearchCompanyPositionsRequest" type="xsd:string"/>
+    <xsd:element name="SearchCompanyPositionsResponse" type="companyposition:SearchCompanyPositionsType"/>
+    <xsd:complexType name="SearchCompanyPositionsType">
+        <xsd:sequence>
+            <xsd:element name="SearchPosition" type="companyposition:companypositiontype" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="companypositiongrouptype">
+        <xsd:sequence>
+            <xsd:element name="groupID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Not defined means, create a new group</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="number" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="250"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="name" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="250"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="description" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="2000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="GetCompanyPositionGroupRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="GetCompanyPositionGroupResponse" type="companyposition:companypositiongrouptype"/>
+
+    <xsd:element name="SetCompanyPositionGroupRequest" type="companyposition:companypositiongrouptype"/>
+    <xsd:element name="SetCompanyPositionGroupResponse" type="companyposition:companypositiongrouptype"/>
+
+    <xsd:element name="AllCompanyPositionGroupsRequestPHPBugfix">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <xsd:element name="AllCompanyPositionGroupsResponse" type="companyposition:AllCompanyPositionGroupsResponseType"/>
+    <xsd:complexType name="AllCompanyPositionGroupsResponseType">
+        <xsd:sequence>
+            <xsd:element name="CompanyPositionGroup" type="companyposition:companypositiongrouptype" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="DeleteCompanyPositionRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="DeleteCompanyPositionGroupRequest" type="xsd:unsignedLong"/>
+</xsd:schema>

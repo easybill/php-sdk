@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.easybill.de/webservice/commons/"
+            version="1.0">
+
+    <xsd:simpleType name="taxOptionsType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="nStb">
+                <xsd:annotation>
+                    <xsd:documentation>Nicht steuerbar (Drittland)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="nStbUstID">
+                <xsd:annotation>
+                    <xsd:documentation>Nicht steuerbar (EU mit UStID-Nr.)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="nStbNoneUstID">
+                <xsd:annotation>
+                    <xsd:documentation>Nicht steuerbar (EU ohne UStID-Nr.)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="revc">
+                <xsd:annotation>
+                    <xsd:documentation>Steuerschuldwechsel §13b (Inland)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="IG">
+                <xsd:annotation>
+                    <xsd:documentation>Innergemeinschaftliche Lieferung</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="AL">
+                <xsd:annotation>
+                    <xsd:documentation>Ausfuhrlieferung</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="sStfr">
+                <xsd:annotation>
+                    <xsd:documentation>sonstige Steuerbefreiung</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

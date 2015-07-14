@@ -40,8 +40,11 @@ class Client
     /** @var  LoggerInterface */
     private $logger;
 
-    function __construct($wsdlPath, $apiKey)
+    function __construct($apiKey, $wsdlPath = null)
     {
+        if ($wsdlPath === null) {
+            $wsdlPath = __DIR__ . '/assets/soap.easybill.wsdl';
+        }
         ini_set('soap.wsdl_cache_enabled', '0');
         $this->soapClient = new \SoapClient($wsdlPath, array(
             'trace'      => 1,

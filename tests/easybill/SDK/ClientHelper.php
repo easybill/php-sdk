@@ -10,10 +10,7 @@ abstract class ClientHelper extends \PHPUnit_Framework_TestCase
      */
     public function getClient()
     {
-        $client = new Client(
-            'path/to/your/soap.easybill.wsdl',
-            'your api key!'
-        );
+        $client = new Client('your api key!');
         return $client;
     }
 

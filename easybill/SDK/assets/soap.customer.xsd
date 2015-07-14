@@ -1,0 +1,982 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xsd:schema xmlns:customer="http://www.easybill.de/webservice/customer/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:commons="http://www.easybill.de/webservice/commons/"
+            targetNamespace="http://www.easybill.de/webservice/customer/"
+            version="1.0">
+
+    <xsd:import namespace="http://www.easybill.de/webservice/commons/"
+                schemaLocation="soap.commons.xsd"/>
+
+    <!-- Faults -->
+    <xsd:element name="CustomerNotFoundFault" type="customer:CustomerNotFoundFaultType"/>
+    <xsd:complexType name="CustomerNotFoundFaultType">
+        <xsd:sequence>
+            <xsd:element name="customerID" type="xsd:unsignedLong"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="CustomerGroupNotFoundFault" type="customer:CustomerGroupNotFoundFaultType"/>
+    <xsd:complexType name="CustomerGroupNotFoundFaultType">
+        <xsd:sequence>
+            <xsd:element name="groupID" type="xsd:unsignedLong"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="CustomerContactNotFoundFault" type="customer:CustomerContactNotFoundFaultType"/>
+    <xsd:complexType name="CustomerContactNotFoundFaultType">
+        <xsd:sequence>
+            <xsd:element name="contactID" type="xsd:unsignedLong"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- DATA -->
+    <xsd:simpleType name="salutationtype">
+        <xsd:restriction base="xsd:integer">
+            <xsd:enumeration value="0">
+                <xsd:annotation>
+                    <xsd:documentation>(Unknown)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="1">
+                <xsd:annotation>
+                    <xsd:documentation>Mr.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="2">
+                <xsd:annotation>
+                    <xsd:documentation>Mrs.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="3">
+                <xsd:annotation>
+                    <xsd:documentation>Company</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="4">
+                <xsd:annotation>
+                    <xsd:documentation>Mr. and Mrs.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="5">
+                <xsd:annotation>
+                    <xsd:documentation>Married couple</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="6">
+                <xsd:annotation>
+                    <xsd:documentation>Family</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="customertype">
+        <xsd:sequence>
+            <xsd:element name="customerID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Falls nicht angegeben, wird ein neuer Eintrag erzeugt</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="groupID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Verknüpfung zu einer Kundengruppe (customergroup->id)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="customerNumber" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Ihre Kundennummer, falls eindeutig kann danach gesucht werden.
+                        Wenn nicht angegeben, wird sie vom System automatisch erzeugt.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="salutation" type="customer:salutationtype" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="personal" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Persönlich Vertraulich</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer">
+                        <xsd:enumeration value="0">
+                            <xsd:annotation>
+                                <xsd:documentation>False</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="1">
+                            <xsd:annotation>
+                                <xsd:documentation>True</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="title" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Titel</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="15"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="firstName" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Vorname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="lastName" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Nachname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="suffix_1" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Anschriftserweiterung</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="suffix_2" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Anschriftserweiterung</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="companyName" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Firmenname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="street" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Straße</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="zipCode" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Postleitzahl</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="city" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Ort</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="country" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Land; International country code defined by ISO 3166</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2"/>
+                        <xsd:minLength value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="postbox" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Schließfach</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="postboxZipCode" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Schließfach Postleitzahl</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="postboxCity" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Schließfach Ort</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="postboxCountry" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Schließfach Land; International country code defined by ISO 3166</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="phone_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="phone_2" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="fax" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="mobile" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="email" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="internet" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="info_1" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>free field for informations</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="info_2" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>free field for informations</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="note" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>free field for notes</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="taxNumber" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Steuernummer des Kunden</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="ustid" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Umsatzsteueridentfikationsnummer des Kunden</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="taxOptions" minOccurs="0" maxOccurs="1" nillable="true" type="commons:taxOptionsType"/>
+
+            <xsd:element name="cashAllowance" minOccurs="0" maxOccurs="1" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Standard Prozentwert für Skonto für den Kunden</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="cashAllowanceDays" minOccurs="0" maxOccurs="1" type="xsd:unsignedShort">
+                <xsd:annotation>
+                    <xsd:documentation>Standard Tage für Skonto (max 99) für den Kunden</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="cashDiscount" minOccurs="0" maxOccurs="1" type="xsd:float">
+                <xsd:annotation>
+                    <xsd:documentation>Standard Diskontwert für den Kunden.
+                        Prozent oder kleinste Währungseinheit (cent bei Euro) abhängig von "cashDiscountType".
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="cashDiscountType" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="PERCENT"/>
+                        <xsd:enumeration value="AMOUNT"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="gracePeriod" minOccurs="0" maxOccurs="1" type="xsd:unsignedShort">
+                <xsd:annotation>
+                    <xsd:documentation>Tage Zahlungsziel</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="salePriceLevel" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Price group</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="SALEPRICE2"/>
+                        <xsd:enumeration value="SALEPRICE3"/>
+                        <xsd:enumeration value="SALEPRICE4"/>
+                        <xsd:enumeration value="SALEPRICE5"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="bankAccountOwner_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="bankName_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="bankCode_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="bankAccount_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="bankBIC_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="bankIBAN_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="acquireOptions" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>free field for acquire informations</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="1">
+                            <xsd:annotation>
+                                <xsd:documentation>Empfehlung eines anderen Kunden</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="2">
+                            <xsd:annotation>
+                                <xsd:documentation>Zeitungsanzeige</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="3">
+                            <xsd:annotation>
+                                <xsd:documentation>Eigene Akquisition</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="4">
+                            <xsd:annotation>
+                                <xsd:documentation>Mitarbeiter Akquisition</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="paymentOptions" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>date of deleted</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="1">
+                            <xsd:annotation>
+                                <xsd:documentation>Stets pünkliche Zahlung</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="2">
+                            <xsd:annotation>
+                                <xsd:documentation>überwiegend pünkliche Zahlung</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="3">
+                            <xsd:annotation>
+                                <xsd:documentation>überwiegend verspätete Zahlung</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="5">
+                            <xsd:annotation>
+                                <xsd:documentation>Grundsätzlich verspätete Zahlung</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+            <xsd:element name="delivery_salutation" type="customer:salutationtype" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="delivery_personal" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Persönlich Vertraulich</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer">
+                        <xsd:enumeration value="0">
+                            <xsd:annotation>
+                                <xsd:documentation>False</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="1">
+                            <xsd:annotation>
+                                <xsd:documentation>True</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_firstName" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Vorname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_lastName" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Nachname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_suffix_1" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Anschriftserweiterung</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_suffix_2" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Anschriftserweiterung</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_companyName" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Firmenname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_street" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Straße</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_zipCode" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Postleitzahl</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_city" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Ort</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="delivery_country" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Land; International country code defined by ISO 3166</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2"/>
+                        <xsd:minLength value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+            <xsd:element name="birthDate" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:annotation>
+                    <xsd:documentation>Geburtsdatum</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:date">
+                        <xsd:pattern value="CCYY-MM-DD"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+            <xsd:element name="sinceDate" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:annotation>
+                    <xsd:documentation>Datensatz erstellt</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:date">
+                        <xsd:pattern value="CCYY-MM-DD"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+            <xsd:element name="sepaAgreement" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:annotation>
+                    <xsd:documentation>SEPA-Lastschriftverfahren</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="BASIC"></xsd:enumeration>
+                        <xsd:enumeration value="COMPANY"></xsd:enumeration>
+                        <xsd:enumeration value="COR1"></xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+            <xsd:element name="sepaDate" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:annotation>
+                    <xsd:documentation>Eingangsdatum des Mandates</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:date">
+                        <xsd:pattern value="CCYY-MM-DD"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+            <xsd:element name="sepaInfo" minOccurs="0" maxOccurs="1" nillable="true">
+                <xsd:annotation>
+                    <xsd:documentation>Mandatsreferenz</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="GetCustomerRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="GetCustomerResponse" type="customer:customertype"/>
+
+    <xsd:element name="GetCustomerByCustomerNumberRequest" type="xsd:string"/>
+    <xsd:element name="GetCustomerByCustomerNumberResponse" type="customer:customertype"/>
+
+    <xsd:element name="SetCustomerRequest" type="customer:customertype"/>
+    <xsd:element name="SetCustomerResponse" type="customer:customertype"/>
+
+    <xsd:element name="SearchCustomersRequest" type="xsd:string"/>
+    <xsd:element name="SearchCustomersResponse" type="customer:SearchCustomersType"/>
+    <xsd:complexType name="SearchCustomersType">
+        <xsd:sequence>
+            <xsd:element name="SearchCustomer" type="customer:customertype" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="DeleteCustomerRequest" type="xsd:unsignedLong"/>
+
+    <xsd:complexType name="customergrouptype">
+        <xsd:sequence>
+            <xsd:element name="groupID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Falls nicht angegeben, wird ein neuer Eintrag erstellt.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="number" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="250"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="name" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="250"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="description" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:minLength value="1"/>
+                        <xsd:maxLength value="2000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="GetCustomerGroupRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="GetCustomerGroupResponse" type="customer:customergrouptype"/>
+
+    <xsd:element name="SetCustomerGroupRequest" type="customer:customergrouptype"/>
+    <xsd:element name="SetCustomerGroupResponse" type="customer:customergrouptype"/>
+
+    <xsd:element name="getAllCustomerGroupsPHPBugfix">
+        <xsd:complexType/>
+    </xsd:element>
+
+    <xsd:element name="AllCustomerGroupsResponse" type="customer:AllCustomerGroupsResponseType"/>
+    <xsd:complexType name="AllCustomerGroupsResponseType">
+        <xsd:sequence>
+            <xsd:element name="CustomerGroup" type="customer:customergrouptype" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="DeleteCustomerGroupRequest" type="xsd:unsignedLong"/>
+
+    <xsd:complexType name="customerContactType">
+        <xsd:sequence>
+            <xsd:element name="contactID" type="xsd:unsignedLong" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="customerID" type="xsd:unsignedLong" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="department" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="255"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="salutation" type="customer:salutationtype" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="personal" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Persönlich Vertraulich</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer">
+                        <xsd:enumeration value="0">
+                            <xsd:annotation>
+                                <xsd:documentation>False</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="1">
+                            <xsd:annotation>
+                                <xsd:documentation>True</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="title" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Titel</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="15"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="firstName" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Vorname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="lastName" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Nachname</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="suffix_1" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Anschriftserweiterung</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="suffix_2" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Anschriftserweiterung</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="street" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Straße</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="zipCode" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Postleitzahl</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="city" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Ort</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="country" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Land; International country code defined by ISO 3166</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2"/>
+                        <xsd:minLength value="2"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="phone_1" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="phone_2" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="fax" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="mobile" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="email" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                        <xsd:minLength value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="GetContactsByCustomerRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="GetContactsByCustomerResponse" type="customer:GetContactsByCustomerResponseType"/>
+    <xsd:complexType name="GetContactsByCustomerResponseType">
+        <xsd:sequence>
+            <xsd:element name="Contact" type="customer:customerContactType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="getCustomerContactsRequestPHPBugfix">
+        <xsd:complexType/>
+    </xsd:element>
+    <xsd:element name="GetCustomerContactsResponse" type="customer:GetCustomerContactsResponseType"/>
+    <xsd:complexType name="GetCustomerContactsResponseType">
+        <xsd:sequence>
+            <xsd:element name="Contact" type="customer:customerContactType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="SetCustomerContactRequest" type="customer:customerContactType"/>
+    <xsd:element name="SetCustomerContactResponse" type="customer:customerContactType"/>
+
+    <xsd:element name="GetCustomerContactRequest" type="xsd:unsignedLong"/>
+    <xsd:element name="GetCustomerContactResponse" type="customer:customerContactType"/>
+
+    <xsd:element name="DeleteCustomerContactRequest" type="xsd:unsignedLong"/>
+
+</xsd:schema>
