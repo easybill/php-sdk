@@ -84,7 +84,7 @@ Client::createReminder(CreateReminder $document): DocumentCreated
 
 ```php
 // create a new service client
-$client = new \easybill\SDK\Client(__DIR__ . '/path/to/soap.easybill.wsdl', 'your api secret key');
+$client = new \easybill\SDK\Client('your api secret key');
 
 // If you want log (psr/log)
 // $client->setLogger(LoggerInterface $logger)
