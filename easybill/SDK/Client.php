@@ -457,7 +457,7 @@ class Client
      */
     public function findDocument($documentID)
     {
-        $this->call('getDocument', (int)$documentID, array(103));
+        return $this->call('getDocument', (int)$documentID, array(103));
     }
 
     /**
@@ -470,7 +470,7 @@ class Client
      */
     public function findDocumentsByDocumentNumber($documentNumber)
     {
-        $this->call('findDocumentsByDocumentNumber', (string)$documentNumber, array(103));
+        return $this->call('findDocumentsByDocumentNumber', (string)$documentNumber, array(103));
     }
 
     /**
