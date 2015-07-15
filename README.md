@@ -110,6 +110,7 @@ try {
     $customer = $client->updateCustomer($customer);
 } catch(\easybill\SDK\Exception\CustomerNotFoundException $exception) {
     // customer not found!
+    // if customerID is missing or wrong.
 }
 
 // search customer
