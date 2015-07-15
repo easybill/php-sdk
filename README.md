@@ -101,7 +101,8 @@ $client = new \easybill\SDK\Client('your api secret key');
 $customer = new \easybill\SDK\Model\Customer();
 $customer->lastName = 'bar';
 $customer = $client->createCustomer($customer); // createCustomer() return a new Customer Object.
-$customer->customerID; // ID from customer.
+$customer->customerID; // ID from customer. like 333123467
+$customer->customerNumber; // customerNumber from customer. like 1001
 
 // update customer
 $customer->firstName = 'foo';
@@ -109,5 +110,11 @@ try {
     $customer = $client->updateCustomer($customer);
 } catch(\easybill\SDK\Exception\CustomerNotFoundException $exception) {
     // customer not found!
+}
+
+// search customer
+$customers = $client->searchCustomers('bar');
+foreach ($customers as $customer) {
+   $customer->customerID;
 }
 ```

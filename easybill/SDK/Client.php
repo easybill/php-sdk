@@ -6,6 +6,7 @@ use easybill\SDK\Collection\CompanyPositionGroups;
 use easybill\SDK\Collection\CompanyPositions;
 use easybill\SDK\Collection\CustomerContacts;
 use easybill\SDK\Collection\CustomerGroups;
+use easybill\SDK\Collection\Customers;
 use easybill\SDK\Collection\Documents;
 use easybill\SDK\Collection\Outbox;
 use easybill\SDK\Collection\Payments;
@@ -29,6 +30,7 @@ use easybill\SDK\Model\Document;
 use easybill\SDK\Model\DocumentCreated;
 use easybill\SDK\Model\DocumentFile;
 use easybill\SDK\Model\Payment;
+use easybill\SDK\Model\Sent;
 use easybill\SDK\Request\DocumentsParams;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -88,7 +90,7 @@ class Client
     /**
      * @param string $term
      *
-     * @return \easybill\SDK\Collection\Customers
+     * @return Customers|Customer[]
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws ServerException
@@ -181,7 +183,7 @@ class Client
     /**
      * @param integer $customerID
      *
-     * @return CustomerContacts
+     * @return CustomerContacts|CustomerContact[]
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws CustomerNotFound
@@ -195,7 +197,7 @@ class Client
     /**
      * @param integer $contactID
      *
-     * @return Customer|null
+     * @return CustomerContact|null
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws CustomerContactNotFound
@@ -250,7 +252,7 @@ class Client
     }
 
     /**
-     * @return CustomerGroups
+     * @return CustomerGroups|CustomerGroup[]
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws ServerException
@@ -317,7 +319,7 @@ class Client
     /**
      * @param string $term
      *
-     * @return CompanyPositions
+     * @return CompanyPositions|CompanyPosition[]
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws ServerException
@@ -385,7 +387,7 @@ class Client
     }
 
     /**
-     * @return CompanyPositionGroups
+     * @return CompanyPositionGroups|CompanyPosition[]
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws ServerException
@@ -525,7 +527,7 @@ class Client
     /**
      * @param integer $documentID
      *
-     * @return Outbox
+     * @return Outbox|Sent[]
      * @throws \SoapFault
      * @throws AuthenticationFailed
      * @throws ServerException
