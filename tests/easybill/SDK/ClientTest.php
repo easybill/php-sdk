@@ -7,6 +7,8 @@ include_once 'ClientHelper.php';
 class ClientTest extends ClientHelper
 {
 
-    // TODO!
-
+    public function testGetSoapClient()
+    {
+        $this->assertInstanceOf('\SoapClient', $this->getClient()->getSoapClient());
+    }
 }

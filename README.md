@@ -82,18 +82,26 @@ Client::createReminder(CreateReminder $document): DocumentCreated
 
 ## Usage
 
+You can look into our [tests](https://github.com/easybill/php-sdk/tree/master/tests/easybill/SDK).
+
+### Setup
+
 ```php
 // create a new service client
 $client = new \easybill\SDK\Client('your api secret key');
 
 // If you want log (psr/log)
 // $client->setLogger(LoggerInterface $logger)
+```
 
+### Customer usage
+
+```php
 // create a new customer
 $customer = new \easybill\SDK\Model\Customer();
 $customer->lastName = 'bar';
-$customer = $client->createCustomer($customer);
-
+$customer = $client->createCustomer($customer); // createCustomer() return a new Customer Object.
+$customer->customerID; // ID from customer.
 
 // update customer
 $customer->firstName = 'foo';
@@ -102,5 +110,4 @@ try {
 } catch(\easybill\SDK\Exception\CustomerNotFoundException $exception) {
     // customer not found!
 }
-
 ```
