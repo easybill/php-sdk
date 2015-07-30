@@ -9,7 +9,7 @@ The recommended way of installing this library is using [Composer](http://getcom
 Add this repository to your composer information using the following command
 
 ```bash
-composer require easybill/php-sdk dev-master
+composer require easybill/php-sdk
 ```
 
 ## Structure/ Functions
