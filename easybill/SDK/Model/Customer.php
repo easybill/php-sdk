@@ -4,6 +4,14 @@ namespace easybill\SDK\Model;
 
 class Customer
 {
+    const SALUTATION_UNKNOWN        = 0;
+    const SALUTATION_MR             = 1;
+    const SALUTATION_MRS            = 2;
+    const SALUTATION_COMPANY        = 3;
+    const SALUTATION_MR_AND_MRS     = 4;
+    const SALUTATION_MARRIED_COUPLE = 5;
+    const SALUTATION_FAMILY         = 6;
+    
     public $customerID;
     public $groupID;
     public $customerNumber;
