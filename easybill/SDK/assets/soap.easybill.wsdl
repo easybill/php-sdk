@@ -1354,7 +1354,7 @@
 
     </wsdl:binding>
     <wsdl:service name="easybillService">
-        <wsdl:port binding="easybill:easybillBinding" name="easybillPort">
+        <wsdl:port binding="easybill:easybillPortType" name="easybillPort">
             <soap:address location="https://soap2.easybill.de/webservices/webservice4/soap.easybill.php"/>
         </wsdl:port>
     </wsdl:service>
