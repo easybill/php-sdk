@@ -26,7 +26,7 @@ class Customer
     public $street;
     public $zipCode;
     public $city;
-    public $country;
+    public $country = 'DE';
     public $postbox;
     public $postboxZipCode;
     public $postboxCity;
