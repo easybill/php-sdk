@@ -32,9 +32,9 @@ class Client
      * @param string     $uri
      * @param array|null $body
      *
-     * @return array
+     * @return mixed
      */
-    public function request($method, $uri = '', array $body = null)
+    public function request($method, $uri = '', array $body = null, $raw = false)
     {
         $request = new Request(
             (string)$method,
@@ -49,7 +49,7 @@ class Client
 
         $res = $this->send($request);
 
-        return json_decode($res->getBody()->getContents(), true);
+        return $raw ? $res->getBody()->getContents() : json_decode($res->getBody()->getContents(), true);
     }
 
     /**
