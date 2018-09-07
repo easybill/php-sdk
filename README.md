@@ -5,6 +5,8 @@ easybill PHP SDK
 
 Switch SDK to [REST API](https://www.easybill.de/api/) **under development!** 
 
+**Note**: v2 is not compatible with v1!
+
 ## Installation
 The recommended way of installing this library is using [Composer](http://getcomposer.org/). 
 
