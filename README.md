@@ -3,7 +3,7 @@ easybill PHP SDK
 
 [![Latest Stable Version](https://poser.pugx.org/easybill/php-sdk/v/stable.png)](https://packagist.org/packages/easybill/php-sdk) [![Total Downloads](https://poser.pugx.org/easybill/php-sdk/downloads.png)](https://packagist.org/packages/easybill/php-sdk) [![Latest Unstable Version](https://poser.pugx.org/easybill/php-sdk/v/unstable.png)](https://packagist.org/packages/easybill/php-sdk) [![License](https://poser.pugx.org/easybill/php-sdk/license.png)](https://packagist.org/packages/easybill/php-sdk)
 
-Switch SDK to [REST API](https://www.easybill.de/api/) **under development!** 
+Switch `php-sdk` to [REST API](https://www.easybill.de/api/). SOAP API and Version 1.0.* are **deprecated**!
 
 **Note**: v2 is not compatible with v1!
 
