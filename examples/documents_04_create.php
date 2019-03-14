@@ -7,7 +7,7 @@ use easybill\SDK\Endpoint;
 
 $client = new Client(new Endpoint('... your API key ...'));
 
-$result = $client->request('GET', 'documents', [
+$result = $client->request('POST', 'documents', [
     'title' => 'Example Title',
     'items' => [
         [
