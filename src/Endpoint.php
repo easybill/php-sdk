@@ -2,10 +2,10 @@
 
 class Endpoint
 {
-    /** @var  string */
+    /** @var string */
     private $apiKey;
 
-    /** @var  string */
+    /** @var string */
     private $host;
 
     /**

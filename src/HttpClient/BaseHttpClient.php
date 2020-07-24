@@ -10,11 +10,16 @@ class BaseHttpClient implements HttpClientInterface
     /** @var HttpClientInterface */
     private $httpClient;
 
+    /** @var int */
     private $maxApiCallsPerMinute;
 
     /** @var array int[] */
     private $apiCalls = [];
 
+    /**
+     * @param \easybill\SDK\HttpClientInterface $httpClient
+     * @param int $maxApiCallsPerMinute
+     */
     public function __construct(HttpClientInterface $httpClient, $maxApiCallsPerMinute = 60)
     {
         $this->httpClient = $httpClient;
@@ -23,7 +28,7 @@ class BaseHttpClient implements HttpClientInterface
 
     /**
      * @param \Psr\Http\Message\RequestInterface $request
-     * @param array                              $options
+     * @param array $options
      *
      * @return \Psr\Http\Message\ResponseInterface
      */

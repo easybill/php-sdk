@@ -7,13 +7,13 @@ use Psr\Http\Message\RequestInterface;
 
 class Client
 {
-    /** @var  Endpoint */
+    /** @var Endpoint */
     private $endpoint;
 
     /** @var HttpClientInterface */
     private $httpClient;
 
-    /** @var  string[] */
+    /** @var string[] */
     private $headers;
 
     public function __construct(Endpoint $endpoint, HttpClientInterface $httpClient = null, array $headers = [])
@@ -27,12 +27,14 @@ class Client
         }
     }
 
+
     /**
-     * @param string     $method
-     * @param string     $uri
+     * @param string $method
+     * @param string $uri
      * @param array|null $body
+     * @param bool $raw
      *
-     * @return mixed
+     * @return mixed|string
      */
     public function request($method, $uri = '', array $body = null, $raw = false)
     {
@@ -40,9 +42,9 @@ class Client
             (string)$method,
             (string)$uri,
             array_merge([
-                'Content-Type'  => 'application/json',
+                'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->endpoint->getApiKey(),
-                'User-Agent'    => 'easybill-php-sdk (rest-master)'
+                'User-Agent' => 'easybill-php-sdk (rest-master)',
             ], $this->headers),
             is_array($body) ? json_encode($body) : null
         );
@@ -60,9 +62,9 @@ class Client
     private function send(RequestInterface $request)
     {
         return $this->httpClient->send($request, [
-            'base_uri'    => $this->endpoint->getHost(),
+            'base_uri' => $this->endpoint->getHost(),
             'http_errors' => true,
-            'timeout'     => 30
+            'timeout' => 30,
         ]);
     }
 }
