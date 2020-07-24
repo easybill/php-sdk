@@ -2,6 +2,7 @@
 
 use easybill\SDK\HttpClientInterface;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
 
 class BaseHttpClient implements HttpClientInterface
@@ -35,6 +36,10 @@ class BaseHttpClient implements HttpClientInterface
     public function send(RequestInterface $request, array $options = [])
     {
         $this->checkAndWaitForCall();
+
+        // TODO:: Improve this client and allow to deal with both options.
+        $options[RequestOptions::HTTP_ERRORS] = true;
+
         try {
             $res = $this->httpClient->send($request, $options);
             $this->apiCalls[] = time();

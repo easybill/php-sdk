@@ -63,7 +63,6 @@ class Client
     {
         return $this->httpClient->send($request, [
             'base_uri' => $this->endpoint->getHost(),
-            'http_errors' => true,
         ]);
     }
 }
