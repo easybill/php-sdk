@@ -11,12 +11,12 @@ $result = $client->request('POST', 'documents', [
     'title' => 'Example Title',
     'items' => [
         [
-            'number'           => '0001',
-            'item_type'        => 'POSITION',
-            'quantity'         => 3,
-            'description'      => 'Test Position',
+            'number' => '0001',
+            'item_type' => 'POSITION',
+            'quantity' => 3,
+            'description' => 'Test Position',
             'single_price_net' => 2000,
-            'vat_percent'      => 19,
+            'vat_percent' => 19,
         ],
     ],
 ]);

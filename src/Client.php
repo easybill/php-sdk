@@ -1,4 +1,6 @@
-<?php namespace easybill\SDK;
+<?php
+
+namespace easybill\SDK;
 
 use easybill\SDK\HttpClient\BaseHttpClient;
 use easybill\SDK\HttpClient\GuzzleHttpClient;
@@ -27,11 +29,9 @@ class Client
         }
     }
 
-
     /**
      * @param string $method
      * @param string $uri
-     * @param array|null $body
      * @param bool $raw
      *
      * @return mixed|string
@@ -55,8 +55,6 @@ class Client
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
-     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     private function send(RequestInterface $request)

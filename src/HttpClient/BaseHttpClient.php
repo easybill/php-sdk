@@ -1,4 +1,6 @@
-<?php namespace easybill\SDK\HttpClient;
+<?php
+
+namespace easybill\SDK\HttpClient;
 
 use easybill\SDK\HttpClientInterface;
 use GuzzleHttp\Exception\ClientException;
@@ -7,7 +9,6 @@ use Psr\Http\Message\RequestInterface;
 
 class BaseHttpClient implements HttpClientInterface
 {
-
     /** @var HttpClientInterface */
     private $httpClient;
 
@@ -18,7 +19,6 @@ class BaseHttpClient implements HttpClientInterface
     private $apiCalls = [];
 
     /**
-     * @param \easybill\SDK\HttpClientInterface $httpClient
      * @param int $maxApiCallsPerMinute
      */
     public function __construct(HttpClientInterface $httpClient, $maxApiCallsPerMinute = 60)
@@ -28,9 +28,6 @@ class BaseHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
-     * @param array $options
-     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function send(RequestInterface $request, array $options = [])
@@ -72,9 +69,6 @@ class BaseHttpClient implements HttpClientInterface
             if ($count > $this->maxApiCallsPerMinute) {
                 sleep(2);
             }
-
         } while ($count > $this->maxApiCallsPerMinute);
     }
-
-
 }

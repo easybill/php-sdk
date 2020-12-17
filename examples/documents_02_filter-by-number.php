@@ -7,7 +7,9 @@ use easybill\SDK\Endpoint;
 
 $client = new Client(new Endpoint('... your API key ...'));
 
-$result = $client->request('GET', 'documents?' . http_build_query([
+$result = $client->request(
+    'GET',
+    'documents?' . http_build_query([
         'number' => '2000003338',
     ])
 );

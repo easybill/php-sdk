@@ -7,8 +7,10 @@ use easybill\SDK\Endpoint;
 
 $client = new Client(new Endpoint('... your API key ...'));
 
-$result = $client->request('GET', 'documents?' . http_build_query([
-        'page'  => '2',
+$result = $client->request(
+    'GET',
+    'documents?' . http_build_query([
+        'page' => '2',
         'limit' => 10,
     ])
 );
