@@ -4,36 +4,21 @@ namespace easybill\SDK;
 
 class Endpoint
 {
-    /** @var string */
-    private $apiKey;
+    private string $apiKey;
+    private string $host;
 
-    /** @var string */
-    private $host;
-
-    /**
-     * Endpoint constructor.
-     *
-     * @param string $apiKey
-     * @param string $host
-     */
-    public function __construct($apiKey, $host = 'https://api.easybill.de/rest/v1/')
+    public function __construct(string $apiKey, string $host = 'https://api.easybill.de/rest/v1/')
     {
-        $this->apiKey = (string)$apiKey;
-        $this->host = (string)$host;
+        $this->apiKey = $apiKey;
+        $this->host = $host;
     }
 
-    /**
-     * @return string
-     */
-    public function getApiKey()
+    public function getApiKey(): string
     {
         return $this->apiKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }

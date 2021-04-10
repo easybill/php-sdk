@@ -4,20 +4,20 @@ namespace easybill\SDK\HttpClient;
 
 use easybill\SDK\HttpClientInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Client;
 
 class GuzzleHttpClient implements HttpClientInterface
 {
-    private $guzzleClient;
+    private Client $guzzleClient;
 
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function send(RequestInterface $request, array $options = [])
+    public function __construct()
     {
-        if ($this->guzzleClient === null) {
-            $this->guzzleClient = new \GuzzleHttp\Client();
-        }
+        $this->guzzleClient = new Client();
+    }
 
+    public function send(RequestInterface $request, array $options = []): ResponseInterface
+    {
         return $this->guzzleClient->send($request, $options);
     }
 }

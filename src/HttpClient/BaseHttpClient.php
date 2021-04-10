@@ -6,31 +6,23 @@ use easybill\SDK\HttpClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class BaseHttpClient implements HttpClientInterface
 {
-    /** @var HttpClientInterface */
-    private $httpClient;
+    private HttpClientInterface $httpClient;
+    private int $maxApiCallsPerMinute;
 
-    /** @var int */
-    private $maxApiCallsPerMinute;
+    /** @var int[] */
+    private array $apiCalls = [];
 
-    /** @var array int[] */
-    private $apiCalls = [];
-
-    /**
-     * @param int $maxApiCallsPerMinute
-     */
-    public function __construct(HttpClientInterface $httpClient, $maxApiCallsPerMinute = 60)
+    public function __construct(HttpClientInterface $httpClient, int $maxApiCallsPerMinute = 60)
     {
         $this->httpClient = $httpClient;
         $this->maxApiCallsPerMinute = $maxApiCallsPerMinute;
     }
 
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function send(RequestInterface $request, array $options = [])
+    public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
         $this->checkAndWaitForCall();
 
@@ -43,7 +35,7 @@ class BaseHttpClient implements HttpClientInterface
 
             return $res;
         } catch (ClientException $clientException) {
-            if ($clientException->hasResponse() && $clientException->getResponse()->getStatusCode() === 429) {
+            if ($clientException->getResponse()->getStatusCode() === 429) {
                 // Too Many Requests, wait and try again.
                 sleep(30);
                 return $this->send($request, $options);
@@ -53,7 +45,7 @@ class BaseHttpClient implements HttpClientInterface
         }
     }
 
-    private function checkAndWaitForCall()
+    private function checkAndWaitForCall(): void
     {
         do {
             // remove old calls
