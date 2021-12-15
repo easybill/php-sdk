@@ -1,0 +1,6910 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.68.0",
+    "title": "easybill REST API",
+    "description": "\nThe first version of the easybill REST API. [CHANGELOG](https://api.easybill.de/rest/v1/CHANGELOG.md)\n\n## Authentication\n\nYou can choose between two available methods: `Basic Auth` or `Bearer Token`.\n\nIn each HTTP request, one of the following HTTP headers is required:\n\n```\n# Basic Auth\nAuthorization: Basic base64_encode('<email>:<api_key>')\n# Bearer Token\nAuthorization: Bearer <api_key>\n```\n\n## Limitations\n\n### Request Limit\n\n* PLUS: 10 requests per minute\n* BUSINESS: 60 requests per minute\n\nIf the limit is exceeded, you will receive the HTTP error: `429 Too Many Requests`\n\n### Result Limit\n\nAll result lists are limited to 100 by default. This limit can be increased by the query parameter `limit` to a maximum of 1000.\n\n## Query filter\n\nMany list resources can be filtered. In `/documents` you can filter e.g. by number with `/documents?number=111028654`. If you want to filter multiple numbers, you can either enter them separated by commas `/documents?number=111028654,222006895` or as an array `/documents?number[]=111028654&number[]=222006895`.\n\n**Warning**: The maximum size of an HTTP request line in bytes is 4094. If this limit is exceeded, you will receive the HTTP error: `414 Request-URI Too Large`\n\n### Escape commas in query\n\nYou can escape commans in query `name=Patrick\\, Peter` if you submit the header `X-Easybill-Escape: true` in your request.\n\n## Property login_id\n\nThis is the login of your admin or employee account.\n\n## Date and Date-Time format\nPlease use the timezone `Europe/Berlin`.\n* **date** = *Y-m-d* = `2016-12-31`\n* **date-time** = *Y-m-d H:i:s* = `2016-12-31 03:13:37`\n\nDate or datetime can be `null` because the attributes have been added later and the entry is older."
+  },
+  "tags": [
+    {
+      "name": "customer",
+      "description": "Everything about your customers"
+    },
+    {
+      "name": "customer group",
+      "description": "Groups for customer"
+    },
+    {
+      "name": "discount",
+      "description": "Discounts for positions and position groups"
+    },
+    {
+      "name": "document",
+      "description": "Invoices, offers, etc."
+    },
+    {
+      "name": "document payment"
+    },
+    {
+      "name": "position"
+    },
+    {
+      "name": "position group"
+    },
+    {
+      "name": "project"
+    },
+    {
+      "name": "task"
+    },
+    {
+      "name": "text template"
+    },
+    {
+      "name": "time tracking"
+    },
+    {
+      "name": "sepa payment"
+    },
+    {
+      "name": "serial number"
+    },
+    {
+      "name": "stock"
+    },
+    {
+      "name": "webhook"
+    },
+    {
+      "name": "pdf templates",
+      "description": "PDF Templates for documents"
+    },
+    {
+      "name": "logins",
+      "description": "Informations regarding the logins / employees"
+    }
+  ],
+  "host": "api.easybill.de",
+  "basePath": "/rest/v1",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Please use the following Format: **Bearer <api_key>**"
+    },
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    },
+    {
+      "basicAuth": []
+    }
+  ],
+  "parameters": {
+    "LIMIT": {
+      "in": "query",
+      "name": "limit",
+      "description": "Limited the result. Default is 100. Maximum can be 1000.",
+      "type": "integer",
+      "required": false,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "PAGE": {
+      "in": "query",
+      "name": "page",
+      "description": "Set current Page. Default is 1.",
+      "type": "integer",
+      "required": false,
+      "minimum": 1
+    }
+  },
+  "paths": {
+    "/stocks": {
+      "get": {
+        "summary": "Fetch a list of stock entries for positions",
+        "tags": [
+          "stock"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "position_id",
+            "description": "Filter stock entries by position id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "document_id",
+            "description": "Filter stock entries by document id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Stocks"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a stock entry for a position",
+        "tags": [
+          "stock"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Stock"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Stock"
+            }
+          },
+          "400": {
+            "description": "Invalid position_id or stock_count"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/stocks/{id}": {
+      "get": {
+        "summary": "Fetch an stock entry for a position",
+        "tags": [
+          "stock"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the stock entry that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Stock"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/serial-numbers": {
+      "get": {
+        "summary": "Fetch a list of serial numbers for positions",
+        "tags": [
+          "serial number"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "position_id",
+            "description": "Filter serial numbers by position id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "document_id",
+            "description": "Filter serial numbers by document id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "in_use",
+            "description": "Filter serial numbers by usage.",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SerialNumbers"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create s serial number for a position",
+        "tags": [
+          "serial number"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/SerialNumber"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SerialNumber"
+            }
+          },
+          "400": {
+            "description": "Invalid PositionID"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/serial-numbers/{id}": {
+      "get": {
+        "summary": "Fetch a serial number for a position",
+        "tags": [
+          "serial number"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the serial number that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SerialNumber"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a serial number for a position",
+        "tags": [
+          "serial number"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the serial number that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Serial number in use. Operation failed."
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/logins": {
+      "get": {
+        "tags": [
+          "logins"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Logins"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/logins/{id}": {
+      "get": {
+        "tags": [
+          "logins"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the login that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/customers": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Fetch customers list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "group_id",
+            "description": "Filter customers by group_id. You can add multiple group ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "additional_group_id",
+            "description": "Filter customers by additional_group_id. You can add multiple group ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "number",
+            "description": "Filter customers by number. You can add multiple numbers separate by comma like no,no,no.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "country",
+            "description": "Filter customers by country. You can add multiple countries separate by comma like DE,PL,FR.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "zip_code",
+            "description": "Filter customers by zip_code. You can add multiple zip codes separate by comma like zip,zip,zip.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "emails",
+            "description": "Filter customers by emails. You can add multiple emails separate by comma like mail,mail,mail.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "first_name",
+            "description": "Filter customers by first_name. You can add multiple names separate by comma like name,name,name.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "last_name",
+            "description": "Filter customers by first_name. You can add multiple names separate by comma like name,name,name.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "company_name",
+            "description": "Filter customers by first_name. You can add multiple names separate by comma like name,name,name.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "created_at",
+            "description": "Filter customers by created_at. You can filter one date with created_at=2014-12-10 or between like 2015-01-01,2015-12-31.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customers"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Create customer",
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "400": {
+            "description": "Invalid Customer"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/customers/{id}": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Fetch customer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of customer that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Update Customer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of customer that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "400": {
+            "description": "Invalid Customer"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Delete customer",
+        "description": "",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of customer that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/contacts": {
+      "get": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "Fetch customer contact list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "path",
+            "name": "customerId",
+            "description": "ID of customer that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Contacts"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "Create new contact",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "description": "ID of customer",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "400": {
+            "description": "Invalid contact"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/contacts/{id}": {
+      "get": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "Fetch contact",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "description": "ID of customer",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of contact",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "Update Contact",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "description": "ID of customer",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of contact",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "400": {
+            "description": "Invalid contact"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "Delete contact",
+        "description": "",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "description": "ID of customer",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of contact",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/discounts/position": {
+      "get": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Fetch list of position discounts",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "customer_id",
+            "description": "Filter discounts by customer_id. You can add multiple customer_ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPositions"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Create a new position discount",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DiscountPosition"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPosition"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/discounts/position/{id}": {
+      "get": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Fetch specified position discount by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the discount",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPosition"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Update a position discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the to be soon updated discount",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/DiscountPosition"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPosition"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Delete the specified position discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the to be soon deleted discount",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/discounts/position-group": {
+      "get": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Fetch list of position-group discounts",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "customer_id",
+            "description": "Filter discounts by customer_id. You can add multiple customer_ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPositionGroups"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Create a new position-group discount",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DiscountPositionGroup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPositionGroup"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/discounts/position-group/{id}": {
+      "get": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Fetch specified position-group discount by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the discount",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPositionGroup"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Update a position-group discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the to be soon updated discount",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/DiscountPositionGroup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DiscountPositionGroup"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "Delete the specified position-group discount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the to be soon deleted discount",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Fetch documents list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Filter documents by type. Multiple typs seperate with , like type=INVOICE,CREDIT.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "INVOICE",
+              "RECURRING",
+              "CREDIT",
+              "OFFER",
+              "REMINDER",
+              "DUNNING",
+              "STORNO",
+              "STORNO_CREDIT",
+              "DELIVERY",
+              "PDF",
+              "CHARGE",
+              "CHARGE_CONFIRM",
+              "LETTER",
+              "ORDER",
+              "PROFORMA_INVOICE",
+              "STORNO_PROFORMA_INVOICE"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "is_draft",
+            "description": "Filter documents by draft flag.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "is_archive",
+            "description": "Filter documents by archive flag.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "customer_id",
+            "description": "Filter documents by customer_id. You can add multiple customer_is separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "project_id",
+            "description": "Filter documents by project_id. You can add multiple project_id separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "document_date",
+            "description": "Filter documents by document_date. You can filter one date with document_date=2014-12-10 or between like 2015-01-01,2015-12-31.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "paid_at",
+            "description": "Filter documents by paid_at. You can filter one date with paid_at=2014-12-10 or between like 2015-01-01,2015-12-31. With paid_at=null you get all unpaid documents.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "description": "Filter documents by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "number",
+            "description": "Filter documents by number.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "cancel_id",
+            "description": "Filter documents by cancel_id. You can add multiple ids separate by comma like id,id,id. With cancel_id=null you get all not canceled documents.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "fulfillment_country",
+            "description": "Filter documents by fulfillment_country.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "vat_country",
+            "description": "Filter documents by vat_country.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "shipping_country",
+            "description": "Filter documents by shipping_country.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Filter documents by status. Keep in mind that not every document type has a status.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Documents"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Create document",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents/{id}": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Fetch document",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Update document",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "refresh_customer_data",
+            "description": "Forces refreshing of the customer data.",
+            "required": false,
+            "type": "boolean",
+            "enum": [
+              "false",
+              "true"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "400": {
+            "description": "Invalid Document"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Delete document",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents/{id}/done": {
+      "put": {
+        "tags": [
+          "document"
+        ],
+        "summary": "To complete a document.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents/{id}/cancel": {
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Cancel document",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents/{id}/send/{type}": {
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Send document",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "email",
+              "fax",
+              "post"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostBoxRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents/{id}/pdf": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Fetch pdf document",
+        "produces": [
+          "application/pdf"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/documents/{id}/jpg": {
+      "get": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Download a document as an jpeg-image",
+        "produces": [
+          "image/jpeg"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "The page of the document where the image should start.",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The page of the document where the image should end.",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/customer-groups": {
+      "get": {
+        "tags": [
+          "customer group"
+        ],
+        "summary": "Fetch customer group list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/CustomerGroups"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customer group"
+        ],
+        "summary": "Create customer group",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerGroup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/CustomerGroup"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/customer-groups/{id}": {
+      "get": {
+        "tags": [
+          "customer group"
+        ],
+        "summary": "Fetch customer group",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of customer group",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/CustomerGroup"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customer group"
+        ],
+        "summary": "Update customer group",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of customer goup",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerGroup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/CustomerGroup"
+            }
+          },
+          "400": {
+            "description": "Invalid customer group"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customer group"
+        ],
+        "summary": "Delete customer group",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of customer group",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Fetch tasks list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Create task",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Fetch task",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of task",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Update task",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of task",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Invalid task"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Delete task",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of task",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Fetch projects list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "customer_id",
+            "description": "Filter projects by customer_id. You can add multiple ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Filter projects by status.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "DONE",
+              "OPEN",
+              "CANCEL"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Projects"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Create project",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/projects/{id}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Fetch project",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Update project",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "400": {
+            "description": "Invalid project"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Delete project",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of project",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/positions": {
+      "get": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Fetch positions list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Filter positions by type.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TEXT",
+              "PRODUCT",
+              "SERVICE"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "number",
+            "description": "Filter positions by number. You can add multiple numbers separate by comma like no,no,no.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Positions"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Create position",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/positions/{id}": {
+      "get": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Fetch position",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of position",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Update position",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of position",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "400": {
+            "description": "Invalid position"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Delete position",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of position",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/position-groups": {
+      "get": {
+        "tags": [
+          "position group"
+        ],
+        "summary": "Fetch position group list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PositionGroups"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "position group"
+        ],
+        "summary": "Create position group",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PositionGroup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PositionGroup"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/position-groups/{id}": {
+      "get": {
+        "tags": [
+          "position group"
+        ],
+        "summary": "Fetch position group",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of position group",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PositionGroup"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "position group"
+        ],
+        "summary": "Update position group",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of position goup",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PositionGroup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PositionGroup"
+            }
+          },
+          "400": {
+            "description": "Invalid position group"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "position group"
+        ],
+        "summary": "Delete position group",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of position group",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/time-trackings": {
+      "get": {
+        "tags": [
+          "time tracking"
+        ],
+        "summary": "Fetch time trackings list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "login_id",
+            "description": "Filter time-tracking by login_id. You can add multiple ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "project_id",
+            "description": "Filter time-tracking by project_id. You can add multiple ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TimeTrackings"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "time tracking"
+        ],
+        "summary": "Create time tracking",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TimeTracking"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TimeTracking"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/time-trackings/{id}": {
+      "get": {
+        "tags": [
+          "time tracking"
+        ],
+        "summary": "Fetch time tracking",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of time tracking",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TimeTracking"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "time tracking"
+        ],
+        "summary": "Update time tracking",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of time tracking",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TimeTracking"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TimeTracking"
+            }
+          },
+          "400": {
+            "description": "Invalid time tracking"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "time tracking"
+        ],
+        "summary": "Delete time tracking",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of time tracking",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/text-templates": {
+      "get": {
+        "tags": [
+          "text template"
+        ],
+        "summary": "Fetch text templates list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TextTemplates"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "text template"
+        ],
+        "summary": "Create text template",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TextTemplate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TextTemplate"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/text-templates/{id}": {
+      "get": {
+        "tags": [
+          "text template"
+        ],
+        "summary": "Fetch text template",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of text template",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TextTemplate"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "text template"
+        ],
+        "summary": "Update text template",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of text template",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TextTemplate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/TextTemplate"
+            }
+          },
+          "400": {
+            "description": "Invalid text template"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "text template"
+        ],
+        "summary": "Delete text template",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of text template",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/attachments": {
+      "get": {
+        "tags": [
+          "attachment"
+        ],
+        "summary": "Fetch attachments list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Attachments"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "attachment"
+        ],
+        "summary": "Create attachment",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Attachment"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/attachments/{id}": {
+      "get": {
+        "tags": [
+          "attachment"
+        ],
+        "summary": "Fetch attachment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of attachment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Attachment"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "attachment"
+        ],
+        "summary": "Update attachment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of attachment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attachment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Attachment"
+            }
+          },
+          "400": {
+            "description": "Invalid attachment"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "attachment"
+        ],
+        "summary": "Delete attachment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of attachment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/attachments/{id}/content": {
+      "get": {
+        "tags": [
+          "attachment"
+        ],
+        "summary": "Fetch attachment content",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of attachment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/document-payments": {
+      "get": {
+        "tags": [
+          "document payment"
+        ],
+        "summary": "Fetch document payments list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "document_id",
+            "description": "Filter payments by document_id. You can add multiple ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "payment_at",
+            "description": "Filter payments by payment_at. You can filter one date with payment_at=2014-12-10 or between like 2015-01-01,2015-12-31.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "reference",
+            "description": "Filter payments by reference. You can add multiple references separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DocumentPayments"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "document payment"
+        ],
+        "summary": "Create document payment",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DocumentPayment"
+            }
+          },
+          {
+            "in": "query",
+            "name": "paid",
+            "description": "Mark document as paid when amount less then payment amount.",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DocumentPayment"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/document-payments/{id}": {
+      "get": {
+        "tags": [
+          "document payment"
+        ],
+        "summary": "Fetch document payment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document payment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/DocumentPayment"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "document payment"
+        ],
+        "summary": "Delete document payment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of document payment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/post-boxes": {
+      "get": {
+        "tags": [
+          "post box"
+        ],
+        "summary": "Fetch post box list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Filter post boxes by type. Multiple typs seperate with , like type=EMAIL,FAX.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "EMAIL",
+              "FAX",
+              "POST"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Filter post boxes by status.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "WAITING",
+              "PREPARE",
+              "ERROR",
+              "OK",
+              "PROCESSING"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "document_id",
+            "description": "Filter post boxes by document_id. You can add multiple document ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PostBoxes"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/post-boxes/{id}": {
+      "get": {
+        "tags": [
+          "post box"
+        ],
+        "summary": "Fetch post box",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of post box",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PostBox"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "post box"
+        ],
+        "summary": "Delete post box",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of post box",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/sepa-payments": {
+      "get": {
+        "tags": [
+          "sepa payment"
+        ],
+        "summary": "Fetch SEPA payments list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          },
+          {
+            "in": "query",
+            "name": "document_id",
+            "description": "Filter SEPA payment by document_id. You can add multiple ids separate by comma like id,id,id.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SEPAPayments"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "sepa payment"
+        ],
+        "summary": "Create SEPA payment",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SEPAPayment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SEPAPayment"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/sepa-payments/{id}": {
+      "get": {
+        "tags": [
+          "sepa payment"
+        ],
+        "summary": "Fetch SEPA payment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of SEPA payment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SEPAPayment"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "sepa payment"
+        ],
+        "summary": "Update SEPA payment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of SEPA payment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SEPAPayment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SEPAPayment"
+            }
+          },
+          "400": {
+            "description": "Invalid SEPA payment"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "sepa payment"
+        ],
+        "summary": "Delete SEPA payment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of SPEA payment",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/webhooks": {
+      "get": {
+        "tags": [
+          "webhook"
+        ],
+        "summary": "Fetch WebHooks list",
+        "parameters": [
+          {
+            "$ref": "#/parameters/LIMIT"
+          },
+          {
+            "$ref": "#/parameters/PAGE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/WebHooks"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "webhook"
+        ],
+        "summary": "Create WebHook",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebHook"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/WebHook"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/webhooks/{id}": {
+      "get": {
+        "tags": [
+          "webhook"
+        ],
+        "summary": "Fetch WebHook",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of WebHook",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/WebHook"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "webhook"
+        ],
+        "summary": "Update WebHook",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of WebHook",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebHook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/WebHook"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "webhook"
+        ],
+        "summary": "Delete WebHook",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of WebHook",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "/pdf-templates": {
+      "get": {
+        "tags": [
+          "pdf templates"
+        ],
+        "summary": "Fetch PDF Templates list",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/PDFTemplates"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "List": {
+      "type": "object",
+      "required": [
+        "page",
+        "pages",
+        "limit",
+        "total"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "description": "The current page",
+          "example": 1
+        },
+        "pages": {
+          "type": "integer",
+          "description": "Max possible pages",
+          "example": 1
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Items limitation. Max 1000",
+          "example": 100
+        },
+        "total": {
+          "type": "integer",
+          "description": "Total Items",
+          "example": 20
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "required": [
+        "last_name",
+        "company_name"
+      ],
+      "properties": {
+        "acquire_options": {
+          "type": "integer",
+          "description": "1 = Empfehlung eines anderen Kunden, 2 = Zeitungsanzeige, 3 = Eigene Akquisition, 4 = Mitarbeiter Akquisition, 5 = Google, 6 = Gelbe Seiten, 7 = Kostenlose Internet Plattform, 8 = Bezahlte Internet Plattform",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "x-nullable": true,
+          "example": null
+        },
+        "additional_groups_ids": {
+          "type": "array",
+          "readOnly": true,
+          "example": [],
+          "items": {
+            "type": "integer",
+            "uniqueItems": true
+          }
+        },
+        "bank_account": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "bank_account_owner": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "bank_bic": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "bank_code": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "bank_iban": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "bank_name": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "birth_date": {
+          "type": "string",
+          "format": "date",
+          "x-nullable": true,
+          "example": "2016-12-31"
+        },
+        "cash_allowance": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "example": null,
+          "minimum": 0,
+          "maximum": 100
+        },
+        "cash_allowance_days": {
+          "type": "integer",
+          "default": 7,
+          "example": 7
+        },
+        "cash_discount": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "example": null
+        },
+        "cash_discount_type": {
+          "type": "string",
+          "enum": [
+            "PERCENT",
+            "AMOUNT"
+          ],
+          "x-nullable": true,
+          "example": null
+        },
+        "city": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "Kaarst"
+        },
+        "state": {
+          "type": "string",
+          "example": "NRW"
+        },
+        "company_name": {
+          "type": "string",
+          "example": "easybill GmbH",
+          "x-nullable": true
+        },
+        "country": {
+          "type": "string",
+          "example": "DE"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true
+        },
+        "delivery_title": {
+          "type": "string",
+          "example": "Dr."
+        },
+        "delivery_city": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_state": {
+          "type": "string",
+          "example": "NRW"
+        },
+        "delivery_company_name": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_country": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_first_name": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_last_name": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_personal": {
+          "type": "boolean",
+          "example": false
+        },
+        "delivery_salutation": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "default": 0,
+          "description": "0 = nothing, 1 = Mr, 2 = Mrs, 3 = Company, 4 = Mr & Mrs, 5 = Married couple, 6 = Family"
+        },
+        "delivery_street": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_suffix_1": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_suffix_2": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "delivery_zip_code": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "display_name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxItems": 3,
+            "uniqueItems": true
+          },
+          "example": [
+            "max.mustermann@easybill.de"
+          ]
+        },
+        "fax": {
+          "type": "string",
+          "example": "+49 2154 89701 29",
+          "x-nullable": true
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Max",
+          "x-nullable": true
+        },
+        "grace_period": {
+          "type": "integer",
+          "description": "will be replaced by its alias due_in_days.",
+          "x-nullable": true,
+          "example": null
+        },
+        "due_in_days": {
+          "type": "integer",
+          "description": "due date in days",
+          "x-nullable": true,
+          "example": null
+        },
+        "group_id": {
+          "type": "integer",
+          "x-nullable": true,
+          "example": null
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "info_1": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "info_2": {
+          "type": "string",
+          "x-nullable": true,
+          "example": null
+        },
+        "internet": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "https://www.easybill.de"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Mustermann",
+          "x-nullable": true
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mobile": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "note": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "number": {
+          "type": "string",
+          "description": "Automatically generated if empty."
+        },
+        "payment_options": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "description": "1 = Stets pünktliche Zahlung, 2 = überwiegend pünktliche Zahlung, 3 = überwiegend verspätete Zahlung, 5 = Grundsätzlich verspätete Zahlung",
+          "example": null,
+          "x-nullable": true
+        },
+        "personal": {
+          "type": "boolean",
+          "example": false,
+          "default": false
+        },
+        "phone_1": {
+          "type": "string",
+          "example": "+49 2154 89701 20",
+          "x-nullable": true
+        },
+        "phone_2": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "postbox": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "postbox_city": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "postbox_state": {
+          "type": "string",
+          "example": "NRW"
+        },
+        "postbox_country": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "postbox_zip_code": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "sale_price_level": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true,
+          "enum": [
+            "SALEPRICE2",
+            "SALEPRICE3",
+            "SALEPRICE4",
+            "SALEPRICE5",
+            "SALEPRICE6",
+            "SALEPRICE7",
+            "SALEPRICE8",
+            "SALEPRICE9",
+            "SALEPRICE10"
+          ]
+        },
+        "salutation": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "default": 0,
+          "description": "0 = nothing, 1 = Mr, 2 = Mrs, 3 = Company, 4 = Mr & Mrs, 5 = Married couple, 6 = Family"
+        },
+        "sepa_agreement": {
+          "type": "string",
+          "enum": [
+            "BASIC",
+            "COR1",
+            "COMPANY",
+            "NULL"
+          ],
+          "description": "BASIC = SEPA-Basislastschrift, COR1 = SEPA-Basislastschrift COR1, COMPANY = SEPA-Firmenlastschrift, NULL = Noch kein Mandat erteilt",
+          "example": null,
+          "x-nullable": true
+        },
+        "sepa_agreement_date": {
+          "type": "string",
+          "format": "date",
+          "example": null,
+          "x-nullable": true
+        },
+        "sepa_mandate_reference": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "since_date": {
+          "type": "string",
+          "format": "date",
+          "example": null,
+          "x-nullable": true
+        },
+        "street": {
+          "type": "string",
+          "example": "Düsselstr. 21",
+          "x-nullable": true
+        },
+        "suffix_1": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "suffix_2": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "tax_number": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "court": {
+          "type": "string",
+          "example": "Berlin",
+          "x-nullable": true
+        },
+        "court_registry_number": {
+          "type": "string",
+          "example": "HRB XXXXX X",
+          "x-nullable": true
+        },
+        "tax_options": {
+          "type": "string",
+          "enum": [
+            "nStb",
+            "nStbUstID",
+            "nStbNoneUstID",
+            "nStbIm",
+            "revc",
+            "IG",
+            "AL",
+            "sStfr",
+            "NULL"
+          ],
+          "description": "nStb = Nicht steuerbar (Drittland), nStbUstID = Nicht steuerbar (EU mit USt-IdNr.), nStbNoneUstID = Nicht steuerbar (EU ohne USt-IdNr.), revc = Steuerschuldwechsel §13b (Inland), IG = Innergemeinschaftliche Lieferung, AL = Ausfuhrlieferung, sStfr = sonstige Steuerbefreiung, NULL = Umsatzsteuerpflichtig",
+          "example": null,
+          "x-nullable": true
+        },
+        "title": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "vat_identifier": {
+          "type": "string",
+          "example": "DE814878557",
+          "x-nullable": true
+        },
+        "zip_code": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "41564"
+        },
+        "documentPdfType": {
+          "type": "string",
+          "enum": [
+            "default",
+            "zugferd1",
+            "zugferd2",
+            "xrechnung",
+            "xrechnung_xml"
+          ],
+          "default": "default",
+          "description": "Type of PDF to use when sending a Document to the Customer."
+        },
+        "buyer_reference": {
+          "type": "string",
+          "description": "Used as \"buyerReference\" in ZUGFeRD and as \"Leitweg-ID\" in the XRechnung format."
+        },
+        "foreign_supplier_number": {
+          "type": "string",
+          "description": "The ID given to your company by the customer in his system."
+        }
+      }
+    },
+    "CustomerSnapshot": {
+      "type": "object",
+      "description": "A snapshot of the customer model which belongs to a document. This model is readonly and the state is final after finalization of the document. It's is identical to the state of the customer model at the time of finalization. Updates to the actual customer dataset won't affect this snapshot, however if you update the document the customer and therefore the customer snapshot may reflect a different state.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Customer"
+        }
+      ]
+    },
+    "Customers": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Customer"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Contact": {
+      "type": "object",
+      "required": [
+        "city",
+        "street"
+      ],
+      "properties": {
+        "city": {
+          "type": "string",
+          "example": "Musterstadt"
+        },
+        "state": {
+          "type": "string",
+          "example": "NRW"
+        },
+        "company_name": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true
+        },
+        "country": {
+          "type": "string",
+          "description": "Two-letter country code",
+          "example": "DE"
+        },
+        "department": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": "Accounting"
+        },
+        "emails": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string",
+            "maxItems": 3,
+            "uniqueItems": true,
+            "example": "mustermann@easybill.de"
+          }
+        },
+        "fax": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "first_name": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": "Max"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "last_name": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": "Mustermann"
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "mobile": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "note": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "personal": {
+          "type": "boolean",
+          "default": false
+        },
+        "phone_1": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "phone_2": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "salutation": {
+          "type": "integer",
+          "description": "0: empty<br/> 1: Herrn<br/> 2: Frau<br/> 3: Firma<br/> 4: Herrn und Frau<br/> 5: Eheleute<br/> 6: Familie"
+        },
+        "street": {
+          "type": "string",
+          "example": "Musterstr."
+        },
+        "suffix_1": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "suffix_2": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "zip_code": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "created_at": {
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true,
+          "example": "2018-01-01 23:23:45"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true,
+          "example": "2018-01-01 23:23:45"
+        }
+      }
+    },
+    "Contacts": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Contact"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "DocumentPosition": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "description": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "document_note": {
+          "type": "string",
+          "example": "Test Note",
+          "description": "This field can be used in the document text areas with the liquid placeholder {{document.item_notes}}. Every note is only displayed once for every kind of product. This is useful if you want to add something like an instruction."
+        },
+        "quantity": {
+          "type": "number",
+          "maxLength": 10,
+          "format": "float",
+          "default": 1,
+          "example": 1
+        },
+        "quantity_str": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Use quantity_str if you want to set a quantity like: 1:30 h or 3x5 m. quantity_str overwrites quantity.",
+          "example": null
+        },
+        "unit": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "POSITION",
+            "POSITION_NOCALC",
+            "TEXT"
+          ],
+          "default": "POSITION"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Automatic by default (first item: 1, second item: 2, ...)",
+          "example": null
+        },
+        "single_price_net": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "single_price_gross": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true
+        },
+        "vat_percent": {
+          "type": "number",
+          "format": "float",
+          "default": 0,
+          "example": 0
+        },
+        "discount": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "discount_type": {
+          "type": "string",
+          "enum": [
+            "PERCENT",
+            "AMOUNT"
+          ],
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "position_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "description": "If set, values are copied from the referenced position",
+          "example": null
+        },
+        "total_price_net": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true
+        },
+        "total_price_gross": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true
+        },
+        "total_vat": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true
+        },
+        "serial_number_id": {
+          "type": "string",
+          "readOnly": true,
+          "example": null
+        },
+        "serial_number": {
+          "type": "string",
+          "readOnly": true,
+          "example": null
+        },
+        "booking_account": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "export_cost_1": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "export_cost_2": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "cost_price_net": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "cost_price_total": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true,
+          "example": null
+        },
+        "cost_price_charge": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true,
+          "example": null
+        },
+        "cost_price_charge_type": {
+          "type": "string",
+          "readOnly": true,
+          "example": null,
+          "enum": [
+            "PERCENT",
+            "AMOUNT"
+          ]
+        },
+        "itemType": {
+          "type": "string",
+          "enum": [
+            "PRODUCT",
+            "SERVICE",
+            "UNDEFINED"
+          ],
+          "default": "UNDEFINED"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        }
+      }
+    },
+    "DocumentAddress": {
+      "type": "object",
+      "properties": {
+        "salutation": {
+          "readOnly": true,
+          "type": "integer",
+          "description": "0: empty<br/> 1: Herrn<br/> 2: Frau<br/> 3: Firma<br/> 4: Herrn und Frau<br/> 5: Eheleute<br/> 6: Familie"
+        },
+        "personal": {
+          "readOnly": true,
+          "type": "boolean",
+          "example": false
+        },
+        "title": {
+          "readOnly": true,
+          "type": "string",
+          "example": null
+        },
+        "first_name": {
+          "readOnly": true,
+          "type": "string",
+          "example": "Max"
+        },
+        "last_name": {
+          "readOnly": true,
+          "type": "string",
+          "example": "Mustermann"
+        },
+        "suffix_1": {
+          "readOnly": true,
+          "type": "string",
+          "example": null
+        },
+        "suffix_2": {
+          "readOnly": true,
+          "type": "string",
+          "example": null
+        },
+        "company_name": {
+          "readOnly": true,
+          "type": "string",
+          "example": null
+        },
+        "street": {
+          "readOnly": true,
+          "type": "string",
+          "example": "Musterstr."
+        },
+        "zip_code": {
+          "readOnly": true,
+          "type": "string",
+          "example": null
+        },
+        "city": {
+          "readOnly": true,
+          "type": "string",
+          "example": "Musterstadt"
+        },
+        "state": {
+          "readOnly": true,
+          "type": "string",
+          "example": "NRW"
+        },
+        "country": {
+          "readOnly": true,
+          "type": "string",
+          "example": "DE"
+        }
+      }
+    },
+    "DocumentRecurring": {
+      "type": "object",
+      "required": [
+        "next_date"
+      ],
+      "properties": {
+        "next_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Must be in the future",
+          "example": "2020-02-01"
+        },
+        "frequency": {
+          "type": "string",
+          "enum": [
+            "DAILY",
+            "WEEKLY",
+            "MONTHLY",
+            "YEARLY"
+          ],
+          "default": "MONTHLY"
+        },
+        "frequency_special": {
+          "type": "string",
+          "enum": [
+            "LASTDAYOFMONTH"
+          ],
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "interval": {
+          "type": "integer",
+          "default": 1,
+          "example": 1
+        },
+        "end_date_or_count": {
+          "type": "string",
+          "description": "Date of last exectution day or number of times to exectute",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "RUNNING",
+            "PAUSE",
+            "STOP",
+            "WAITING"
+          ],
+          "default": "WAITING"
+        },
+        "as_draft": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_notify": {
+          "type": "boolean",
+          "default": false
+        },
+        "send_as": {
+          "type": "string",
+          "enum": [
+            "EMAIL",
+            "FAX",
+            "POST"
+          ],
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "is_sign": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_paid": {
+          "type": "boolean",
+          "default": false
+        },
+        "paid_date_option": {
+          "type": "string",
+          "description": "Option is used to determine what date is used for the payment if is_paid is true. \"next_valid_date\" selects the next workday in regards to the created date of the document if the date falls on a saturday or sunday.",
+          "default": "created_date",
+          "enum": [
+            "created_date",
+            "due_date",
+            "next_valid_date"
+          ]
+        },
+        "is_sepa": {
+          "type": "boolean",
+          "default": false
+        },
+        "sepa_local_instrument": {
+          "type": "string",
+          "enum": [
+            "CORE",
+            "COR1",
+            "B2B"
+          ],
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sepa_sequence_type": {
+          "type": "string",
+          "enum": [
+            "FRST",
+            "OOFF",
+            "FNAL",
+            "RCUR"
+          ],
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sepa_reference": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sepa_remittance_information": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "target_type": {
+          "type": "string",
+          "enum": [
+            "INVOICE",
+            "CREDIT",
+            "ORDER",
+            "OFFER"
+          ],
+          "default": "INVOICE",
+          "description": "The document type that will be generated. Can not be changed on existing documents."
+        }
+      }
+    },
+    "ServiceDate": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "DEFAULT",
+            "SERVICE",
+            "DELIVERY"
+          ],
+          "description": "With DEFAULT no other fields are required and this message will be printed: 'Invoice date coincides with the time of supply'.<br/> For SERVICE or DELIVERY exactly one of the following fields must be set: date, date_from and date_to or text."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "x-nullable": true,
+          "example": "2019-02-01"
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date",
+          "x-nullable": true,
+          "example": null
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date",
+          "x-nullable": true,
+          "example": null
+        },
+        "text": {
+          "type": "string",
+          "default": null,
+          "x-nullable": true,
+          "example": null
+        }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "readOnly": true,
+          "description": "This information comes from the customer which can be set with customer_id.",
+          "$ref": "#/definitions/DocumentAddress"
+        },
+        "attachment_ids": {
+          "type": "array",
+          "readOnly": true,
+          "example": [],
+          "items": {
+            "type": "integer",
+            "uniqueItems": true
+          }
+        },
+        "label_address": {
+          "readOnly": true,
+          "description": "This information comes from the customer which can be set with customer_id.",
+          "$ref": "#/definitions/DocumentAddress"
+        },
+        "amount": {
+          "readOnly": true,
+          "type": "integer",
+          "description": "Amount in cents  (e.g. \"150\" = 1.50€)"
+        },
+        "amount_net": {
+          "readOnly": true,
+          "type": "integer",
+          "description": "Amount in cents  (e.g. \"150\" = 1.50€)"
+        },
+        "bank_debit_form": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "billing_country": {
+          "type": "string",
+          "readOnly": true,
+          "example": null
+        },
+        "calc_vat_from": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ],
+          "description": "0 === Net, 1 === Gross.",
+          "default": 0,
+          "example": 0
+        },
+        "cancel_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID from the cancel document. Only for document type INVOICE.",
+          "readOnly": true,
+          "example": null
+        },
+        "cash_allowance": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "cash_allowance_days": {
+          "type": "integer",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "cash_allowance_text": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "contact_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "contact_label": {
+          "type": "string",
+          "default": "",
+          "example": ""
+        },
+        "contact_text": {
+          "type": "string",
+          "default": "",
+          "example": ""
+        },
+        "created_at": {
+          "readOnly": true,
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-02-01 11:16:52"
+        },
+        "currency": {
+          "type": "string",
+          "default": "EUR",
+          "example": "EUR"
+        },
+        "customer_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "customer_snapshot": {
+          "readOnly": true,
+          "$ref": "#/definitions/CustomerSnapshot"
+        },
+        "discount": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "discount_type": {
+          "type": "string",
+          "enum": [
+            "PERCENT",
+            "AMOUNT"
+          ],
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "document_date": {
+          "type": "string",
+          "format": "date",
+          "example": "2019-02-07"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date",
+          "readOnly": true,
+          "description": "To change the value use grace_period.",
+          "example": null
+        },
+        "edited_at": {
+          "readOnly": true,
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-02-07 11:54:10"
+        },
+        "external_id": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "replica_url": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "grace_period": {
+          "type": "integer",
+          "description": "will be replaced by its alias due_in_days.",
+          "x-nullable": true,
+          "example": null
+        },
+        "due_in_days": {
+          "type": "integer",
+          "description": "due date in days.",
+          "x-nullable": true,
+          "example": null
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "is_archive": {
+          "type": "boolean",
+          "default": false,
+          "example": false
+        },
+        "is_draft": {
+          "type": "boolean",
+          "readOnly": true,
+          "description": "This property is read only. To finish the document call /documents/{id}/done.",
+          "example": true
+        },
+        "is_replica": {
+          "type": "boolean",
+          "description": "Marks a document as a replica from another software.",
+          "default": false,
+          "example": false
+        },
+        "is_cold": {
+          "type": "boolean",
+          "description": "Indicates if a document is in the long term archive",
+          "default": false,
+          "example": false,
+          "readOnly": true
+        },
+        "is_oss": {
+          "type": "boolean",
+          "description": "Indicates if a document is a one-stop-shop document",
+          "default": false,
+          "example": false
+        },
+        "coldstorage_due_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Signals when the document should be moved to the long term archive",
+          "example": "2019-02-07",
+          "x-nullable": true
+        },
+        "item_notes": {
+          "description": "Field holds all unique document_note of items for the document",
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentPosition"
+          }
+        },
+        "last_postbox_id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true,
+          "example": null
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": null,
+          "description": "If omitted or null, the currently active login is used."
+        },
+        "number": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "order_number": {
+          "type": "string",
+          "default": ""
+        },
+        "buyer_reference": {
+          "type": "string",
+          "default": ""
+        },
+        "paid_amount": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "paid_at": {
+          "type": "string",
+          "format": "date",
+          "readOnly": true,
+          "example": null
+        },
+        "pdf_pages": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "pdf_template": {
+          "type": "string",
+          "description": "Default template is null or 'DE', default english is 'EN' and for all others use the numeric template ID.",
+          "example": null
+        },
+        "project_id": {
+          "type": "integer",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "recurring_options": {
+          "description": "This object is only available in document type RECURRING",
+           "$ref": "#/definitions/DocumentRecurring"
+        },
+        "ref_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Reference document id",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "service_date": {
+          "description": "This object is only available in document type INVOICE or CREDIT.",
+          "$ref": "#/definitions/ServiceDate"
+        },
+        "shipping_country": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "status": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null,
+          "description": "This value can only be used in document type DELIVERY, ORDER, CHARGE or OFFER. NULL is default = not set.",
+          "enum": [
+            "ACCEPT",
+            "DONE",
+            "DROPSHIPPING",
+            "CANCEL"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "example": "Vielen Dank für Ihren Auftrag!\n\nBitte begleichen Sie den offenen Betrag bis zum %DOKUMENT.DATUM-FAELLIG%.\n\nMit freundlichen Grüßen\n\n%FIRMA.FIRMA%\n"
+        },
+        "text_prefix": {
+          "type": "string",
+          "example": "%KUNDE.ANREDE%,\nnachfolgend berechnen wir Ihnen wie vorab besprochen:\n"
+        },
+        "text_tax": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "description": "Overwrites the default vat-option text from the document layout. It is only displayed in documents with the type other than: Delivery, Dunning, Reminder or Letter and a different vat-option than null"
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": "Invoice for Order #001"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "INVOICE",
+            "RECURRING",
+            "CREDIT",
+            "OFFER",
+            "REMINDER",
+            "DUNNING",
+            "STORNO",
+            "STORNO_CREDIT",
+            "DELIVERY",
+            "PDF",
+            "CHARGE",
+            "CHARGE_CONFIRM",
+            "LETTER",
+            "ORDER",
+            "PROFORMA_INVOICE",
+            "STORNO_PROFORMA_INVOICE"
+          ],
+          "description": "Can only set on create.",
+          "default": "INVOICE"
+        },
+        "use_shipping_address": {
+          "type": "boolean",
+          "description": "If true and customer has shipping address then it will be used.",
+          "default": false,
+          "example": false
+        },
+        "vat_country": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "vat_id": {
+          "type": "string",
+          "readOnly": true,
+          "default": "",
+          "example": "DE999999999"
+        },
+        "fulfillment_country": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "vat_option": {
+          "type": "string",
+          "enum": [
+            "NULL",
+            "nStb",
+            "nStbUstID",
+            "nStbNoneUstID",
+            "nStbIm",
+            "revc",
+            "IG",
+            "AL",
+            "sStfr",
+            "smallBusiness"
+          ],
+          "description": "NULL: Normal steuerbar<br/> nStb: Nicht steuerbar (Drittland)<br/> nStbUstID: Nicht steuerbar (EU mit USt-IdNr.)<br/> nStbNoneUstID: Nicht steuerbar (EU ohne USt-IdNr.)<br/> nStbIm: Nicht steuerbarer Innenumsatz<br/> revc: Steuerschuldwechsel §13b (Inland)<br/> IG: Innergemeinschaftliche Lieferung<br/> AL: Ausfuhrlieferung<br/> sStfr: sonstige Steuerbefreiung<br/> smallBusiness: Kleinunternehmen (Keine MwSt.)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        }
+      }
+    },
+    "Documents": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Document"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CustomerGroup": {
+      "type": "object",
+      "required": [
+        "number",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Important Customers"
+        },
+        "description": {
+          "type": "string",
+          "example": "Our most important customers",
+          "x-nullable": true,
+          "default": null
+        },
+        "number": {
+          "type": "string",
+          "example": "001",
+          "description": "Can be chosen freely"
+        },
+        "display_name": {
+          "type": "string",
+          "readOnly": true,
+          "example": "001 - Important Customers"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        }
+      }
+    },
+    "CustomerGroups": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerGroup"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Task": {
+      "type": "object",
+      "required": [
+        "name",
+        "status"
+      ],
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": [
+            "CALL",
+            "EMAIL",
+            "FAX",
+            "LUNCH",
+            "MEETING",
+            "TRAVEL",
+            "CUSTOM"
+          ],
+          "x-nullable": true,
+          "default": null
+        },
+        "category_custom": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null,
+          "description": "The name of your custom category. Can only have a value if \"category\" is \"CUSTOM\"."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "example": "2019-02-01 11:16:52"
+        },
+        "customer_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "description": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "document_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "end_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true,
+          "example": null,
+          "description": "The deadline"
+        },
+        "finish_at": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true,
+          "example": null,
+          "description": "The time when the task was marked as done"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "example": null,
+          "description": "When omitted or null, the currently active login is used"
+        },
+        "name": {
+          "type": "string",
+          "example": "Call client"
+        },
+        "position_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "NORMAL",
+            "HIGH"
+          ],
+          "default": "NORMAL"
+        },
+        "project_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "start_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "WAITING",
+            "PROCESSING",
+            "DONE",
+            "CANCEL"
+          ],
+          "example": "PROCESSING"
+        },
+        "status_percent": {
+          "type": "integer",
+          "x-nullable": true,
+          "default": null,
+          "example": 50
+        }
+      }
+    },
+    "Tasks": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Project": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "budget_amount": {
+          "type": "integer",
+          "description": "Project budget in cents (e.g. \"150\" = 1.50€)",
+          "default": 0,
+          "example": 10000
+        },
+        "budget_time": {
+          "type": "integer",
+          "description": "Time budget in minutes (e.g. \"90\" = 1 hour and 30 minutes)",
+          "default": 0,
+          "example": 60
+        },
+        "customer_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null
+        },
+        "hourly_rate": {
+          "type": "number",
+          "format": "float",
+          "description": "Hourly rate in cents (e.g. \"150\" = 1.50€)",
+          "example": 3000
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "example": null,
+          "description": "If omitted or null, the currently active login is used"
+        },
+        "name": {
+          "type": "string",
+          "example": "My Project"
+        },
+        "note": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "OPEN",
+            "DONE",
+            "CANCEL"
+          ],
+          "default": "OPEN"
+        },
+        "due_at": {
+          "type": "string",
+          "format": "date",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "budget_notify_frequency": {
+          "type": "string",
+          "enum": [
+            "ALWAYS",
+            "ONCE",
+            "NEVER"
+          ],
+          "default": "ALWAYS"
+        },
+        "consumed_time": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "consumed_amount": {
+          "type": "integer",
+          "readOnly": true
+        }
+      }
+    },
+    "Projects": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Project"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Position": {
+      "type": "object",
+      "required": [
+        "number",
+        "description",
+        "sale_price"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "PRODUCT",
+            "SERVICE",
+            "TEXT"
+          ],
+          "default": "PRODUCT"
+        },
+        "number": {
+          "type": "string",
+          "example": 1234
+        },
+        "description": {
+          "type": "string",
+          "example": "iPhone X",
+          "description": "The positions name or description"
+        },
+        "document_note": {
+          "type": "string",
+          "example": "Test Note",
+          "description": "This field can be used in the document text areas with the liquid placeholder {{document.item_notes}}. Every note is only displayed once for every kind of product. This is useful if you want to add something like an instruction."
+        },
+        "note": {
+          "type": "string",
+          "example": null,
+          "description": "Note for internal use",
+          "x-nullable": true,
+          "default": null
+        },
+        "unit": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true,
+          "default": null
+        },
+        "export_identifier": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": "8400",
+          "description": "The FAS-Account is the four-digit revenue account, in which the revenue will be entered when doing the export to your tax consultant. In case you want to split your revenue to several revenue accounts, please talk to your tax consultant before, to guarantee an unobstructed use of the interface. For every revenue element, there are number ranges, which can be used. Please avoid using combinations of numbers, which can not be used by your tax consultant."
+        },
+        "export_identifier_extended": {
+          "type": "object",
+          "default": [],
+          "properties": {
+            "NULL": {
+              "example": "8400",
+              "description": "Umsatzsteuerpflichtig",
+              "x-nullable": true,
+              "default": null
+            },
+            "nStb": {
+              "example": "8338",
+              "description": "Nicht steuerbar (Drittland)",
+              "x-nullable": true,
+              "default": null
+            },
+            "nStbUstID": {
+              "example": "8339",
+              "description": "Nicht steuerbar (EU mit USt-IdNr.)",
+              "x-nullable": true,
+              "default": null
+            },
+            "nStbNoneUstID": {
+              "example": "8950",
+              "description": "Nicht steuerbar (EU ohne USt-IdNr.)",
+              "x-nullable": true,
+              "default": null
+            },
+            "nStbIm": {
+              "example": "8950",
+              "description": "Nicht steuerbarer Innenumsatz",
+              "x-nullable": true,
+              "default": null
+            },
+            "revc": {
+              "example": "8337",
+              "description": "Steuerschuldwechsel §13b (Inland)",
+              "x-nullable": true,
+              "default": null
+            },
+            "IG": {
+              "example": "8125",
+              "description": "Innergemeinschaftliche Lieferung",
+              "x-nullable": true,
+              "default": null
+            },
+            "AL": {
+              "example": "8120",
+              "description": "Ausfuhrlieferung",
+              "x-nullable": true,
+              "default": null
+            },
+            "sStfr": {
+              "example": "8100",
+              "description": "sonstige Steuerbefreiung",
+              "x-nullable": true,
+              "default": null
+            },
+            "smallBusiness": {
+              "example": "8195",
+              "description": "Kleinunternehmen (Keine MwSt.)",
+              "x-nullable": true,
+              "default": null
+            }
+          }
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "price_type": {
+          "type": "string",
+          "enum": [
+            "BRUTTO",
+            "NETTO"
+          ],
+          "default": "NETTO"
+        },
+        "vat_percent": {
+          "type": "number",
+          "format": "float",
+          "default": 19,
+          "example": 19
+        },
+        "sale_price": {
+          "type": "number",
+          "format": "float",
+          "example": 1250,
+          "description": "Price in cents (e.g. \"150\" = 1.50€)"
+        },
+        "sale_price2": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 2 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price3": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 3 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price4": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 4 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price5": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 5 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price6": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 6 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price7": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 7 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price8": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 8 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price9": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 9 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "sale_price10": {
+          "type": "number",
+          "format": "float",
+          "description": "Price for customers of group 10 in cents (e.g. \"150\" = 1.50€)",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "cost_price": {
+          "type": "number",
+          "format": "float",
+          "example": 830,
+          "x-nullable": true,
+          "description": "Price in cents (e.g. \"150\" = 1.50€)"
+        },
+        "export_cost1": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "export_cost2": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "group_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "example": null
+        },
+        "stock": {
+          "type": "string",
+          "enum": [
+            "YES",
+            "NO"
+          ],
+          "description": "Activates stock management for this position",
+          "default": "NO"
+        },
+        "stock_count": {
+          "type": "integer",
+          "example": 100,
+          "default": 0,
+          "description": "Current stock count",
+          "readOnly": true
+        },
+        "stock_limit_notify": {
+          "type": "boolean",
+          "default": false,
+          "description": "Notify when stock_count is lower than stock_limit"
+        },
+        "stock_limit_notify_frequency": {
+          "type": "string",
+          "enum": [
+            "ALWAYS",
+            "ONCE"
+          ],
+          "default": "ALWAYS",
+          "description": "Notify frequency when stock_count is lower than stock_limit (ALWAYS, ONCE)"
+        },
+        "stock_limit": {
+          "type": "integer",
+          "example": 50,
+          "default": 0
+        },
+        "quantity": {
+          "type": "number",
+          "format": "float",
+          "description": "Used as the default quantity when adding this position to a document",
+          "example": 10,
+          "x-nullable": true,
+          "default": null
+        }
+      }
+    },
+    "Positions": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PositionGroup": {
+      "type": "object",
+      "required": [
+        "number",
+        "name"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": null,
+          "x-nullable": true,
+          "default": null
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "example": "Mobile Phones"
+        },
+        "number": {
+          "type": "string",
+          "example": "001"
+        },
+        "display_name": {
+          "type": "string",
+          "readOnly": true,
+          "example": "001 - Mobile Phones"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        }
+      }
+    },
+    "PositionGroups": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PositionGroup"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TimeTracking": {
+      "type": "object",
+      "required": [
+        "description"
+      ],
+      "properties": {
+        "cleared_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "example": "2019-02-01 11:16:52"
+        },
+        "date_from_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true,
+          "default": null,
+          "example": "2019-02-05 11:30:00"
+        },
+        "date_thru_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true,
+          "default": null,
+          "example": "2019-02-05 13:00:00"
+        },
+        "description": {
+          "type": "string",
+          "example": "Meeting with client"
+        },
+        "hourly_rate": {
+          "type": "number",
+          "format": "float",
+          "default": 0,
+          "description": "Hourly rate in cents (e.g. \"150\" = 1.50€)",
+          "example": 2000
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "note": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "number": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "001",
+          "description": "Can be chosen freely"
+        },
+        "position_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "project_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "description": "If omitted or null, the currently active login is used.",
+          "example": null
+        },
+        "timer_value": {
+          "type": "integer",
+          "x-nullable": true,
+          "default": null,
+          "description": "Tracked time in minutes",
+          "example": 90
+        }
+      }
+    },
+    "TimeTrackings": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TimeTracking"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TextTemplate": {
+      "type": "object",
+      "required": [
+        "title",
+        "text"
+      ],
+      "properties": {
+        "can_modify": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "text": {
+          "type": "string",
+          "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+        },
+        "title": {
+          "type": "string",
+          "example": "Lorem Ipsum"
+        }
+      }
+    },
+    "TextTemplates": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TextTemplate"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Attachment": {
+      "type": "object",
+      "description": "If customer_id, project_id and document_id are null, the attachment has a global context and is accessible from the web ui. Keep in mind only to provide one of the four context. You can't attach a file to several context in one request. A error is thrown if you provide two or more context (i. E. sending customer_id, document_id and project_id in combination).",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        },
+        "customer_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "document_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "file_name": {
+          "type": "string",
+          "example": "my_doc.pdf",
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "project_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "size": {
+          "type": "integer",
+          "example": 10022,
+          "description": "In byte",
+          "readOnly": true
+        }
+      }
+    },
+    "Attachments": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Attachment"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "DocumentPayment": {
+      "type": "object",
+      "required": [
+        "document_id",
+        "amount"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "document_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "is_overdue_fee": {
+          "type": "boolean"
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "notice": {
+          "type": "string",
+          "default": ""
+        },
+        "payment_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "type": {
+          "type": "string",
+          "maxLength": 255,
+          "default": ""
+        },
+        "provider": {
+          "type": "string",
+          "maxLength": 255,
+          "default": ""
+        },
+        "reference": {
+          "type": "string",
+          "maxLength": 255,
+          "default": ""
+        }
+      },
+      "example": {
+        "id": 1,
+        "document_id": 1,
+        "login_id": 1,
+        "amount": 1000,
+        "payment_at": "2007-09-17T00:00:00.000Z",
+        "type": "VISA",
+        "provider": "Stripe",
+        "reference": "111111-VISA-222222-6666"
+      }
+    },
+    "DocumentPayments": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DocumentPayment"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PostBoxRequest": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": "string"
+        },
+        "cc": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "document_file_type": {
+          "type": "string",
+          "enum": [
+            "default",
+            "zugferd1",
+            "zugferd2",
+            "xrechnung",
+            "xrechnung_xml"
+          ],
+          "x-nullable": true,
+          "description": "When set to null, the setting on the customer is used"
+        },
+        "post_send_type": {
+          "type": "string",
+          "example": "post_send_type_standard",
+          "description": "This value indicates what method is used when the document is send via mail.\nThe different types are offered by the german post as additional services.\nThe registered mail options will include a tracking number which will be \nadded to the postbox when known.\n\nIf the value is omitted or empty when a postbox is created with the type \"POST\"\npost_send_type_standard will be used.\n\nFor postbox with a different type than \"POST\" this field will hold a empty string.\n",
+          "enum": [
+            "post_send_type_standard",
+            "post_send_type_registered",
+            "post_send_type_registered_and_personal",
+            "post_send_type_registered_and_receipt",
+            "post_send_type_registered_throwin",
+            "post_send_type_prio"
+          ]
+        }
+      }
+    },
+    "PostBox": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "document_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "to": {
+          "type": "string",
+          "example": "example@easybill.de"
+        },
+        "cc": {
+          "type": "string",
+          "example": null
+        },
+        "from": {
+          "type": "string",
+          "example": "example@easybill.de"
+        },
+        "subject": {
+          "type": "string",
+          "example": "Invoice"
+        },
+        "message": {
+          "type": "string",
+          "example": "Dear Mr. ..."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2019-02-07"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-02-07 11:29:28"
+        },
+        "processed_at": {
+          "type": "string",
+          "format": "date-time",
+          "example": null
+        },
+        "send_by_self": {
+          "type": "boolean",
+          "example": false
+        },
+        "send_with_attachment": {
+          "type": "boolean",
+          "example": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "FAX",
+            "EMAIL",
+            "POST"
+          ],
+          "example": "EMAIL"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "WAITING",
+            "PREPARE",
+            "ERROR",
+            "OK",
+            "PROCESSING"
+          ]
+        },
+        "status_msg": {
+          "type": "string",
+          "example": null
+        },
+        "login_id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "document_file_type": {
+          "type": "string",
+          "enum": [
+            "default",
+            "zugferd1",
+            "zugferd2",
+            "xrechnung",
+            "xrechnung_xml"
+          ],
+          "x-nullable": true
+        },
+        "post_send_type": {
+          "type": "string",
+          "example": "post_send_type_standard",
+          "description": "This value indicates what method is used when the document is send via mail.\nThe different types are offered by the german post as additional services.\nThe registered mail options will include a tracking number which will be \nadded to the postbox when known.\n\nIf the value is omitted or empty when a postbox is created with the type \"POST\"\npost_send_type_standard will be used.\n\nFor postbox with a different type than \"POST\" this field will hold a empty string.\n",
+          "enum": [
+            "post_send_type_standard",
+            "post_send_type_registered",
+            "post_send_type_registered_and_personal",
+            "post_send_type_registered_and_receipt",
+            "post_send_type_registered_throwin",
+            "post_send_type_prio"
+          ]
+        },
+        "tracking_identifier": {
+          "readOnly": true,
+          "type": "string",
+          "example": "DE1234567890",
+          "description": "If the document is send with one of the registered send types stated for post_send_type, a tracking identifier\nwill be added to the postbox at a later point when the tracking identifier is provided\nby our service partner. \n"
+        }
+      }
+    },
+    "PostBoxes": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PostBox"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "SEPAPayment": {
+      "type": "object",
+      "required": [
+        "document_id",
+        "debitor_name",
+        "debitor_iban",
+        "mandate_id",
+        "mandate_date_of_signature",
+        "local_instrument",
+        "sequence_type",
+        "amount",
+        "reference"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "description": "Amount in cents (e.g. \"150\" = 1.50€)",
+          "example": 10000
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "example": "2019-02-01 11:16:52"
+        },
+        "creditor_bic": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null,
+          "description": "If type is DEBIT, this field is overwritten with the selected bank account data on export."
+        },
+        "creditor_iban": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "DE12345678901234567890",
+          "description": "Mandatory if type is CREDIT. If type is DEBIT, this field is overwritten with the selected bank account data on export."
+        },
+        "creditor_name": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "Easybill GmbH",
+          "description": "Mandatory if type is CREDIT. If type is DEBIT, this field is overwritten with the selected bank account data on export."
+        },
+        "debitor_bic": {
+          "type": "string",
+          "x-nullable": true,
+          "default": null,
+          "example": null,
+          "description": "If type is CREDIT, this field is overwritten with the selected bank account data on export."
+        },
+        "debitor_iban": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "DE12345678901234567890",
+          "description": "Mandatory if type is DEBIT. If type is CREDIT, this field is overwritten with the selected bank account data on export."
+        },
+        "debitor_name": {
+          "type": "string",
+          "x-nullable": true,
+          "example": "Easybill GmbH",
+          "description": "Mandatory if type is DEBIT. If type is CREDIT, this field is overwritten with the selected bank account data on export."
+        },
+        "debitor_address_line_1": {
+          "type": "string",
+          "maxLength": 70,
+          "example": "Bahnhofstr. 1",
+          "description": "Mandatory if type is DEBIT and the debitor's IBAN belongs to a country outside the EEA"
+        },
+        "debitor_address_line2": {
+          "type": "string",
+          "maxLength": 70,
+          "example": "8001 Zürich",
+          "description": "string"
+        },
+        "debitor_country": {
+          "type": "string",
+          "maxLength": 2,
+          "example": "CH",
+          "description": "Mandatory if type is DEBIT and the debitor's IBAN belongs to a country outside the EEA"
+        },
+        "document_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "export_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true,
+          "default": null,
+          "description": "If a date is set, this record is marked as exported",
+          "example": null
+        },
+        "export_error": {
+          "type": "string",
+          "example": null,
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "local_instrument": {
+          "type": "string",
+          "enum": [
+            "CORE",
+            "COR1",
+            "B2B"
+          ],
+          "description": "CORE: SEPA Core Direct Debit<br/> COR1: SEPA-Basislastschrift COR1<br/> B2B: SEPA Business to Business Direct Debit"
+        },
+        "mandate_date_of_signature": {
+          "type": "string",
+          "format": "date",
+          "example": "2019-02-01"
+        },
+        "mandate_id": {
+          "type": "string",
+          "maxLength": 34,
+          "example": "001"
+        },
+        "reference": {
+          "type": "string",
+          "maxLength": 35,
+          "example": "X000000001"
+        },
+        "remittance_information": {
+          "type": "string",
+          "maxLength": 140,
+          "x-nullable": true,
+          "default": null,
+          "example": null
+        },
+        "requested_at": {
+          "type": "string",
+          "format": "date",
+          "default": "Today's date",
+          "description": "Booking date"
+        },
+        "sequence_type": {
+          "type": "string",
+          "enum": [
+            "FRST",
+            "OOFF",
+            "FNAL",
+            "RCUR"
+          ],
+          "description": "FRST: Erstlastschrift<br/> RCUR: Folgelastschrift<br/> OOFF: Einmallastschrift<br/> FNAL: Letztmalige Lastschrift"
+        },
+        "updated_at": {
+          "example": "2018-01-01 23:23:45",
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "DEBIT",
+            "CREDIT"
+          ],
+          "default": "DEBIT"
+        }
+      }
+    },
+    "SEPAPayments": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SEPAPayment"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "WebHook": {
+      "type": "object",
+      "required": [
+        "url",
+        "content_type",
+        "secret",
+        "events",
+        "description"
+      ],
+      "properties": {
+        "content_type": {
+          "type": "string",
+          "enum": [
+            "form",
+            "json"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "example": "My Webhook"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "uniqueItems": true,
+            "enum": [
+              "document.create",
+              "document.update",
+              "document.completed",
+              "document.deleted",
+              "document.payment_add",
+              "document.payment_delete",
+              "customer.create",
+              "customer.update",
+              "customer.delete",
+              "contact.create",
+              "contact.update",
+              "contact.delete",
+              "position.create",
+              "position.update",
+              "position.delete",
+              "postbox.create",
+              "postbox.update",
+              "postbox.delete",
+              "postbox.sent"
+            ]
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "is_active": {
+          "type": "boolean",
+          "default": false
+        },
+        "last_response": {
+          "readOnly": true,
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true,
+              "example": "2019-02-01 11:16:52"
+            },
+            "code": {
+              "type": "integer",
+              "readOnly": true,
+              "example": 204
+            },
+            "response": {
+              "type": "string",
+              "readOnly": true,
+              "example": ""
+            }
+          }
+        },
+        "secret": {
+          "type": "string",
+          "example": ""
+        },
+        "url": {
+          "type": "string",
+          "example": "https://..."
+        }
+      }
+    },
+    "WebHooks": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WebHook"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PDFTemplate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "INVOICE-DE",
+          "example": "INVOICE-DE"
+        },
+        "name": {
+          "type": "string",
+          "default": "Default template",
+          "example": "Default template"
+        },
+        "pdf_template": {
+          "type": "string",
+          "default": "DE",
+          "example": "DE"
+        },
+        "document_type": {
+          "type": "string",
+          "default": "INVOICE",
+          "example": "INVOICE"
+        }
+      }
+    },
+    "PDFTemplates": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PDFTemplate"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Discount": {
+      "type": "object",
+      "required": [
+        "customer_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "customer_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount": {
+          "type": "integer",
+          "default": 0,
+          "example": 10,
+          "description": "The discount value depending on \"discount_type\""
+        },
+        "discount_type": {
+          "type": "string",
+          "default": "PERCENT",
+          "enum": [
+            "AMOUNT",
+            "PERCENT",
+            "QUANTITY",
+            "FIX"
+          ],
+          "description": "AMOUNT subtracts the value in \"discount\" from the total<br/> QUANTITY subtracts the value in \"discount\" multiplied by quantity<br/> PERCENT uses the value in \"discount\" as a percentage<br/> FIX sets the value in \"discount\" as the new price"
+        }
+      }
+    },
+    "DiscountPosition": {
+      "type": "object",
+      "required": [
+        "position_id"
+      ],
+      "properties": {
+        "position_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Discount"
+        }
+      ]
+    },
+    "DiscountPositions": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DiscountPosition"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "DiscountPositionGroup": {
+      "type": "object",
+      "required": [
+        "position_group_id"
+      ],
+      "properties": {
+        "position_group_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Discount"
+        }
+      ]
+    },
+    "DiscountPositionGroups": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DiscountPositionGroup"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Max"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Musterfrau"
+        },
+        "display_name": {
+          "type": "string",
+          "readOnly": true,
+          "example": "Max Musterfrau"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+4923489342"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@easybill.de"
+        },
+        "email_signature": {
+          "type": "string",
+          "example": null
+        },
+        "login_type": {
+          "type": "string",
+          "default": "ASSISTANT",
+          "enum": [
+            "ADMIN",
+            "ASSISTANT"
+          ]
+        },
+        "locale": {
+          "type": "string",
+          "example": "de"
+        },
+        "time_zone": {
+          "type": "string",
+          "example": "Europe/Berlin"
+        },
+        "security": {
+          "$ref": "#/definitions/LoginSecurity"
+        }
+      }
+    },
+    "Logins": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "SerialNumber": {
+      "type": "object",
+      "required": [
+        "serial_number",
+        "position_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "serial_number": {
+          "example": "DHEZ-DHSNR-2344D-FFW",
+          "type": "string"
+        },
+        "position_id": {
+          "type": "integer",
+          "format": "int6"
+        },
+        "document_id": {
+          "example": null,
+          "x-nullable": true,
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "document_position_id": {
+          "example": null,
+          "x-nullable": true,
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "used_at": {
+          "example": null,
+          "x-nullable": true,
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true
+        },
+        "created_at": {
+          "example": "2018-01-01 23:23:45",
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true
+        }
+      }
+    },
+    "SerialNumbers": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SerialNumber"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Stock": {
+      "type": "object",
+      "required": [
+        "stock_count",
+        "position_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "note": {
+          "type": "string",
+          "example": "Correction for stock count of the Entry from 11/01/2017"
+        },
+        "stock_count": {
+          "example": 666,
+          "type": "integer",
+          "format": "int64"
+        },
+        "position_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "document_id": {
+          "example": null,
+          "x-nullable": true,
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "document_position_id": {
+          "example": null,
+          "x-nullable": true,
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "stored_at": {
+          "x-nullable": true,
+          "type": "string",
+          "format": "datetime",
+          "example": "2017-04-11 13:00:00"
+        },
+        "created_at": {
+          "example": "2018-01-01 23:23:45",
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true
+        },
+        "updated_at": {
+          "example": "2018-01-01 23:23:45",
+          "type": "string",
+          "format": "datetime",
+          "readOnly": true
+        }
+      }
+    },
+    "Stocks": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/List"
+        },
+        {
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Stock"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "LoginSecurity": {
+      "type": "object",
+      "description": "This object is only displayed if your request the login resource as an admin. Otherwise this property will be null.",
+      "properties": {
+        "two_factor_enabled": {
+          "type": "boolean",
+          "readOnly": true,
+          "default": false,
+          "description": "Shows if the login has two factor enabled for the login process"
+        },
+        "recovery_codes_enabled": {
+          "type": "boolean",
+          "readOnly": true,
+          "default": false,
+          "description": "Shows if the login has recovery codes enabled to bypass two factor"
+        },
+        "notify_on_new_login_enabled": {
+          "type": "boolean",
+          "readOnly": true,
+          "default": true,
+          "description": "Shows if the login has enabled to be notified if a new login is made from an unknown device."
+        }
+      }
+    }
+  }
+}
