@@ -5,5 +5,5 @@ make:
 	composer dump-autoload
 
 cs-fix:
-	./vendor/bin/php-cs-fixer fix ./src --config .php_cs.dist
-	./vendor/bin/php-cs-fixer fix ./examples --config .php_cs.dist
+	./vendor/bin/php-cs-fixer fix ./src --config .php-cs-fixer.dist.php
+	./vendor/bin/php-cs-fixer fix ./examples --config .php-cs-fixer.dist.php
