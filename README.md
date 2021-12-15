@@ -27,7 +27,11 @@ print_r($result);
 
 ## More examples
 
-Check the **examples** folder.
+Check the **examples** folder and run:
+
+```shell
+API_KEY=<your_api_key> php examples/customers_01_load-list.php
+```
 
 ## Documentation
 

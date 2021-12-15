@@ -1,13 +1,15 @@
 <?php
 
-require_once '../vendor/autoload.php';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use easybill\SDK\Client;
 use easybill\SDK\Endpoint;
 
-$docID = 'Your docID';
+$client = new Client(new Endpoint(getenv('API_KEY')));
 
-$client = new Client(new Endpoint('... your API key ...'));
+$docID = 'Your docID';
 
 $result = $client->request('GET', "documents/{$docID}/pdf", null, true);
 
