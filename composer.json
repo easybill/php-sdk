@@ -33,7 +33,11 @@
     "nette/php-generator": "^3.6"
   },
   "scripts": {
-    "sdk:models": "php generators/models.php",
+    "sdk:models": "@php generators/models.php",
     "sdk:cs-fix": "./vendor/bin/php-cs-fixer fix"
+  },
+  "scripts-descriptions": {
+    "sdk:models": "Gnerate models from swagger.json file.",
+    "sdk:cs-fix": "Run php-cs-fixer to reformat php files."
   }
 }
