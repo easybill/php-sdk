@@ -23,8 +23,6 @@ class DocumentTest extends TestCase
         $position->setNumber('31337');
         $position->setDescription('Foobar is not Barfoo!');
 
-
         static::assertSame(['items' => [['type' => 'POSITION', 'number' => '31337', 'description' => 'Foobar is not Barfoo!']]], $document->toArray());
-
     }
 }
