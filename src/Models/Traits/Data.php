@@ -8,7 +8,7 @@ trait Data
 {
     protected array $data = [];
 
-    protected function callToArray(mixed $val): mixed {
+    protected function toArrayMap(mixed $val): mixed {
         if ($val instanceof ToArrayInterface) {
             return $val->toArray();
         }
@@ -18,7 +18,7 @@ trait Data
         }
 
         if (is_array($val)) {
-            return array_map(fn($val1) => $this->callToArray($val1), $val);
+            return array_map(fn($val1) => $this->toArrayMap($val1), $val);
         }
 
         return $val;
@@ -26,7 +26,7 @@ trait Data
 
     public function toArray(): array
     {
-        return array_map(fn($val) => $this->callToArray($val), $this->data);
+        return array_map(fn($val) => $this->toArrayMap($val), $this->data);
     }
 
     protected function attr(string $key): mixed
