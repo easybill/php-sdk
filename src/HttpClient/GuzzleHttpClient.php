@@ -3,9 +3,9 @@
 namespace easybill\SDK\HttpClient;
 
 use easybill\SDK\HttpClientInterface;
+use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Client;
 
 class GuzzleHttpClient implements HttpClientInterface
 {

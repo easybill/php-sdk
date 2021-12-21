@@ -6,6 +6,10 @@ use easybill\SDK\Models\Position;
 use easybill\SDK\Models\PositionExportIdentifierExtended;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PositionTest extends TestCase
 {
     public function testToArray(): void

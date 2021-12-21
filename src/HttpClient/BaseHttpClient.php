@@ -35,9 +35,10 @@ class BaseHttpClient implements HttpClientInterface
 
             return $res;
         } catch (ClientException $clientException) {
-            if ($clientException->getResponse()->getStatusCode() === 429) {
+            if (429 === $clientException->getResponse()->getStatusCode()) {
                 // Too Many Requests, wait and try again.
                 sleep(30);
+
                 return $this->send($request, $options);
             }
 

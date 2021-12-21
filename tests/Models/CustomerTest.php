@@ -5,6 +5,10 @@ namespace easybill\SDK\Tests\Models;
 use easybill\SDK\Models\Customer;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class CustomerTest extends TestCase
 {
     public function testToArray(): void
