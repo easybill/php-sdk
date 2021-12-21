@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Contact
+class Contact implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setCity(string $city): void
@@ -25,7 +23,7 @@ class Contact
 
     public function getCity(): string
     {
-        return $this->data['city'];
+        return $this->get('city');
     }
 
     public function setState(string $state): void
@@ -35,7 +33,7 @@ class Contact
 
     public function getState(): string
     {
-        return $this->data['state'];
+        return $this->get('state');
     }
 
     public function setCompanyName(?string $company_name): void
@@ -45,7 +43,7 @@ class Contact
 
     public function getCompanyName(): ?string
     {
-        return $this->data['company_name'];
+        return $this->get('company_name');
     }
 
     /**
@@ -58,7 +56,7 @@ class Contact
 
     public function getCountry(): string
     {
-        return $this->data['country'];
+        return $this->get('country');
     }
 
     public function setDepartment(?string $department): void
@@ -68,7 +66,7 @@ class Contact
 
     public function getDepartment(): ?string
     {
-        return $this->data['department'];
+        return $this->get('department');
     }
 
     public function setEmails(array $emails): void
@@ -81,7 +79,7 @@ class Contact
      */
     public function getEmails(): array
     {
-        return $this->data['emails'];
+        return $this->get('emails');
     }
 
     public function setFax(?string $fax): void
@@ -91,7 +89,7 @@ class Contact
 
     public function getFax(): ?string
     {
-        return $this->data['fax'];
+        return $this->get('fax');
     }
 
     public function setFirstName(?string $first_name): void
@@ -101,12 +99,12 @@ class Contact
 
     public function getFirstName(): ?string
     {
-        return $this->data['first_name'];
+        return $this->get('first_name');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setLastName(?string $last_name): void
@@ -116,12 +114,12 @@ class Contact
 
     public function getLastName(): ?string
     {
-        return $this->data['last_name'];
+        return $this->get('last_name');
     }
 
     public function getLoginId(): int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setMobile(?string $mobile): void
@@ -131,7 +129,7 @@ class Contact
 
     public function getMobile(): ?string
     {
-        return $this->data['mobile'];
+        return $this->get('mobile');
     }
 
     public function setNote(?string $note): void
@@ -141,7 +139,7 @@ class Contact
 
     public function getNote(): ?string
     {
-        return $this->data['note'];
+        return $this->get('note');
     }
 
     public function setPersonal(bool $personal): void
@@ -151,7 +149,7 @@ class Contact
 
     public function getPersonal(): bool
     {
-        return $this->data['personal'];
+        return $this->get('personal');
     }
 
     public function setPhone1(?string $phone_1): void
@@ -161,7 +159,7 @@ class Contact
 
     public function getPhone1(): ?string
     {
-        return $this->data['phone_1'];
+        return $this->get('phone_1');
     }
 
     public function setPhone2(?string $phone_2): void
@@ -171,7 +169,7 @@ class Contact
 
     public function getPhone2(): ?string
     {
-        return $this->data['phone_2'];
+        return $this->get('phone_2');
     }
 
     /**
@@ -184,7 +182,7 @@ class Contact
 
     public function getSalutation(): int
     {
-        return $this->data['salutation'];
+        return $this->get('salutation');
     }
 
     public function setStreet(string $street): void
@@ -194,7 +192,7 @@ class Contact
 
     public function getStreet(): string
     {
-        return $this->data['street'];
+        return $this->get('street');
     }
 
     public function setSuffix1(?string $suffix_1): void
@@ -204,7 +202,7 @@ class Contact
 
     public function getSuffix1(): ?string
     {
-        return $this->data['suffix_1'];
+        return $this->get('suffix_1');
     }
 
     public function setSuffix2(?string $suffix_2): void
@@ -214,7 +212,7 @@ class Contact
 
     public function getSuffix2(): ?string
     {
-        return $this->data['suffix_2'];
+        return $this->get('suffix_2');
     }
 
     public function setTitle(?string $title): void
@@ -224,7 +222,7 @@ class Contact
 
     public function getTitle(): ?string
     {
-        return $this->data['title'];
+        return $this->get('title');
     }
 
     public function setZipCode(?string $zip_code): void
@@ -234,16 +232,16 @@ class Contact
 
     public function getZipCode(): ?string
     {
-        return $this->data['zip_code'];
+        return $this->get('zip_code');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->data['updated_at'];
+        return $this->get('updated_at');
     }
 }

@@ -5,81 +5,80 @@ declare(strict_types=1);
 namespace easybill\SDK\Models;
 
 /**
- * Auto-generated with `composer sdk:models`.
+ * Auto-generated with `composer sdk:models`
+ * This information comes from the customer which can be set with customer_id.
  */
-class DocumentAddress
+class DocumentAddress implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getSalutation(): int
     {
-        return $this->data['salutation'];
+        return $this->get('salutation');
     }
 
     public function getPersonal(): bool
     {
-        return $this->data['personal'];
+        return $this->get('personal');
     }
 
     public function getTitle(): string
     {
-        return $this->data['title'];
+        return $this->get('title');
     }
 
     public function getFirstName(): string
     {
-        return $this->data['first_name'];
+        return $this->get('first_name');
     }
 
     public function getLastName(): string
     {
-        return $this->data['last_name'];
+        return $this->get('last_name');
     }
 
     public function getSuffix1(): string
     {
-        return $this->data['suffix_1'];
+        return $this->get('suffix_1');
     }
 
     public function getSuffix2(): string
     {
-        return $this->data['suffix_2'];
+        return $this->get('suffix_2');
     }
 
     public function getCompanyName(): string
     {
-        return $this->data['company_name'];
+        return $this->get('company_name');
     }
 
     public function getStreet(): string
     {
-        return $this->data['street'];
+        return $this->get('street');
     }
 
     public function getZipCode(): string
     {
-        return $this->data['zip_code'];
+        return $this->get('zip_code');
     }
 
     public function getCity(): string
     {
-        return $this->data['city'];
+        return $this->get('city');
     }
 
     public function getState(): string
     {
-        return $this->data['state'];
+        return $this->get('state');
     }
 
     public function getCountry(): string
     {
-        return $this->data['country'];
+        return $this->get('country');
     }
 }

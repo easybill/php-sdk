@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Stock
+class Stock implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setNote(string $note): void
@@ -30,7 +28,7 @@ class Stock
 
     public function getNote(): string
     {
-        return $this->data['note'];
+        return $this->get('note');
     }
 
     public function setStockCount(int $stock_count): void
@@ -40,7 +38,7 @@ class Stock
 
     public function getStockCount(): int
     {
-        return $this->data['stock_count'];
+        return $this->get('stock_count');
     }
 
     public function setPositionId(int $position_id): void
@@ -50,17 +48,17 @@ class Stock
 
     public function getPositionId(): int
     {
-        return $this->data['position_id'];
+        return $this->get('position_id');
     }
 
     public function getDocumentId(): ?int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     public function getDocumentPositionId(): ?int
     {
-        return $this->data['document_position_id'];
+        return $this->get('document_position_id');
     }
 
     public function setStoredAt(?string $stored_at): void
@@ -70,16 +68,16 @@ class Stock
 
     public function getStoredAt(): ?string
     {
-        return $this->data['stored_at'];
+        return $this->get('stored_at');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->data['updated_at'];
+        return $this->get('updated_at');
     }
 }

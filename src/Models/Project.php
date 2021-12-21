@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Project
+class Project implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     /**
@@ -28,7 +26,7 @@ class Project
 
     public function getBudgetAmount(): int
     {
-        return $this->data['budget_amount'];
+        return $this->get('budget_amount');
     }
 
     /**
@@ -41,7 +39,7 @@ class Project
 
     public function getBudgetTime(): int
     {
-        return $this->data['budget_time'];
+        return $this->get('budget_time');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -51,7 +49,7 @@ class Project
 
     public function getCustomerId(): ?int
     {
-        return $this->data['customer_id'];
+        return $this->get('customer_id');
     }
 
     /**
@@ -64,12 +62,12 @@ class Project
 
     public function getHourlyRate(): float
     {
-        return $this->data['hourly_rate'];
+        return $this->get('hourly_rate');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     /**
@@ -82,7 +80,7 @@ class Project
 
     public function getLoginId(): ?int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setName(string $name): void
@@ -92,7 +90,7 @@ class Project
 
     public function getName(): string
     {
-        return $this->data['name'];
+        return $this->get('name');
     }
 
     public function setNote(?string $note): void
@@ -102,7 +100,7 @@ class Project
 
     public function getNote(): ?string
     {
-        return $this->data['note'];
+        return $this->get('note');
     }
 
     public function setStatus(string $status): void
@@ -112,7 +110,7 @@ class Project
 
     public function getStatus(): string
     {
-        return $this->data['status'];
+        return $this->get('status');
     }
 
     public function setDueAt(?string $due_at): void
@@ -122,7 +120,7 @@ class Project
 
     public function getDueAt(): ?string
     {
-        return $this->data['due_at'];
+        return $this->get('due_at');
     }
 
     public function setBudgetNotifyFrequency(string $budget_notify_frequency): void
@@ -132,16 +130,16 @@ class Project
 
     public function getBudgetNotifyFrequency(): string
     {
-        return $this->data['budget_notify_frequency'];
+        return $this->get('budget_notify_frequency');
     }
 
     public function getConsumedTime(): int
     {
-        return $this->data['consumed_time'];
+        return $this->get('consumed_time');
     }
 
     public function getConsumedAmount(): int
     {
-        return $this->data['consumed_amount'];
+        return $this->get('consumed_amount');
     }
 }

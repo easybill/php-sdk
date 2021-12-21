@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Document
+class Document implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getAddress(): DocumentAddress
     {
-        return $this->data['address'];
+        return $this->getInstance('address', \easybill\SDK\Models\DocumentAddress::class);
     }
 
     /**
@@ -28,22 +26,22 @@ class Document
      */
     public function getAttachmentIds(): array
     {
-        return $this->data['attachment_ids'];
+        return $this->get('attachment_ids');
     }
 
     public function getLabelAddress(): DocumentAddress
     {
-        return $this->data['label_address'];
+        return $this->getInstance('label_address', \easybill\SDK\Models\DocumentAddress::class);
     }
 
     public function getAmount(): int
     {
-        return $this->data['amount'];
+        return $this->get('amount');
     }
 
     public function getAmountNet(): int
     {
-        return $this->data['amount_net'];
+        return $this->get('amount_net');
     }
 
     public function setBankDebitForm(?string $bank_debit_form): void
@@ -53,12 +51,12 @@ class Document
 
     public function getBankDebitForm(): ?string
     {
-        return $this->data['bank_debit_form'];
+        return $this->get('bank_debit_form');
     }
 
     public function getBillingCountry(): string
     {
-        return $this->data['billing_country'];
+        return $this->get('billing_country');
     }
 
     /**
@@ -71,12 +69,12 @@ class Document
 
     public function getCalcVatFrom(): int
     {
-        return $this->data['calc_vat_from'];
+        return $this->get('calc_vat_from');
     }
 
     public function getCancelId(): int
     {
-        return $this->data['cancel_id'];
+        return $this->get('cancel_id');
     }
 
     public function setCashAllowance(?float $cash_allowance): void
@@ -86,7 +84,7 @@ class Document
 
     public function getCashAllowance(): ?float
     {
-        return $this->data['cash_allowance'];
+        return $this->get('cash_allowance');
     }
 
     public function setCashAllowanceDays(?int $cash_allowance_days): void
@@ -96,7 +94,7 @@ class Document
 
     public function getCashAllowanceDays(): ?int
     {
-        return $this->data['cash_allowance_days'];
+        return $this->get('cash_allowance_days');
     }
 
     public function setCashAllowanceText(?string $cash_allowance_text): void
@@ -106,7 +104,7 @@ class Document
 
     public function getCashAllowanceText(): ?string
     {
-        return $this->data['cash_allowance_text'];
+        return $this->get('cash_allowance_text');
     }
 
     public function setContactId(?int $contact_id): void
@@ -116,7 +114,7 @@ class Document
 
     public function getContactId(): ?int
     {
-        return $this->data['contact_id'];
+        return $this->get('contact_id');
     }
 
     public function setContactLabel(string $contact_label): void
@@ -126,7 +124,7 @@ class Document
 
     public function getContactLabel(): string
     {
-        return $this->data['contact_label'];
+        return $this->get('contact_label');
     }
 
     public function setContactText(string $contact_text): void
@@ -136,12 +134,12 @@ class Document
 
     public function getContactText(): string
     {
-        return $this->data['contact_text'];
+        return $this->get('contact_text');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function setCurrency(string $currency): void
@@ -151,7 +149,7 @@ class Document
 
     public function getCurrency(): string
     {
-        return $this->data['currency'];
+        return $this->get('currency');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -161,12 +159,12 @@ class Document
 
     public function getCustomerId(): ?int
     {
-        return $this->data['customer_id'];
+        return $this->get('customer_id');
     }
 
     public function getCustomerSnapshot(): CustomerSnapshot
     {
-        return $this->data['customer_snapshot'];
+        return $this->getInstance('customer_snapshot', \easybill\SDK\Models\CustomerSnapshot::class);
     }
 
     public function setDiscount(?string $discount): void
@@ -176,7 +174,7 @@ class Document
 
     public function getDiscount(): ?string
     {
-        return $this->data['discount'];
+        return $this->get('discount');
     }
 
     public function setDiscountType(?string $discount_type): void
@@ -186,7 +184,7 @@ class Document
 
     public function getDiscountType(): ?string
     {
-        return $this->data['discount_type'];
+        return $this->get('discount_type');
     }
 
     public function setDocumentDate(string $document_date): void
@@ -196,17 +194,17 @@ class Document
 
     public function getDocumentDate(): string
     {
-        return $this->data['document_date'];
+        return $this->get('document_date');
     }
 
     public function getDueDate(): string
     {
-        return $this->data['due_date'];
+        return $this->get('due_date');
     }
 
     public function getEditedAt(): string
     {
-        return $this->data['edited_at'];
+        return $this->get('edited_at');
     }
 
     public function setExternalId(?string $external_id): void
@@ -216,7 +214,7 @@ class Document
 
     public function getExternalId(): ?string
     {
-        return $this->data['external_id'];
+        return $this->get('external_id');
     }
 
     public function setReplicaUrl(?string $replica_url): void
@@ -226,7 +224,7 @@ class Document
 
     public function getReplicaUrl(): ?string
     {
-        return $this->data['replica_url'];
+        return $this->get('replica_url');
     }
 
     /**
@@ -239,7 +237,7 @@ class Document
 
     public function getGracePeriod(): ?int
     {
-        return $this->data['grace_period'];
+        return $this->get('grace_period');
     }
 
     /**
@@ -252,12 +250,12 @@ class Document
 
     public function getDueInDays(): ?int
     {
-        return $this->data['due_in_days'];
+        return $this->get('due_in_days');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setIsArchive(bool $is_archive): void
@@ -267,12 +265,12 @@ class Document
 
     public function getIsArchive(): bool
     {
-        return $this->data['is_archive'];
+        return $this->get('is_archive');
     }
 
     public function getIsDraft(): bool
     {
-        return $this->data['is_draft'];
+        return $this->get('is_draft');
     }
 
     /**
@@ -285,12 +283,12 @@ class Document
 
     public function getIsReplica(): bool
     {
-        return $this->data['is_replica'];
+        return $this->get('is_replica');
     }
 
     public function getIsCold(): bool
     {
-        return $this->data['is_cold'];
+        return $this->get('is_cold');
     }
 
     /**
@@ -303,7 +301,7 @@ class Document
 
     public function getIsOss(): bool
     {
-        return $this->data['is_oss'];
+        return $this->get('is_oss');
     }
 
     /**
@@ -316,7 +314,7 @@ class Document
 
     public function getColdstorageDueDate(): ?string
     {
-        return $this->data['coldstorage_due_date'];
+        return $this->get('coldstorage_due_date');
     }
 
     /**
@@ -324,7 +322,7 @@ class Document
      */
     public function getItemNotes(): array
     {
-        return $this->data['item_notes'];
+        return $this->get('item_notes');
     }
 
     public function setItems(array $items): void
@@ -337,12 +335,12 @@ class Document
      */
     public function getItems(): array
     {
-        return $this->data['items'];
+        return $this->get('items');
     }
 
     public function getLastPostboxId(): int
     {
-        return $this->data['last_postbox_id'];
+        return $this->get('last_postbox_id');
     }
 
     /**
@@ -355,7 +353,7 @@ class Document
 
     public function getLoginId(): int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setNumber(?string $number): void
@@ -365,7 +363,7 @@ class Document
 
     public function getNumber(): ?string
     {
-        return $this->data['number'];
+        return $this->get('number');
     }
 
     public function setOrderNumber(string $order_number): void
@@ -375,7 +373,7 @@ class Document
 
     public function getOrderNumber(): string
     {
-        return $this->data['order_number'];
+        return $this->get('order_number');
     }
 
     public function setBuyerReference(string $buyer_reference): void
@@ -385,22 +383,22 @@ class Document
 
     public function getBuyerReference(): string
     {
-        return $this->data['buyer_reference'];
+        return $this->get('buyer_reference');
     }
 
     public function getPaidAmount(): int
     {
-        return $this->data['paid_amount'];
+        return $this->get('paid_amount');
     }
 
     public function getPaidAt(): string
     {
-        return $this->data['paid_at'];
+        return $this->get('paid_at');
     }
 
     public function getPdfPages(): int
     {
-        return $this->data['pdf_pages'];
+        return $this->get('pdf_pages');
     }
 
     /**
@@ -413,7 +411,7 @@ class Document
 
     public function getPdfTemplate(): string
     {
-        return $this->data['pdf_template'];
+        return $this->get('pdf_template');
     }
 
     public function setProjectId(?int $project_id): void
@@ -423,7 +421,7 @@ class Document
 
     public function getProjectId(): ?int
     {
-        return $this->data['project_id'];
+        return $this->get('project_id');
     }
 
     /**
@@ -436,7 +434,7 @@ class Document
 
     public function getRecurringOptions(): DocumentRecurring
     {
-        return $this->data['recurring_options'];
+        return $this->getInstance('recurring_options', \easybill\SDK\Models\DocumentRecurring::class);
     }
 
     /**
@@ -449,7 +447,7 @@ class Document
 
     public function getRefId(): ?int
     {
-        return $this->data['ref_id'];
+        return $this->get('ref_id');
     }
 
     /**
@@ -462,7 +460,7 @@ class Document
 
     public function getServiceDate(): ServiceDate
     {
-        return $this->data['service_date'];
+        return $this->getInstance('service_date', \easybill\SDK\Models\ServiceDate::class);
     }
 
     public function setShippingCountry(?string $shipping_country): void
@@ -472,7 +470,7 @@ class Document
 
     public function getShippingCountry(): ?string
     {
-        return $this->data['shipping_country'];
+        return $this->get('shipping_country');
     }
 
     /**
@@ -485,7 +483,7 @@ class Document
 
     public function getStatus(): ?string
     {
-        return $this->data['status'];
+        return $this->get('status');
     }
 
     public function setText(string $text): void
@@ -495,7 +493,7 @@ class Document
 
     public function getText(): string
     {
-        return $this->data['text'];
+        return $this->get('text');
     }
 
     public function setTextPrefix(string $text_prefix): void
@@ -505,7 +503,7 @@ class Document
 
     public function getTextPrefix(): string
     {
-        return $this->data['text_prefix'];
+        return $this->get('text_prefix');
     }
 
     /**
@@ -518,7 +516,7 @@ class Document
 
     public function getTextTax(): ?string
     {
-        return $this->data['text_tax'];
+        return $this->get('text_tax');
     }
 
     public function setTitle(?string $title): void
@@ -528,7 +526,7 @@ class Document
 
     public function getTitle(): ?string
     {
-        return $this->data['title'];
+        return $this->get('title');
     }
 
     /**
@@ -541,7 +539,7 @@ class Document
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 
     /**
@@ -554,7 +552,7 @@ class Document
 
     public function getUseShippingAddress(): bool
     {
-        return $this->data['use_shipping_address'];
+        return $this->get('use_shipping_address');
     }
 
     public function setVatCountry(?string $vat_country): void
@@ -564,12 +562,12 @@ class Document
 
     public function getVatCountry(): ?string
     {
-        return $this->data['vat_country'];
+        return $this->get('vat_country');
     }
 
     public function getVatId(): string
     {
-        return $this->data['vat_id'];
+        return $this->get('vat_id');
     }
 
     public function setFulfillmentCountry(?string $fulfillment_country): void
@@ -579,7 +577,7 @@ class Document
 
     public function getFulfillmentCountry(): ?string
     {
-        return $this->data['fulfillment_country'];
+        return $this->get('fulfillment_country');
     }
 
     /**
@@ -592,6 +590,6 @@ class Document
 
     public function getVatOption(): ?string
     {
-        return $this->data['vat_option'];
+        return $this->get('vat_option');
     }
 }

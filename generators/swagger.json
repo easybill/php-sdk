@@ -4033,6 +4033,7 @@
       }
     },
     "CustomerSnapshot": {
+      "readOnly": true,
       "type": "object",
       "description": "A snapshot of the customer model which belongs to a document. This model is readonly and the state is final after finalization of the document. It's is identical to the state of the customer model at the time of finalization. Updates to the actual customer dataset won't affect this snapshot, however if you update the document the customer and therefore the customer snapshot may reflect a different state.",
       "allOf": [
@@ -4405,6 +4406,8 @@
     },
     "DocumentAddress": {
       "type": "object",
+      "readOnly": true,
+      "description": "This information comes from the customer which can be set with customer_id.",
       "properties": {
         "salutation": {
           "readOnly": true,
@@ -4657,8 +4660,6 @@
       "type": "object",
       "properties": {
         "address": {
-          "readOnly": true,
-          "description": "This information comes from the customer which can be set with customer_id.",
           "$ref": "#/definitions/DocumentAddress"
         },
         "attachment_ids": {
@@ -4671,8 +4672,6 @@
           }
         },
         "label_address": {
-          "readOnly": true,
-          "description": "This information comes from the customer which can be set with customer_id.",
           "$ref": "#/definitions/DocumentAddress"
         },
         "amount": {
@@ -4768,7 +4767,6 @@
           "example": null
         },
         "customer_snapshot": {
-          "readOnly": true,
           "$ref": "#/definitions/CustomerSnapshot"
         },
         "discount": {
@@ -4938,7 +4936,7 @@
         },
         "recurring_options": {
           "description": "This object is only available in document type RECURRING",
-           "$ref": "#/definitions/DocumentRecurring"
+          "$ref": "#/definitions/DocumentRecurring"
         },
         "ref_id": {
           "type": "integer",
@@ -5442,70 +5440,7 @@
           "description": "The FAS-Account is the four-digit revenue account, in which the revenue will be entered when doing the export to your tax consultant. In case you want to split your revenue to several revenue accounts, please talk to your tax consultant before, to guarantee an unobstructed use of the interface. For every revenue element, there are number ranges, which can be used. Please avoid using combinations of numbers, which can not be used by your tax consultant."
         },
         "export_identifier_extended": {
-          "type": "object",
-          "default": [],
-          "properties": {
-            "NULL": {
-              "example": "8400",
-              "description": "Umsatzsteuerpflichtig",
-              "x-nullable": true,
-              "default": null
-            },
-            "nStb": {
-              "example": "8338",
-              "description": "Nicht steuerbar (Drittland)",
-              "x-nullable": true,
-              "default": null
-            },
-            "nStbUstID": {
-              "example": "8339",
-              "description": "Nicht steuerbar (EU mit USt-IdNr.)",
-              "x-nullable": true,
-              "default": null
-            },
-            "nStbNoneUstID": {
-              "example": "8950",
-              "description": "Nicht steuerbar (EU ohne USt-IdNr.)",
-              "x-nullable": true,
-              "default": null
-            },
-            "nStbIm": {
-              "example": "8950",
-              "description": "Nicht steuerbarer Innenumsatz",
-              "x-nullable": true,
-              "default": null
-            },
-            "revc": {
-              "example": "8337",
-              "description": "Steuerschuldwechsel §13b (Inland)",
-              "x-nullable": true,
-              "default": null
-            },
-            "IG": {
-              "example": "8125",
-              "description": "Innergemeinschaftliche Lieferung",
-              "x-nullable": true,
-              "default": null
-            },
-            "AL": {
-              "example": "8120",
-              "description": "Ausfuhrlieferung",
-              "x-nullable": true,
-              "default": null
-            },
-            "sStfr": {
-              "example": "8100",
-              "description": "sonstige Steuerbefreiung",
-              "x-nullable": true,
-              "default": null
-            },
-            "smallBusiness": {
-              "example": "8195",
-              "description": "Kleinunternehmen (Keine MwSt.)",
-              "x-nullable": true,
-              "default": null
-            }
-          }
+          "$ref": "#/definitions/PositionExportIdentifierExtended"
         },
         "login_id": {
           "type": "integer",
@@ -5691,6 +5626,82 @@
           }
         }
       ]
+    },
+    "PositionExportIdentifierExtended": {
+      "type": "object",
+      "default": [],
+      "properties": {
+        "NULL": {
+          "type": "string",
+          "example": "8400",
+          "description": "Umsatzsteuerpflichtig",
+          "x-nullable": true,
+          "default": null
+        },
+        "nStb": {
+          "type": "string",
+          "example": "8338",
+          "description": "Nicht steuerbar (Drittland)",
+          "x-nullable": true,
+          "default": null
+        },
+        "nStbUstID": {
+          "type": "string",
+          "example": "8339",
+          "description": "Nicht steuerbar (EU mit USt-IdNr.)",
+          "x-nullable": true,
+          "default": null
+        },
+        "nStbNoneUstID": {
+          "type": "string",
+          "example": "8950",
+          "description": "Nicht steuerbar (EU ohne USt-IdNr.)",
+          "x-nullable": true,
+          "default": null
+        },
+        "nStbIm": {
+          "type": "string",
+          "example": "8950",
+          "description": "Nicht steuerbarer Innenumsatz",
+          "x-nullable": true,
+          "default": null
+        },
+        "revc": {
+          "type": "string",
+          "example": "8337",
+          "description": "Steuerschuldwechsel §13b (Inland)",
+          "x-nullable": true,
+          "default": null
+        },
+        "IG": {
+          "type": "string",
+          "example": "8125",
+          "description": "Innergemeinschaftliche Lieferung",
+          "x-nullable": true,
+          "default": null
+        },
+        "AL": {
+          "type": "string",
+          "example": "8120",
+          "description": "Ausfuhrlieferung",
+          "x-nullable": true,
+          "default": null
+        },
+        "sStfr": {
+          "type": "string",
+          "example": "8100",
+          "description": "sonstige Steuerbefreiung",
+          "x-nullable": true,
+          "default": null
+        },
+        "smallBusiness": {
+          "type": "string",
+          "example": "8195",
+          "description": "Kleinunternehmen (Keine MwSt.)",
+          "x-nullable": true,
+          "default": null
+        }
+      }
     },
     "PositionGroup": {
       "type": "object",
@@ -6473,26 +6484,7 @@
           "default": false
         },
         "last_response": {
-          "readOnly": true,
-          "type": "object",
-          "properties": {
-            "date": {
-              "type": "string",
-              "format": "date-time",
-              "readOnly": true,
-              "example": "2019-02-01 11:16:52"
-            },
-            "code": {
-              "type": "integer",
-              "readOnly": true,
-              "example": 204
-            },
-            "response": {
-              "type": "string",
-              "readOnly": true,
-              "example": ""
-            }
-          }
+          "$ref": "#/definitions/WebHookLastResponse"
         },
         "secret": {
           "type": "string",
@@ -6521,6 +6513,28 @@
           }
         }
       ]
+    },
+    "WebHookLastResponse": {
+      "type": "object",
+      "readOnly": true,
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "example": "2019-02-01 11:16:52"
+        },
+        "code": {
+          "type": "integer",
+          "readOnly": true,
+          "example": 204
+        },
+        "response": {
+          "type": "string",
+          "readOnly": true,
+          "example": ""
+        }
+      }
     },
     "PDFTemplate": {
       "type": "object",

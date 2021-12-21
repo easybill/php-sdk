@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class PostBox
+class PostBox implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setDocumentId(int $document_id): void
@@ -30,7 +28,7 @@ class PostBox
 
     public function getDocumentId(): int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     public function setTo(string $to): void
@@ -40,7 +38,7 @@ class PostBox
 
     public function getTo(): string
     {
-        return $this->data['to'];
+        return $this->get('to');
     }
 
     public function setCc(string $cc): void
@@ -50,7 +48,7 @@ class PostBox
 
     public function getCc(): string
     {
-        return $this->data['cc'];
+        return $this->get('cc');
     }
 
     public function setFrom(string $from): void
@@ -60,7 +58,7 @@ class PostBox
 
     public function getFrom(): string
     {
-        return $this->data['from'];
+        return $this->get('from');
     }
 
     public function setSubject(string $subject): void
@@ -70,7 +68,7 @@ class PostBox
 
     public function getSubject(): string
     {
-        return $this->data['subject'];
+        return $this->get('subject');
     }
 
     public function setMessage(string $message): void
@@ -80,7 +78,7 @@ class PostBox
 
     public function getMessage(): string
     {
-        return $this->data['message'];
+        return $this->get('message');
     }
 
     public function setDate(string $date): void
@@ -90,7 +88,7 @@ class PostBox
 
     public function getDate(): string
     {
-        return $this->data['date'];
+        return $this->get('date');
     }
 
     public function setCreatedAt(string $created_at): void
@@ -100,7 +98,7 @@ class PostBox
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function setProcessedAt(string $processed_at): void
@@ -110,7 +108,7 @@ class PostBox
 
     public function getProcessedAt(): string
     {
-        return $this->data['processed_at'];
+        return $this->get('processed_at');
     }
 
     public function setSendBySelf(bool $send_by_self): void
@@ -120,7 +118,7 @@ class PostBox
 
     public function getSendBySelf(): bool
     {
-        return $this->data['send_by_self'];
+        return $this->get('send_by_self');
     }
 
     public function setSendWithAttachment(bool $send_with_attachment): void
@@ -130,7 +128,7 @@ class PostBox
 
     public function getSendWithAttachment(): bool
     {
-        return $this->data['send_with_attachment'];
+        return $this->get('send_with_attachment');
     }
 
     public function setType(string $type): void
@@ -140,7 +138,7 @@ class PostBox
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 
     public function setStatus(string $status): void
@@ -150,7 +148,7 @@ class PostBox
 
     public function getStatus(): string
     {
-        return $this->data['status'];
+        return $this->get('status');
     }
 
     public function setStatusMsg(string $status_msg): void
@@ -160,12 +158,12 @@ class PostBox
 
     public function getStatusMsg(): string
     {
-        return $this->data['status_msg'];
+        return $this->get('status_msg');
     }
 
     public function getLoginId(): int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setDocumentFileType(?string $document_file_type): void
@@ -175,7 +173,7 @@ class PostBox
 
     public function getDocumentFileType(): ?string
     {
-        return $this->data['document_file_type'];
+        return $this->get('document_file_type');
     }
 
     /**
@@ -196,11 +194,11 @@ class PostBox
 
     public function getPostSendType(): string
     {
-        return $this->data['post_send_type'];
+        return $this->get('post_send_type');
     }
 
     public function getTrackingIdentifier(): string
     {
-        return $this->data['tracking_identifier'];
+        return $this->get('tracking_identifier');
     }
 }

@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class TimeTracking
+class TimeTracking implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setClearedAt(?string $cleared_at): void
@@ -25,12 +23,12 @@ class TimeTracking
 
     public function getClearedAt(): ?string
     {
-        return $this->data['cleared_at'];
+        return $this->get('cleared_at');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function setDateFromAt(?string $date_from_at): void
@@ -40,7 +38,7 @@ class TimeTracking
 
     public function getDateFromAt(): ?string
     {
-        return $this->data['date_from_at'];
+        return $this->get('date_from_at');
     }
 
     public function setDateThruAt(?string $date_thru_at): void
@@ -50,7 +48,7 @@ class TimeTracking
 
     public function getDateThruAt(): ?string
     {
-        return $this->data['date_thru_at'];
+        return $this->get('date_thru_at');
     }
 
     public function setDescription(string $description): void
@@ -60,7 +58,7 @@ class TimeTracking
 
     public function getDescription(): string
     {
-        return $this->data['description'];
+        return $this->get('description');
     }
 
     /**
@@ -73,12 +71,12 @@ class TimeTracking
 
     public function getHourlyRate(): float
     {
-        return $this->data['hourly_rate'];
+        return $this->get('hourly_rate');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setNote(?string $note): void
@@ -88,7 +86,7 @@ class TimeTracking
 
     public function getNote(): ?string
     {
-        return $this->data['note'];
+        return $this->get('note');
     }
 
     /**
@@ -101,7 +99,7 @@ class TimeTracking
 
     public function getNumber(): ?string
     {
-        return $this->data['number'];
+        return $this->get('number');
     }
 
     public function setPositionId(?int $position_id): void
@@ -111,7 +109,7 @@ class TimeTracking
 
     public function getPositionId(): ?int
     {
-        return $this->data['position_id'];
+        return $this->get('position_id');
     }
 
     public function setProjectId(?int $project_id): void
@@ -121,7 +119,7 @@ class TimeTracking
 
     public function getProjectId(): ?int
     {
-        return $this->data['project_id'];
+        return $this->get('project_id');
     }
 
     /**
@@ -134,7 +132,7 @@ class TimeTracking
 
     public function getLoginId(): ?int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     /**
@@ -147,6 +145,6 @@ class TimeTracking
 
     public function getTimerValue(): ?int
     {
-        return $this->data['timer_value'];
+        return $this->get('timer_value');
     }
 }

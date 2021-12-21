@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class CustomerGroup
+class CustomerGroup implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setName(string $name): void
@@ -25,7 +23,7 @@ class CustomerGroup
 
     public function getName(): string
     {
-        return $this->data['name'];
+        return $this->get('name');
     }
 
     public function setDescription(?string $description): void
@@ -35,7 +33,7 @@ class CustomerGroup
 
     public function getDescription(): ?string
     {
-        return $this->data['description'];
+        return $this->get('description');
     }
 
     /**
@@ -48,16 +46,16 @@ class CustomerGroup
 
     public function getNumber(): string
     {
-        return $this->data['number'];
+        return $this->get('number');
     }
 
     public function getDisplayName(): string
     {
-        return $this->data['display_name'];
+        return $this->get('display_name');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 }

@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Task
+class Task implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setCategory(?string $category): void
@@ -25,7 +23,7 @@ class Task
 
     public function getCategory(): ?string
     {
-        return $this->data['category'];
+        return $this->get('category');
     }
 
     /**
@@ -38,12 +36,12 @@ class Task
 
     public function getCategoryCustom(): ?string
     {
-        return $this->data['category_custom'];
+        return $this->get('category_custom');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -53,7 +51,7 @@ class Task
 
     public function getCustomerId(): ?int
     {
-        return $this->data['customer_id'];
+        return $this->get('customer_id');
     }
 
     public function setDescription(?string $description): void
@@ -63,7 +61,7 @@ class Task
 
     public function getDescription(): ?string
     {
-        return $this->data['description'];
+        return $this->get('description');
     }
 
     public function setDocumentId(?int $document_id): void
@@ -73,7 +71,7 @@ class Task
 
     public function getDocumentId(): ?int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     /**
@@ -86,17 +84,17 @@ class Task
 
     public function getEndAt(): ?string
     {
-        return $this->data['end_at'];
+        return $this->get('end_at');
     }
 
     public function getFinishAt(): ?string
     {
-        return $this->data['finish_at'];
+        return $this->get('finish_at');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     /**
@@ -109,7 +107,7 @@ class Task
 
     public function getLoginId(): ?int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setName(string $name): void
@@ -119,7 +117,7 @@ class Task
 
     public function getName(): string
     {
-        return $this->data['name'];
+        return $this->get('name');
     }
 
     public function setPositionId(?int $position_id): void
@@ -129,7 +127,7 @@ class Task
 
     public function getPositionId(): ?int
     {
-        return $this->data['position_id'];
+        return $this->get('position_id');
     }
 
     public function setPriority(string $priority): void
@@ -139,7 +137,7 @@ class Task
 
     public function getPriority(): string
     {
-        return $this->data['priority'];
+        return $this->get('priority');
     }
 
     public function setProjectId(?int $project_id): void
@@ -149,7 +147,7 @@ class Task
 
     public function getProjectId(): ?int
     {
-        return $this->data['project_id'];
+        return $this->get('project_id');
     }
 
     public function setStartAt(?string $start_at): void
@@ -159,7 +157,7 @@ class Task
 
     public function getStartAt(): ?string
     {
-        return $this->data['start_at'];
+        return $this->get('start_at');
     }
 
     public function setStatus(string $status): void
@@ -169,7 +167,7 @@ class Task
 
     public function getStatus(): string
     {
-        return $this->data['status'];
+        return $this->get('status');
     }
 
     public function setStatusPercent(?int $status_percent): void
@@ -179,6 +177,6 @@ class Task
 
     public function getStatusPercent(): ?int
     {
-        return $this->data['status_percent'];
+        return $this->get('status_percent');
     }
 }

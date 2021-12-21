@@ -8,20 +8,18 @@ namespace easybill\SDK\Models;
  * Auto-generated with `composer sdk:models`
  * If customer_id, project_id and document_id are null, the attachment has a global context and is accessible from the web ui. Keep in mind only to provide one of the four context. You can't attach a file to several context in one request. A error is thrown if you provide two or more context (i. E. sending customer_id, document_id and project_id in combination).
  */
-class Attachment
+class Attachment implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -31,7 +29,7 @@ class Attachment
 
     public function getCustomerId(): ?int
     {
-        return $this->data['customer_id'];
+        return $this->get('customer_id');
     }
 
     public function setDocumentId(?int $document_id): void
@@ -41,17 +39,17 @@ class Attachment
 
     public function getDocumentId(): ?int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     public function getFileName(): string
     {
-        return $this->data['file_name'];
+        return $this->get('file_name');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setProjectId(?int $project_id): void
@@ -61,11 +59,11 @@ class Attachment
 
     public function getProjectId(): ?int
     {
-        return $this->data['project_id'];
+        return $this->get('project_id');
     }
 
     public function getSize(): int
     {
-        return $this->data['size'];
+        return $this->get('size');
     }
 }

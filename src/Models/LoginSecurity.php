@@ -8,29 +8,27 @@ namespace easybill\SDK\Models;
  * Auto-generated with `composer sdk:models`
  * This object is only displayed if your request the login resource as an admin. Otherwise this property will be null.
  */
-class LoginSecurity
+class LoginSecurity implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getTwoFactorEnabled(): bool
     {
-        return $this->data['two_factor_enabled'];
+        return $this->get('two_factor_enabled');
     }
 
     public function getRecoveryCodesEnabled(): bool
     {
-        return $this->data['recovery_codes_enabled'];
+        return $this->get('recovery_codes_enabled');
     }
 
     public function getNotifyOnNewLoginEnabled(): bool
     {
-        return $this->data['notify_on_new_login_enabled'];
+        return $this->get('notify_on_new_login_enabled');
     }
 }

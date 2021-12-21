@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Login
+class Login implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setFirstName(string $first_name): void
@@ -30,7 +28,7 @@ class Login
 
     public function getFirstName(): string
     {
-        return $this->data['first_name'];
+        return $this->get('first_name');
     }
 
     public function setLastName(string $last_name): void
@@ -40,12 +38,12 @@ class Login
 
     public function getLastName(): string
     {
-        return $this->data['last_name'];
+        return $this->get('last_name');
     }
 
     public function getDisplayName(): string
     {
-        return $this->data['display_name'];
+        return $this->get('display_name');
     }
 
     public function setPhone(string $phone): void
@@ -55,7 +53,7 @@ class Login
 
     public function getPhone(): string
     {
-        return $this->data['phone'];
+        return $this->get('phone');
     }
 
     public function setEmail(string $email): void
@@ -65,7 +63,7 @@ class Login
 
     public function getEmail(): string
     {
-        return $this->data['email'];
+        return $this->get('email');
     }
 
     public function setEmailSignature(string $email_signature): void
@@ -75,7 +73,7 @@ class Login
 
     public function getEmailSignature(): string
     {
-        return $this->data['email_signature'];
+        return $this->get('email_signature');
     }
 
     public function setLoginType(string $login_type): void
@@ -85,7 +83,7 @@ class Login
 
     public function getLoginType(): string
     {
-        return $this->data['login_type'];
+        return $this->get('login_type');
     }
 
     public function setLocale(string $locale): void
@@ -95,7 +93,7 @@ class Login
 
     public function getLocale(): string
     {
-        return $this->data['locale'];
+        return $this->get('locale');
     }
 
     public function setTimeZone(string $time_zone): void
@@ -105,7 +103,7 @@ class Login
 
     public function getTimeZone(): string
     {
-        return $this->data['time_zone'];
+        return $this->get('time_zone');
     }
 
     public function setSecurity(LoginSecurity $security): void
@@ -115,6 +113,6 @@ class Login
 
     public function getSecurity(): LoginSecurity
     {
-        return $this->data['security'];
+        return $this->getInstance('security', \easybill\SDK\Models\LoginSecurity::class);
     }
 }

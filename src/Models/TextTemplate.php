@@ -7,25 +7,23 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class TextTemplate
+class TextTemplate implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getCanModify(): bool
     {
-        return $this->data['can_modify'];
+        return $this->get('can_modify');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setText(string $text): void
@@ -35,7 +33,7 @@ class TextTemplate
 
     public function getText(): string
     {
-        return $this->data['text'];
+        return $this->get('text');
     }
 
     public function setTitle(string $title): void
@@ -45,6 +43,6 @@ class TextTemplate
 
     public function getTitle(): string
     {
-        return $this->data['title'];
+        return $this->get('title');
     }
 }

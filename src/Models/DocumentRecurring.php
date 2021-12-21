@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class DocumentRecurring
+class DocumentRecurring implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     /**
@@ -28,7 +26,7 @@ class DocumentRecurring
 
     public function getNextDate(): string
     {
-        return $this->data['next_date'];
+        return $this->get('next_date');
     }
 
     public function setFrequency(string $frequency): void
@@ -38,7 +36,7 @@ class DocumentRecurring
 
     public function getFrequency(): string
     {
-        return $this->data['frequency'];
+        return $this->get('frequency');
     }
 
     public function setFrequencySpecial(?string $frequency_special): void
@@ -48,7 +46,7 @@ class DocumentRecurring
 
     public function getFrequencySpecial(): ?string
     {
-        return $this->data['frequency_special'];
+        return $this->get('frequency_special');
     }
 
     public function setInterval(int $interval): void
@@ -58,7 +56,7 @@ class DocumentRecurring
 
     public function getInterval(): int
     {
-        return $this->data['interval'];
+        return $this->get('interval');
     }
 
     /**
@@ -71,7 +69,7 @@ class DocumentRecurring
 
     public function getEndDateOrCount(): ?string
     {
-        return $this->data['end_date_or_count'];
+        return $this->get('end_date_or_count');
     }
 
     public function setStatus(string $status): void
@@ -81,7 +79,7 @@ class DocumentRecurring
 
     public function getStatus(): string
     {
-        return $this->data['status'];
+        return $this->get('status');
     }
 
     public function setAsDraft(bool $as_draft): void
@@ -91,7 +89,7 @@ class DocumentRecurring
 
     public function getAsDraft(): bool
     {
-        return $this->data['as_draft'];
+        return $this->get('as_draft');
     }
 
     public function setIsNotify(bool $is_notify): void
@@ -101,7 +99,7 @@ class DocumentRecurring
 
     public function getIsNotify(): bool
     {
-        return $this->data['is_notify'];
+        return $this->get('is_notify');
     }
 
     public function setSendAs(?string $send_as): void
@@ -111,7 +109,7 @@ class DocumentRecurring
 
     public function getSendAs(): ?string
     {
-        return $this->data['send_as'];
+        return $this->get('send_as');
     }
 
     public function setIsSign(bool $is_sign): void
@@ -121,7 +119,7 @@ class DocumentRecurring
 
     public function getIsSign(): bool
     {
-        return $this->data['is_sign'];
+        return $this->get('is_sign');
     }
 
     public function setIsPaid(bool $is_paid): void
@@ -131,7 +129,7 @@ class DocumentRecurring
 
     public function getIsPaid(): bool
     {
-        return $this->data['is_paid'];
+        return $this->get('is_paid');
     }
 
     /**
@@ -144,7 +142,7 @@ class DocumentRecurring
 
     public function getPaidDateOption(): string
     {
-        return $this->data['paid_date_option'];
+        return $this->get('paid_date_option');
     }
 
     public function setIsSepa(bool $is_sepa): void
@@ -154,7 +152,7 @@ class DocumentRecurring
 
     public function getIsSepa(): bool
     {
-        return $this->data['is_sepa'];
+        return $this->get('is_sepa');
     }
 
     public function setSepaLocalInstrument(?string $sepa_local_instrument): void
@@ -164,7 +162,7 @@ class DocumentRecurring
 
     public function getSepaLocalInstrument(): ?string
     {
-        return $this->data['sepa_local_instrument'];
+        return $this->get('sepa_local_instrument');
     }
 
     public function setSepaSequenceType(?string $sepa_sequence_type): void
@@ -174,7 +172,7 @@ class DocumentRecurring
 
     public function getSepaSequenceType(): ?string
     {
-        return $this->data['sepa_sequence_type'];
+        return $this->get('sepa_sequence_type');
     }
 
     public function setSepaReference(?string $sepa_reference): void
@@ -184,7 +182,7 @@ class DocumentRecurring
 
     public function getSepaReference(): ?string
     {
-        return $this->data['sepa_reference'];
+        return $this->get('sepa_reference');
     }
 
     public function setSepaRemittanceInformation(?string $sepa_remittance_information): void
@@ -194,7 +192,7 @@ class DocumentRecurring
 
     public function getSepaRemittanceInformation(): ?string
     {
-        return $this->data['sepa_remittance_information'];
+        return $this->get('sepa_remittance_information');
     }
 
     /**
@@ -207,6 +205,6 @@ class DocumentRecurring
 
     public function getTargetType(): string
     {
-        return $this->data['target_type'];
+        return $this->get('target_type');
     }
 }

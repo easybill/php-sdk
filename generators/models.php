@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$swagger = json_decode(file_get_contents(__DIR__ . '/swagger.1.68.0.json'), true);
+$swagger = json_decode(file_get_contents(__DIR__ . '/swagger.json'), true);
 
 function classNameFromRef(string $ref): string
 {
@@ -27,7 +27,6 @@ function typeMap(string $type): string
         'boolean' => 'bool',
         'array' => 'array',
         'string' => 'string',
-        'object' => \stdClass::class,
         '' => '',
         default => throw new RuntimeException('type not supported: ' . $type),
     };
@@ -71,14 +70,14 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
     }
 
     $construct = $class->addMethod('__construct');
-    $construct->addPromotedParameter('data', [])->setProtected();
+    $construct->addParameter('data', [])->setType('array');
     if ($classExtends) {
         $construct->setBody('parent::__construct($data);');
+    } else {
+        $class->addImplement(\easybill\SDK\Models\ToArrayInterface::class);
+        $class->addTrait(\easybill\SDK\Models\Traits\Data::class);
+        $construct->setBody('$this->data = $data;');
     }
-
-    $getterData = $class->addMethod('getData');
-    $getterData->setReturnType('array');
-    $getterData->setBody('return $this->data;');
 
     $errors = [];
 
@@ -92,9 +91,12 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
         echo '==> ' . $className . '::' . $propertyName . "\n";
 
         $type = typeMap($propertyInfo['type']);
+        $isObject = false;
 
         if (array_key_exists('$ref', $propertyInfo)) {
             $type = classWithNamespace(classNameFromRef($propertyInfo['$ref']));
+            $propertyInfo['readOnly'] = $swagger['definitions'][classNameFromRef($propertyInfo['$ref'])]['readOnly'] ?? false;
+            $isObject = true;
         }
 
         $methodeName = str_replace('_', '', ucwords($propertyName, '_'));
@@ -125,7 +127,11 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
         if ($type === 'array' && array_key_exists('$ref', $propertyInfo['items'])) {
             $getter->addComment('@return \\' . classWithNamespace(classNameFromRef($propertyInfo['items']['$ref'])) . '[]');
         }
-        $getter->setBody('return $this->data[\'' . $propertyName . '\'];');
+        if ($isObject) {
+            $getter->setBody('return $this->getInstance(\'' . $propertyName . '\', \\' . $type . '::class);');
+        } else {
+            $getter->setBody('return $this->get(\'' . $propertyName . '\');');
+        }
     }
 
     $content = (new Nette\PhpGenerator\PsrPrinter())->printFile($file);

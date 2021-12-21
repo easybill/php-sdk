@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class DocumentPosition
+class DocumentPosition implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setNumber(?string $number): void
@@ -25,7 +23,7 @@ class DocumentPosition
 
     public function getNumber(): ?string
     {
-        return $this->data['number'];
+        return $this->get('number');
     }
 
     public function setDescription(?string $description): void
@@ -35,7 +33,7 @@ class DocumentPosition
 
     public function getDescription(): ?string
     {
-        return $this->data['description'];
+        return $this->get('description');
     }
 
     /**
@@ -48,7 +46,7 @@ class DocumentPosition
 
     public function getDocumentNote(): string
     {
-        return $this->data['document_note'];
+        return $this->get('document_note');
     }
 
     public function setQuantity(float $quantity): void
@@ -58,7 +56,7 @@ class DocumentPosition
 
     public function getQuantity(): float
     {
-        return $this->data['quantity'];
+        return $this->get('quantity');
     }
 
     /**
@@ -71,7 +69,7 @@ class DocumentPosition
 
     public function getQuantityStr(): string
     {
-        return $this->data['quantity_str'];
+        return $this->get('quantity_str');
     }
 
     public function setUnit(?string $unit): void
@@ -81,7 +79,7 @@ class DocumentPosition
 
     public function getUnit(): ?string
     {
-        return $this->data['unit'];
+        return $this->get('unit');
     }
 
     public function setType(string $type): void
@@ -91,7 +89,7 @@ class DocumentPosition
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 
     /**
@@ -104,7 +102,7 @@ class DocumentPosition
 
     public function getPosition(): int
     {
-        return $this->data['position'];
+        return $this->get('position');
     }
 
     public function setSinglePriceNet(?float $single_price_net): void
@@ -114,12 +112,12 @@ class DocumentPosition
 
     public function getSinglePriceNet(): ?float
     {
-        return $this->data['single_price_net'];
+        return $this->get('single_price_net');
     }
 
     public function getSinglePriceGross(): float
     {
-        return $this->data['single_price_gross'];
+        return $this->get('single_price_gross');
     }
 
     public function setVatPercent(float $vat_percent): void
@@ -129,7 +127,7 @@ class DocumentPosition
 
     public function getVatPercent(): float
     {
-        return $this->data['vat_percent'];
+        return $this->get('vat_percent');
     }
 
     public function setDiscount(?float $discount): void
@@ -139,7 +137,7 @@ class DocumentPosition
 
     public function getDiscount(): ?float
     {
-        return $this->data['discount'];
+        return $this->get('discount');
     }
 
     public function setDiscountType(?string $discount_type): void
@@ -149,7 +147,7 @@ class DocumentPosition
 
     public function getDiscountType(): ?string
     {
-        return $this->data['discount_type'];
+        return $this->get('discount_type');
     }
 
     /**
@@ -162,32 +160,32 @@ class DocumentPosition
 
     public function getPositionId(): ?int
     {
-        return $this->data['position_id'];
+        return $this->get('position_id');
     }
 
     public function getTotalPriceNet(): float
     {
-        return $this->data['total_price_net'];
+        return $this->get('total_price_net');
     }
 
     public function getTotalPriceGross(): float
     {
-        return $this->data['total_price_gross'];
+        return $this->get('total_price_gross');
     }
 
     public function getTotalVat(): float
     {
-        return $this->data['total_vat'];
+        return $this->get('total_vat');
     }
 
     public function getSerialNumberId(): string
     {
-        return $this->data['serial_number_id'];
+        return $this->get('serial_number_id');
     }
 
     public function getSerialNumber(): string
     {
-        return $this->data['serial_number'];
+        return $this->get('serial_number');
     }
 
     public function setBookingAccount(?string $booking_account): void
@@ -197,7 +195,7 @@ class DocumentPosition
 
     public function getBookingAccount(): ?string
     {
-        return $this->data['booking_account'];
+        return $this->get('booking_account');
     }
 
     public function setExportCost1(?string $export_cost_1): void
@@ -207,7 +205,7 @@ class DocumentPosition
 
     public function getExportCost1(): ?string
     {
-        return $this->data['export_cost_1'];
+        return $this->get('export_cost_1');
     }
 
     public function setExportCost2(?string $export_cost_2): void
@@ -217,7 +215,7 @@ class DocumentPosition
 
     public function getExportCost2(): ?string
     {
-        return $this->data['export_cost_2'];
+        return $this->get('export_cost_2');
     }
 
     public function setCostPriceNet(?float $cost_price_net): void
@@ -227,22 +225,22 @@ class DocumentPosition
 
     public function getCostPriceNet(): ?float
     {
-        return $this->data['cost_price_net'];
+        return $this->get('cost_price_net');
     }
 
     public function getCostPriceTotal(): float
     {
-        return $this->data['cost_price_total'];
+        return $this->get('cost_price_total');
     }
 
     public function getCostPriceCharge(): float
     {
-        return $this->data['cost_price_charge'];
+        return $this->get('cost_price_charge');
     }
 
     public function getCostPriceChargeType(): string
     {
-        return $this->data['cost_price_charge_type'];
+        return $this->get('cost_price_charge_type');
     }
 
     public function setItemType(string $itemType): void
@@ -252,11 +250,11 @@ class DocumentPosition
 
     public function getItemType(): string
     {
-        return $this->data['itemType'];
+        return $this->get('itemType');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 }

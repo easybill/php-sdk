@@ -38,4 +38,5 @@ return (new PhpCsFixer\Config())
             ->in(__DIR__ . '/src')
             ->in(__DIR__ . '/examples')
             ->in(__DIR__ . '/generators')
+            ->in(__DIR__ . '/tests')
     );

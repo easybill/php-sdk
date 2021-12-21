@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class ServiceDate
+class ServiceDate implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     /**
@@ -28,7 +26,7 @@ class ServiceDate
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 
     public function setDate(?string $date): void
@@ -38,7 +36,7 @@ class ServiceDate
 
     public function getDate(): ?string
     {
-        return $this->data['date'];
+        return $this->get('date');
     }
 
     public function setDateFrom(?string $date_from): void
@@ -48,7 +46,7 @@ class ServiceDate
 
     public function getDateFrom(): ?string
     {
-        return $this->data['date_from'];
+        return $this->get('date_from');
     }
 
     public function setDateTo(?string $date_to): void
@@ -58,7 +56,7 @@ class ServiceDate
 
     public function getDateTo(): ?string
     {
-        return $this->data['date_to'];
+        return $this->get('date_to');
     }
 
     public function setText(?string $text): void
@@ -68,6 +66,6 @@ class ServiceDate
 
     public function getText(): ?string
     {
-        return $this->data['text'];
+        return $this->get('text');
     }
 }

@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Customer
+class Customer implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     /**
@@ -28,7 +26,7 @@ class Customer
 
     public function getAcquireOptions(): ?int
     {
-        return $this->data['acquire_options'];
+        return $this->get('acquire_options');
     }
 
     /**
@@ -36,7 +34,7 @@ class Customer
      */
     public function getAdditionalGroupsIds(): array
     {
-        return $this->data['additional_groups_ids'];
+        return $this->get('additional_groups_ids');
     }
 
     public function setBankAccount(?string $bank_account): void
@@ -46,7 +44,7 @@ class Customer
 
     public function getBankAccount(): ?string
     {
-        return $this->data['bank_account'];
+        return $this->get('bank_account');
     }
 
     public function setBankAccountOwner(?string $bank_account_owner): void
@@ -56,7 +54,7 @@ class Customer
 
     public function getBankAccountOwner(): ?string
     {
-        return $this->data['bank_account_owner'];
+        return $this->get('bank_account_owner');
     }
 
     public function setBankBic(?string $bank_bic): void
@@ -66,7 +64,7 @@ class Customer
 
     public function getBankBic(): ?string
     {
-        return $this->data['bank_bic'];
+        return $this->get('bank_bic');
     }
 
     public function setBankCode(?string $bank_code): void
@@ -76,7 +74,7 @@ class Customer
 
     public function getBankCode(): ?string
     {
-        return $this->data['bank_code'];
+        return $this->get('bank_code');
     }
 
     public function setBankIban(?string $bank_iban): void
@@ -86,7 +84,7 @@ class Customer
 
     public function getBankIban(): ?string
     {
-        return $this->data['bank_iban'];
+        return $this->get('bank_iban');
     }
 
     public function setBankName(?string $bank_name): void
@@ -96,7 +94,7 @@ class Customer
 
     public function getBankName(): ?string
     {
-        return $this->data['bank_name'];
+        return $this->get('bank_name');
     }
 
     public function setBirthDate(?string $birth_date): void
@@ -106,7 +104,7 @@ class Customer
 
     public function getBirthDate(): ?string
     {
-        return $this->data['birth_date'];
+        return $this->get('birth_date');
     }
 
     public function setCashAllowance(?float $cash_allowance): void
@@ -116,7 +114,7 @@ class Customer
 
     public function getCashAllowance(): ?float
     {
-        return $this->data['cash_allowance'];
+        return $this->get('cash_allowance');
     }
 
     public function setCashAllowanceDays(int $cash_allowance_days): void
@@ -126,7 +124,7 @@ class Customer
 
     public function getCashAllowanceDays(): int
     {
-        return $this->data['cash_allowance_days'];
+        return $this->get('cash_allowance_days');
     }
 
     public function setCashDiscount(?float $cash_discount): void
@@ -136,7 +134,7 @@ class Customer
 
     public function getCashDiscount(): ?float
     {
-        return $this->data['cash_discount'];
+        return $this->get('cash_discount');
     }
 
     public function setCashDiscountType(?string $cash_discount_type): void
@@ -146,7 +144,7 @@ class Customer
 
     public function getCashDiscountType(): ?string
     {
-        return $this->data['cash_discount_type'];
+        return $this->get('cash_discount_type');
     }
 
     public function setCity(?string $city): void
@@ -156,7 +154,7 @@ class Customer
 
     public function getCity(): ?string
     {
-        return $this->data['city'];
+        return $this->get('city');
     }
 
     public function setState(string $state): void
@@ -166,7 +164,7 @@ class Customer
 
     public function getState(): string
     {
-        return $this->data['state'];
+        return $this->get('state');
     }
 
     public function setCompanyName(?string $company_name): void
@@ -176,7 +174,7 @@ class Customer
 
     public function getCompanyName(): ?string
     {
-        return $this->data['company_name'];
+        return $this->get('company_name');
     }
 
     public function setCountry(string $country): void
@@ -186,17 +184,17 @@ class Customer
 
     public function getCountry(): string
     {
-        return $this->data['country'];
+        return $this->get('country');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->data['updated_at'];
+        return $this->get('updated_at');
     }
 
     public function setDeliveryTitle(string $delivery_title): void
@@ -206,7 +204,7 @@ class Customer
 
     public function getDeliveryTitle(): string
     {
-        return $this->data['delivery_title'];
+        return $this->get('delivery_title');
     }
 
     public function setDeliveryCity(?string $delivery_city): void
@@ -216,7 +214,7 @@ class Customer
 
     public function getDeliveryCity(): ?string
     {
-        return $this->data['delivery_city'];
+        return $this->get('delivery_city');
     }
 
     public function setDeliveryState(string $delivery_state): void
@@ -226,7 +224,7 @@ class Customer
 
     public function getDeliveryState(): string
     {
-        return $this->data['delivery_state'];
+        return $this->get('delivery_state');
     }
 
     public function setDeliveryCompanyName(?string $delivery_company_name): void
@@ -236,7 +234,7 @@ class Customer
 
     public function getDeliveryCompanyName(): ?string
     {
-        return $this->data['delivery_company_name'];
+        return $this->get('delivery_company_name');
     }
 
     public function setDeliveryCountry(?string $delivery_country): void
@@ -246,7 +244,7 @@ class Customer
 
     public function getDeliveryCountry(): ?string
     {
-        return $this->data['delivery_country'];
+        return $this->get('delivery_country');
     }
 
     public function setDeliveryFirstName(?string $delivery_first_name): void
@@ -256,7 +254,7 @@ class Customer
 
     public function getDeliveryFirstName(): ?string
     {
-        return $this->data['delivery_first_name'];
+        return $this->get('delivery_first_name');
     }
 
     public function setDeliveryLastName(?string $delivery_last_name): void
@@ -266,7 +264,7 @@ class Customer
 
     public function getDeliveryLastName(): ?string
     {
-        return $this->data['delivery_last_name'];
+        return $this->get('delivery_last_name');
     }
 
     public function setDeliveryPersonal(bool $delivery_personal): void
@@ -276,7 +274,7 @@ class Customer
 
     public function getDeliveryPersonal(): bool
     {
-        return $this->data['delivery_personal'];
+        return $this->get('delivery_personal');
     }
 
     /**
@@ -289,7 +287,7 @@ class Customer
 
     public function getDeliverySalutation(): int
     {
-        return $this->data['delivery_salutation'];
+        return $this->get('delivery_salutation');
     }
 
     public function setDeliveryStreet(?string $delivery_street): void
@@ -299,7 +297,7 @@ class Customer
 
     public function getDeliveryStreet(): ?string
     {
-        return $this->data['delivery_street'];
+        return $this->get('delivery_street');
     }
 
     public function setDeliverySuffix1(?string $delivery_suffix_1): void
@@ -309,7 +307,7 @@ class Customer
 
     public function getDeliverySuffix1(): ?string
     {
-        return $this->data['delivery_suffix_1'];
+        return $this->get('delivery_suffix_1');
     }
 
     public function setDeliverySuffix2(?string $delivery_suffix_2): void
@@ -319,7 +317,7 @@ class Customer
 
     public function getDeliverySuffix2(): ?string
     {
-        return $this->data['delivery_suffix_2'];
+        return $this->get('delivery_suffix_2');
     }
 
     public function setDeliveryZipCode(?string $delivery_zip_code): void
@@ -329,12 +327,12 @@ class Customer
 
     public function getDeliveryZipCode(): ?string
     {
-        return $this->data['delivery_zip_code'];
+        return $this->get('delivery_zip_code');
     }
 
     public function getDisplayName(): string
     {
-        return $this->data['display_name'];
+        return $this->get('display_name');
     }
 
     public function setEmails(array $emails): void
@@ -347,7 +345,7 @@ class Customer
      */
     public function getEmails(): array
     {
-        return $this->data['emails'];
+        return $this->get('emails');
     }
 
     public function setFax(?string $fax): void
@@ -357,7 +355,7 @@ class Customer
 
     public function getFax(): ?string
     {
-        return $this->data['fax'];
+        return $this->get('fax');
     }
 
     public function setFirstName(?string $first_name): void
@@ -367,7 +365,7 @@ class Customer
 
     public function getFirstName(): ?string
     {
-        return $this->data['first_name'];
+        return $this->get('first_name');
     }
 
     /**
@@ -380,7 +378,7 @@ class Customer
 
     public function getGracePeriod(): ?int
     {
-        return $this->data['grace_period'];
+        return $this->get('grace_period');
     }
 
     /**
@@ -393,7 +391,7 @@ class Customer
 
     public function getDueInDays(): ?int
     {
-        return $this->data['due_in_days'];
+        return $this->get('due_in_days');
     }
 
     public function setGroupId(?int $group_id): void
@@ -403,12 +401,12 @@ class Customer
 
     public function getGroupId(): ?int
     {
-        return $this->data['group_id'];
+        return $this->get('group_id');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setInfo1(?string $info_1): void
@@ -418,7 +416,7 @@ class Customer
 
     public function getInfo1(): ?string
     {
-        return $this->data['info_1'];
+        return $this->get('info_1');
     }
 
     public function setInfo2(?string $info_2): void
@@ -428,7 +426,7 @@ class Customer
 
     public function getInfo2(): ?string
     {
-        return $this->data['info_2'];
+        return $this->get('info_2');
     }
 
     public function setInternet(?string $internet): void
@@ -438,7 +436,7 @@ class Customer
 
     public function getInternet(): ?string
     {
-        return $this->data['internet'];
+        return $this->get('internet');
     }
 
     public function setLastName(?string $last_name): void
@@ -448,7 +446,7 @@ class Customer
 
     public function getLastName(): ?string
     {
-        return $this->data['last_name'];
+        return $this->get('last_name');
     }
 
     public function setLoginId(int $login_id): void
@@ -458,7 +456,7 @@ class Customer
 
     public function getLoginId(): int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setMobile(?string $mobile): void
@@ -468,7 +466,7 @@ class Customer
 
     public function getMobile(): ?string
     {
-        return $this->data['mobile'];
+        return $this->get('mobile');
     }
 
     public function setNote(?string $note): void
@@ -478,7 +476,7 @@ class Customer
 
     public function getNote(): ?string
     {
-        return $this->data['note'];
+        return $this->get('note');
     }
 
     /**
@@ -491,7 +489,7 @@ class Customer
 
     public function getNumber(): string
     {
-        return $this->data['number'];
+        return $this->get('number');
     }
 
     /**
@@ -504,7 +502,7 @@ class Customer
 
     public function getPaymentOptions(): ?int
     {
-        return $this->data['payment_options'];
+        return $this->get('payment_options');
     }
 
     public function setPersonal(bool $personal): void
@@ -514,7 +512,7 @@ class Customer
 
     public function getPersonal(): bool
     {
-        return $this->data['personal'];
+        return $this->get('personal');
     }
 
     public function setPhone1(?string $phone_1): void
@@ -524,7 +522,7 @@ class Customer
 
     public function getPhone1(): ?string
     {
-        return $this->data['phone_1'];
+        return $this->get('phone_1');
     }
 
     public function setPhone2(?string $phone_2): void
@@ -534,7 +532,7 @@ class Customer
 
     public function getPhone2(): ?string
     {
-        return $this->data['phone_2'];
+        return $this->get('phone_2');
     }
 
     public function setPostbox(?string $postbox): void
@@ -544,7 +542,7 @@ class Customer
 
     public function getPostbox(): ?string
     {
-        return $this->data['postbox'];
+        return $this->get('postbox');
     }
 
     public function setPostboxCity(?string $postbox_city): void
@@ -554,7 +552,7 @@ class Customer
 
     public function getPostboxCity(): ?string
     {
-        return $this->data['postbox_city'];
+        return $this->get('postbox_city');
     }
 
     public function setPostboxState(string $postbox_state): void
@@ -564,7 +562,7 @@ class Customer
 
     public function getPostboxState(): string
     {
-        return $this->data['postbox_state'];
+        return $this->get('postbox_state');
     }
 
     public function setPostboxCountry(?string $postbox_country): void
@@ -574,7 +572,7 @@ class Customer
 
     public function getPostboxCountry(): ?string
     {
-        return $this->data['postbox_country'];
+        return $this->get('postbox_country');
     }
 
     public function setPostboxZipCode(?string $postbox_zip_code): void
@@ -584,7 +582,7 @@ class Customer
 
     public function getPostboxZipCode(): ?string
     {
-        return $this->data['postbox_zip_code'];
+        return $this->get('postbox_zip_code');
     }
 
     public function setSalePriceLevel(?string $sale_price_level): void
@@ -594,7 +592,7 @@ class Customer
 
     public function getSalePriceLevel(): ?string
     {
-        return $this->data['sale_price_level'];
+        return $this->get('sale_price_level');
     }
 
     /**
@@ -607,7 +605,7 @@ class Customer
 
     public function getSalutation(): int
     {
-        return $this->data['salutation'];
+        return $this->get('salutation');
     }
 
     /**
@@ -620,7 +618,7 @@ class Customer
 
     public function getSepaAgreement(): ?string
     {
-        return $this->data['sepa_agreement'];
+        return $this->get('sepa_agreement');
     }
 
     public function setSepaAgreementDate(?string $sepa_agreement_date): void
@@ -630,7 +628,7 @@ class Customer
 
     public function getSepaAgreementDate(): ?string
     {
-        return $this->data['sepa_agreement_date'];
+        return $this->get('sepa_agreement_date');
     }
 
     public function setSepaMandateReference(?string $sepa_mandate_reference): void
@@ -640,7 +638,7 @@ class Customer
 
     public function getSepaMandateReference(): ?string
     {
-        return $this->data['sepa_mandate_reference'];
+        return $this->get('sepa_mandate_reference');
     }
 
     public function setSinceDate(?string $since_date): void
@@ -650,7 +648,7 @@ class Customer
 
     public function getSinceDate(): ?string
     {
-        return $this->data['since_date'];
+        return $this->get('since_date');
     }
 
     public function setStreet(?string $street): void
@@ -660,7 +658,7 @@ class Customer
 
     public function getStreet(): ?string
     {
-        return $this->data['street'];
+        return $this->get('street');
     }
 
     public function setSuffix1(?string $suffix_1): void
@@ -670,7 +668,7 @@ class Customer
 
     public function getSuffix1(): ?string
     {
-        return $this->data['suffix_1'];
+        return $this->get('suffix_1');
     }
 
     public function setSuffix2(?string $suffix_2): void
@@ -680,7 +678,7 @@ class Customer
 
     public function getSuffix2(): ?string
     {
-        return $this->data['suffix_2'];
+        return $this->get('suffix_2');
     }
 
     public function setTaxNumber(?string $tax_number): void
@@ -690,7 +688,7 @@ class Customer
 
     public function getTaxNumber(): ?string
     {
-        return $this->data['tax_number'];
+        return $this->get('tax_number');
     }
 
     public function setCourt(?string $court): void
@@ -700,7 +698,7 @@ class Customer
 
     public function getCourt(): ?string
     {
-        return $this->data['court'];
+        return $this->get('court');
     }
 
     public function setCourtRegistryNumber(?string $court_registry_number): void
@@ -710,7 +708,7 @@ class Customer
 
     public function getCourtRegistryNumber(): ?string
     {
-        return $this->data['court_registry_number'];
+        return $this->get('court_registry_number');
     }
 
     /**
@@ -723,7 +721,7 @@ class Customer
 
     public function getTaxOptions(): ?string
     {
-        return $this->data['tax_options'];
+        return $this->get('tax_options');
     }
 
     public function setTitle(?string $title): void
@@ -733,7 +731,7 @@ class Customer
 
     public function getTitle(): ?string
     {
-        return $this->data['title'];
+        return $this->get('title');
     }
 
     public function setVatIdentifier(?string $vat_identifier): void
@@ -743,7 +741,7 @@ class Customer
 
     public function getVatIdentifier(): ?string
     {
-        return $this->data['vat_identifier'];
+        return $this->get('vat_identifier');
     }
 
     public function setZipCode(?string $zip_code): void
@@ -753,7 +751,7 @@ class Customer
 
     public function getZipCode(): ?string
     {
-        return $this->data['zip_code'];
+        return $this->get('zip_code');
     }
 
     /**
@@ -766,7 +764,7 @@ class Customer
 
     public function getDocumentPdfType(): string
     {
-        return $this->data['documentPdfType'];
+        return $this->get('documentPdfType');
     }
 
     /**
@@ -779,7 +777,7 @@ class Customer
 
     public function getBuyerReference(): string
     {
-        return $this->data['buyer_reference'];
+        return $this->get('buyer_reference');
     }
 
     /**
@@ -792,6 +790,6 @@ class Customer
 
     public function getForeignSupplierNumber(): string
     {
-        return $this->data['foreign_supplier_number'];
+        return $this->get('foreign_supplier_number');
     }
 }

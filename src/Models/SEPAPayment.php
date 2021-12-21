@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class SEPAPayment
+class SEPAPayment implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     /**
@@ -28,12 +26,12 @@ class SEPAPayment
 
     public function getAmount(): int
     {
-        return $this->data['amount'];
+        return $this->get('amount');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 
     /**
@@ -46,7 +44,7 @@ class SEPAPayment
 
     public function getCreditorBic(): ?string
     {
-        return $this->data['creditor_bic'];
+        return $this->get('creditor_bic');
     }
 
     /**
@@ -59,7 +57,7 @@ class SEPAPayment
 
     public function getCreditorIban(): ?string
     {
-        return $this->data['creditor_iban'];
+        return $this->get('creditor_iban');
     }
 
     /**
@@ -72,7 +70,7 @@ class SEPAPayment
 
     public function getCreditorName(): ?string
     {
-        return $this->data['creditor_name'];
+        return $this->get('creditor_name');
     }
 
     /**
@@ -85,7 +83,7 @@ class SEPAPayment
 
     public function getDebitorBic(): ?string
     {
-        return $this->data['debitor_bic'];
+        return $this->get('debitor_bic');
     }
 
     /**
@@ -98,7 +96,7 @@ class SEPAPayment
 
     public function getDebitorIban(): ?string
     {
-        return $this->data['debitor_iban'];
+        return $this->get('debitor_iban');
     }
 
     /**
@@ -111,7 +109,7 @@ class SEPAPayment
 
     public function getDebitorName(): ?string
     {
-        return $this->data['debitor_name'];
+        return $this->get('debitor_name');
     }
 
     /**
@@ -124,7 +122,7 @@ class SEPAPayment
 
     public function getDebitorAddressLine1(): string
     {
-        return $this->data['debitor_address_line_1'];
+        return $this->get('debitor_address_line_1');
     }
 
     /**
@@ -137,7 +135,7 @@ class SEPAPayment
 
     public function getDebitorAddressLine2(): string
     {
-        return $this->data['debitor_address_line2'];
+        return $this->get('debitor_address_line2');
     }
 
     /**
@@ -150,7 +148,7 @@ class SEPAPayment
 
     public function getDebitorCountry(): string
     {
-        return $this->data['debitor_country'];
+        return $this->get('debitor_country');
     }
 
     public function setDocumentId(int $document_id): void
@@ -160,7 +158,7 @@ class SEPAPayment
 
     public function getDocumentId(): int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     /**
@@ -173,17 +171,17 @@ class SEPAPayment
 
     public function getExportAt(): ?string
     {
-        return $this->data['export_at'];
+        return $this->get('export_at');
     }
 
     public function getExportError(): string
     {
-        return $this->data['export_error'];
+        return $this->get('export_error');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     /**
@@ -196,7 +194,7 @@ class SEPAPayment
 
     public function getLocalInstrument(): string
     {
-        return $this->data['local_instrument'];
+        return $this->get('local_instrument');
     }
 
     public function setMandateDateOfSignature(string $mandate_date_of_signature): void
@@ -206,7 +204,7 @@ class SEPAPayment
 
     public function getMandateDateOfSignature(): string
     {
-        return $this->data['mandate_date_of_signature'];
+        return $this->get('mandate_date_of_signature');
     }
 
     public function setMandateId(string $mandate_id): void
@@ -216,7 +214,7 @@ class SEPAPayment
 
     public function getMandateId(): string
     {
-        return $this->data['mandate_id'];
+        return $this->get('mandate_id');
     }
 
     public function setReference(string $reference): void
@@ -226,7 +224,7 @@ class SEPAPayment
 
     public function getReference(): string
     {
-        return $this->data['reference'];
+        return $this->get('reference');
     }
 
     public function setRemittanceInformation(?string $remittance_information): void
@@ -236,7 +234,7 @@ class SEPAPayment
 
     public function getRemittanceInformation(): ?string
     {
-        return $this->data['remittance_information'];
+        return $this->get('remittance_information');
     }
 
     /**
@@ -249,7 +247,7 @@ class SEPAPayment
 
     public function getRequestedAt(): string
     {
-        return $this->data['requested_at'];
+        return $this->get('requested_at');
     }
 
     /**
@@ -262,12 +260,12 @@ class SEPAPayment
 
     public function getSequenceType(): string
     {
-        return $this->data['sequence_type'];
+        return $this->get('sequence_type');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->data['updated_at'];
+        return $this->get('updated_at');
     }
 
     public function setType(string $type): void
@@ -277,6 +275,6 @@ class SEPAPayment
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 }

@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class DocumentPayment
+class DocumentPayment implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setAmount(int $amount): void
@@ -25,7 +23,7 @@ class DocumentPayment
 
     public function getAmount(): int
     {
-        return $this->data['amount'];
+        return $this->get('amount');
     }
 
     public function setDocumentId(int $document_id): void
@@ -35,12 +33,12 @@ class DocumentPayment
 
     public function getDocumentId(): int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setIsOverdueFee(bool $is_overdue_fee): void
@@ -50,12 +48,12 @@ class DocumentPayment
 
     public function getIsOverdueFee(): bool
     {
-        return $this->data['is_overdue_fee'];
+        return $this->get('is_overdue_fee');
     }
 
     public function getLoginId(): int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setNotice(string $notice): void
@@ -65,7 +63,7 @@ class DocumentPayment
 
     public function getNotice(): string
     {
-        return $this->data['notice'];
+        return $this->get('notice');
     }
 
     public function setPaymentAt(string $payment_at): void
@@ -75,7 +73,7 @@ class DocumentPayment
 
     public function getPaymentAt(): string
     {
-        return $this->data['payment_at'];
+        return $this->get('payment_at');
     }
 
     public function setType(string $type): void
@@ -85,7 +83,7 @@ class DocumentPayment
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 
     public function setProvider(string $provider): void
@@ -95,7 +93,7 @@ class DocumentPayment
 
     public function getProvider(): string
     {
-        return $this->data['provider'];
+        return $this->get('provider');
     }
 
     public function setReference(string $reference): void
@@ -105,6 +103,6 @@ class DocumentPayment
 
     public function getReference(): string
     {
-        return $this->data['reference'];
+        return $this->get('reference');
     }
 }

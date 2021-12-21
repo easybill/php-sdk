@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class WebHook
+class WebHook implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setContentType(string $content_type): void
@@ -25,7 +23,7 @@ class WebHook
 
     public function getContentType(): string
     {
-        return $this->data['content_type'];
+        return $this->get('content_type');
     }
 
     public function setDescription(string $description): void
@@ -35,7 +33,7 @@ class WebHook
 
     public function getDescription(): string
     {
-        return $this->data['description'];
+        return $this->get('description');
     }
 
     public function setEvents(array $events): void
@@ -48,12 +46,12 @@ class WebHook
      */
     public function getEvents(): array
     {
-        return $this->data['events'];
+        return $this->get('events');
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setIsActive(bool $is_active): void
@@ -63,12 +61,12 @@ class WebHook
 
     public function getIsActive(): bool
     {
-        return $this->data['is_active'];
+        return $this->get('is_active');
     }
 
-    public function getLastResponse(): \stdClass
+    public function getLastResponse(): WebHookLastResponse
     {
-        return $this->data['last_response'];
+        return $this->getInstance('last_response', \easybill\SDK\Models\WebHookLastResponse::class);
     }
 
     public function setSecret(string $secret): void
@@ -78,7 +76,7 @@ class WebHook
 
     public function getSecret(): string
     {
-        return $this->data['secret'];
+        return $this->get('secret');
     }
 
     public function setUrl(string $url): void
@@ -88,6 +86,6 @@ class WebHook
 
     public function getUrl(): string
     {
-        return $this->data['url'];
+        return $this->get('url');
     }
 }

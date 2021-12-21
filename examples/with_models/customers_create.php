@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '../../vendor/autoload.php';
 
 use easybill\SDK\Client;
 use easybill\SDK\Endpoint;
@@ -16,7 +16,7 @@ $customerCreate->setLastName('Bar');
 $customerCreate->setCompanyName('FooBar GmbH');
 $customerCreate->setEmails(['foo.bar@foobar.com']);
 
-$result = $client->request('POST', 'customers', $customerCreate->getData());
+$result = $client->request('POST', 'customers', $customerCreate->toArray());
 
 $customer = new Customer($result);
 

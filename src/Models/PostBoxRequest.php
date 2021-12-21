@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class PostBoxRequest
+class PostBoxRequest implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setTo(string $to): void
@@ -25,7 +23,7 @@ class PostBoxRequest
 
     public function getTo(): string
     {
-        return $this->data['to'];
+        return $this->get('to');
     }
 
     public function setCc(string $cc): void
@@ -35,7 +33,7 @@ class PostBoxRequest
 
     public function getCc(): string
     {
-        return $this->data['cc'];
+        return $this->get('cc');
     }
 
     public function setFrom(string $from): void
@@ -45,7 +43,7 @@ class PostBoxRequest
 
     public function getFrom(): string
     {
-        return $this->data['from'];
+        return $this->get('from');
     }
 
     public function setSubject(string $subject): void
@@ -55,7 +53,7 @@ class PostBoxRequest
 
     public function getSubject(): string
     {
-        return $this->data['subject'];
+        return $this->get('subject');
     }
 
     public function setMessage(string $message): void
@@ -65,7 +63,7 @@ class PostBoxRequest
 
     public function getMessage(): string
     {
-        return $this->data['message'];
+        return $this->get('message');
     }
 
     public function setDate(string $date): void
@@ -75,7 +73,7 @@ class PostBoxRequest
 
     public function getDate(): string
     {
-        return $this->data['date'];
+        return $this->get('date');
     }
 
     /**
@@ -88,7 +86,7 @@ class PostBoxRequest
 
     public function getDocumentFileType(): ?string
     {
-        return $this->data['document_file_type'];
+        return $this->get('document_file_type');
     }
 
     /**
@@ -109,6 +107,6 @@ class PostBoxRequest
 
     public function getPostSendType(): string
     {
-        return $this->data['post_send_type'];
+        return $this->get('post_send_type');
     }
 }

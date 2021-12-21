@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Discount
+class Discount implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setCustomerId(int $customer_id): void
@@ -30,7 +28,7 @@ class Discount
 
     public function getCustomerId(): int
     {
-        return $this->data['customer_id'];
+        return $this->get('customer_id');
     }
 
     /**
@@ -43,7 +41,7 @@ class Discount
 
     public function getDiscount(): int
     {
-        return $this->data['discount'];
+        return $this->get('discount');
     }
 
     /**
@@ -56,6 +54,6 @@ class Discount
 
     public function getDiscountType(): string
     {
-        return $this->data['discount_type'];
+        return $this->get('discount_type');
     }
 }

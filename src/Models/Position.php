@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class Position
+class Position implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setType(string $type): void
@@ -30,7 +28,7 @@ class Position
 
     public function getType(): string
     {
-        return $this->data['type'];
+        return $this->get('type');
     }
 
     public function setNumber(string $number): void
@@ -40,7 +38,7 @@ class Position
 
     public function getNumber(): string
     {
-        return $this->data['number'];
+        return $this->get('number');
     }
 
     /**
@@ -53,7 +51,7 @@ class Position
 
     public function getDescription(): string
     {
-        return $this->data['description'];
+        return $this->get('description');
     }
 
     /**
@@ -66,7 +64,7 @@ class Position
 
     public function getDocumentNote(): string
     {
-        return $this->data['document_note'];
+        return $this->get('document_note');
     }
 
     /**
@@ -79,7 +77,7 @@ class Position
 
     public function getNote(): ?string
     {
-        return $this->data['note'];
+        return $this->get('note');
     }
 
     public function setUnit(?string $unit): void
@@ -89,7 +87,7 @@ class Position
 
     public function getUnit(): ?string
     {
-        return $this->data['unit'];
+        return $this->get('unit');
     }
 
     /**
@@ -102,22 +100,22 @@ class Position
 
     public function getExportIdentifier(): ?string
     {
-        return $this->data['export_identifier'];
+        return $this->get('export_identifier');
     }
 
-    public function setExportIdentifierExtended(\stdClass $export_identifier_extended): void
+    public function setExportIdentifierExtended(PositionExportIdentifierExtended $export_identifier_extended): void
     {
         $this->data['export_identifier_extended'] = $export_identifier_extended;
     }
 
-    public function getExportIdentifierExtended(): \stdClass
+    public function getExportIdentifierExtended(): PositionExportIdentifierExtended
     {
-        return $this->data['export_identifier_extended'];
+        return $this->getInstance('export_identifier_extended', \easybill\SDK\Models\PositionExportIdentifierExtended::class);
     }
 
     public function getLoginId(): int
     {
-        return $this->data['login_id'];
+        return $this->get('login_id');
     }
 
     public function setPriceType(string $price_type): void
@@ -127,7 +125,7 @@ class Position
 
     public function getPriceType(): string
     {
-        return $this->data['price_type'];
+        return $this->get('price_type');
     }
 
     public function setVatPercent(float $vat_percent): void
@@ -137,7 +135,7 @@ class Position
 
     public function getVatPercent(): float
     {
-        return $this->data['vat_percent'];
+        return $this->get('vat_percent');
     }
 
     /**
@@ -150,7 +148,7 @@ class Position
 
     public function getSalePrice(): float
     {
-        return $this->data['sale_price'];
+        return $this->get('sale_price');
     }
 
     /**
@@ -163,7 +161,7 @@ class Position
 
     public function getSalePrice2(): ?float
     {
-        return $this->data['sale_price2'];
+        return $this->get('sale_price2');
     }
 
     /**
@@ -176,7 +174,7 @@ class Position
 
     public function getSalePrice3(): ?float
     {
-        return $this->data['sale_price3'];
+        return $this->get('sale_price3');
     }
 
     /**
@@ -189,7 +187,7 @@ class Position
 
     public function getSalePrice4(): ?float
     {
-        return $this->data['sale_price4'];
+        return $this->get('sale_price4');
     }
 
     /**
@@ -202,7 +200,7 @@ class Position
 
     public function getSalePrice5(): ?float
     {
-        return $this->data['sale_price5'];
+        return $this->get('sale_price5');
     }
 
     /**
@@ -215,7 +213,7 @@ class Position
 
     public function getSalePrice6(): ?float
     {
-        return $this->data['sale_price6'];
+        return $this->get('sale_price6');
     }
 
     /**
@@ -228,7 +226,7 @@ class Position
 
     public function getSalePrice7(): ?float
     {
-        return $this->data['sale_price7'];
+        return $this->get('sale_price7');
     }
 
     /**
@@ -241,7 +239,7 @@ class Position
 
     public function getSalePrice8(): ?float
     {
-        return $this->data['sale_price8'];
+        return $this->get('sale_price8');
     }
 
     /**
@@ -254,7 +252,7 @@ class Position
 
     public function getSalePrice9(): ?float
     {
-        return $this->data['sale_price9'];
+        return $this->get('sale_price9');
     }
 
     /**
@@ -267,7 +265,7 @@ class Position
 
     public function getSalePrice10(): ?float
     {
-        return $this->data['sale_price10'];
+        return $this->get('sale_price10');
     }
 
     /**
@@ -280,7 +278,7 @@ class Position
 
     public function getCostPrice(): ?float
     {
-        return $this->data['cost_price'];
+        return $this->get('cost_price');
     }
 
     public function setExportCost1(?string $export_cost1): void
@@ -290,7 +288,7 @@ class Position
 
     public function getExportCost1(): ?string
     {
-        return $this->data['export_cost1'];
+        return $this->get('export_cost1');
     }
 
     public function setExportCost2(?string $export_cost2): void
@@ -300,7 +298,7 @@ class Position
 
     public function getExportCost2(): ?string
     {
-        return $this->data['export_cost2'];
+        return $this->get('export_cost2');
     }
 
     public function setGroupId(?int $group_id): void
@@ -310,7 +308,7 @@ class Position
 
     public function getGroupId(): ?int
     {
-        return $this->data['group_id'];
+        return $this->get('group_id');
     }
 
     /**
@@ -323,12 +321,12 @@ class Position
 
     public function getStock(): string
     {
-        return $this->data['stock'];
+        return $this->get('stock');
     }
 
     public function getStockCount(): int
     {
-        return $this->data['stock_count'];
+        return $this->get('stock_count');
     }
 
     /**
@@ -341,7 +339,7 @@ class Position
 
     public function getStockLimitNotify(): bool
     {
-        return $this->data['stock_limit_notify'];
+        return $this->get('stock_limit_notify');
     }
 
     /**
@@ -354,7 +352,7 @@ class Position
 
     public function getStockLimitNotifyFrequency(): string
     {
-        return $this->data['stock_limit_notify_frequency'];
+        return $this->get('stock_limit_notify_frequency');
     }
 
     public function setStockLimit(int $stock_limit): void
@@ -364,7 +362,7 @@ class Position
 
     public function getStockLimit(): int
     {
-        return $this->data['stock_limit'];
+        return $this->get('stock_limit');
     }
 
     /**
@@ -377,6 +375,6 @@ class Position
 
     public function getQuantity(): ?float
     {
-        return $this->data['quantity'];
+        return $this->get('quantity');
     }
 }

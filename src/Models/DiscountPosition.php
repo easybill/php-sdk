@@ -9,14 +9,9 @@ namespace easybill\SDK\Models;
  */
 class DiscountPosition extends Discount
 {
-    public function __construct(protected $data = [])
+    public function __construct(array $data = [])
     {
         parent::__construct($data);
-    }
-
-    public function getData(): array
-    {
-        return $this->data;
     }
 
     public function setPositionId(int $position_id): void
@@ -26,6 +21,6 @@ class DiscountPosition extends Discount
 
     public function getPositionId(): int
     {
-        return $this->data['position_id'];
+        return $this->get('position_id');
     }
 }

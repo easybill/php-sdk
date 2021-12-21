@@ -10,13 +10,8 @@ namespace easybill\SDK\Models;
  */
 class CustomerSnapshot extends Customer
 {
-    public function __construct(protected $data = [])
+    public function __construct(array $data = [])
     {
         parent::__construct($data);
-    }
-
-    public function getData(): array
-    {
-        return $this->data;
     }
 }

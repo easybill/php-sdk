@@ -7,20 +7,18 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class SerialNumber
+class SerialNumber implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function getId(): int
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setSerialNumber(string $serial_number): void
@@ -30,7 +28,7 @@ class SerialNumber
 
     public function getSerialNumber(): string
     {
-        return $this->data['serial_number'];
+        return $this->get('serial_number');
     }
 
     public function setPositionId(int $position_id): void
@@ -40,26 +38,26 @@ class SerialNumber
 
     public function getPositionId(): int
     {
-        return $this->data['position_id'];
+        return $this->get('position_id');
     }
 
     public function getDocumentId(): ?int
     {
-        return $this->data['document_id'];
+        return $this->get('document_id');
     }
 
     public function getDocumentPositionId(): ?int
     {
-        return $this->data['document_position_id'];
+        return $this->get('document_position_id');
     }
 
     public function getUsedAt(): ?string
     {
-        return $this->data['used_at'];
+        return $this->get('used_at');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->data['created_at'];
+        return $this->get('created_at');
     }
 }

@@ -7,15 +7,13 @@ namespace easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  */
-class PDFTemplate
+class PDFTemplate implements ToArrayInterface
 {
-    public function __construct(protected $data = [])
-    {
-    }
+    use Traits\Data;
 
-    public function getData(): array
+    public function __construct(array $data = [])
     {
-        return $this->data;
+        $this->data = $data;
     }
 
     public function setId(string $id): void
@@ -25,7 +23,7 @@ class PDFTemplate
 
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->get('id');
     }
 
     public function setName(string $name): void
@@ -35,7 +33,7 @@ class PDFTemplate
 
     public function getName(): string
     {
-        return $this->data['name'];
+        return $this->get('name');
     }
 
     public function setPdfTemplate(string $pdf_template): void
@@ -45,7 +43,7 @@ class PDFTemplate
 
     public function getPdfTemplate(): string
     {
-        return $this->data['pdf_template'];
+        return $this->get('pdf_template');
     }
 
     public function setDocumentType(string $document_type): void
@@ -55,6 +53,6 @@ class PDFTemplate
 
     public function getDocumentType(): string
     {
-        return $this->data['document_type'];
+        return $this->get('document_type');
     }
 }
