@@ -21,11 +21,17 @@ class Position implements ToArrayInterface
         return $this->attr('id');
     }
 
+    /**
+     * @enum ["PRODUCT","SERVICE","TEXT"]
+     */
     public function setType(string $type): void
     {
         $this->data['type'] = $type;
     }
 
+    /**
+     * @enum ["PRODUCT","SERVICE","TEXT"]
+     */
     public function getType(): string
     {
         return $this->attr('type');
@@ -118,11 +124,17 @@ class Position implements ToArrayInterface
         return $this->attr('login_id');
     }
 
+    /**
+     * @enum ["BRUTTO","NETTO"]
+     */
     public function setPriceType(string $price_type): void
     {
         $this->data['price_type'] = $price_type;
     }
 
+    /**
+     * @enum ["BRUTTO","NETTO"]
+     */
     public function getPriceType(): string
     {
         return $this->attr('price_type');
@@ -313,12 +325,17 @@ class Position implements ToArrayInterface
 
     /**
      * Activates stock management for this position.
+     *
+     * @enum ["YES","NO"]
      */
     public function setStock(string $stock): void
     {
         $this->data['stock'] = $stock;
     }
 
+    /**
+     * @enum ["YES","NO"]
+     */
     public function getStock(): string
     {
         return $this->attr('stock');
@@ -344,12 +361,17 @@ class Position implements ToArrayInterface
 
     /**
      * Notify frequency when stock_count is lower than stock_limit (ALWAYS, ONCE).
+     *
+     * @enum ["ALWAYS","ONCE"]
      */
     public function setStockLimitNotifyFrequency(string $stock_limit_notify_frequency): void
     {
         $this->data['stock_limit_notify_frequency'] = $stock_limit_notify_frequency;
     }
 
+    /**
+     * @enum ["ALWAYS","ONCE"]
+     */
     public function getStockLimitNotifyFrequency(): string
     {
         return $this->attr('stock_limit_notify_frequency');

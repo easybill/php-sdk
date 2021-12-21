@@ -131,21 +131,33 @@ class PostBox implements ToArrayInterface
         return $this->attr('send_with_attachment');
     }
 
+    /**
+     * @enum ["FAX","EMAIL","POST"]
+     */
     public function setType(string $type): void
     {
         $this->data['type'] = $type;
     }
 
+    /**
+     * @enum ["FAX","EMAIL","POST"]
+     */
     public function getType(): string
     {
         return $this->attr('type');
     }
 
+    /**
+     * @enum ["WAITING","PREPARE","ERROR","OK","PROCESSING"]
+     */
     public function setStatus(string $status): void
     {
         $this->data['status'] = $status;
     }
 
+    /**
+     * @enum ["WAITING","PREPARE","ERROR","OK","PROCESSING"]
+     */
     public function getStatus(): string
     {
         return $this->attr('status');
@@ -166,11 +178,17 @@ class PostBox implements ToArrayInterface
         return $this->attr('login_id');
     }
 
+    /**
+     * @enum ["default","zugferd1","zugferd2","xrechnung","xrechnung_xml"]
+     */
     public function setDocumentFileType(?string $document_file_type): void
     {
         $this->data['document_file_type'] = $document_file_type;
     }
 
+    /**
+     * @enum ["default","zugferd1","zugferd2","xrechnung","xrechnung_xml"]
+     */
     public function getDocumentFileType(): ?string
     {
         return $this->attr('document_file_type');
@@ -186,12 +204,17 @@ class PostBox implements ToArrayInterface
      * post_send_type_standard will be used.
      *
      * For postbox with a different type than "POST" this field will hold a empty string.
+     *
+     * @enum ["post_send_type_standard","post_send_type_registered","post_send_type_registered_and_personal","post_send_type_registered_and_receipt","post_send_type_registered_throwin","post_send_type_prio"]
      */
     public function setPostSendType(string $post_send_type): void
     {
         $this->data['post_send_type'] = $post_send_type;
     }
 
+    /**
+     * @enum ["post_send_type_standard","post_send_type_registered","post_send_type_registered_and_personal","post_send_type_registered_and_receipt","post_send_type_registered_throwin","post_send_type_prio"]
+     */
     public function getPostSendType(): string
     {
         return $this->attr('post_send_type');

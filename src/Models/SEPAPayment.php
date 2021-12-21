@@ -186,12 +186,17 @@ class SEPAPayment implements ToArrayInterface
 
     /**
      * CORE: SEPA Core Direct Debit<br/> COR1: SEPA-Basislastschrift COR1<br/> B2B: SEPA Business to Business Direct Debit.
+     *
+     * @enum ["CORE","COR1","B2B"]
      */
     public function setLocalInstrument(string $local_instrument): void
     {
         $this->data['local_instrument'] = $local_instrument;
     }
 
+    /**
+     * @enum ["CORE","COR1","B2B"]
+     */
     public function getLocalInstrument(): string
     {
         return $this->attr('local_instrument');
@@ -252,12 +257,17 @@ class SEPAPayment implements ToArrayInterface
 
     /**
      * FRST: Erstlastschrift<br/> RCUR: Folgelastschrift<br/> OOFF: Einmallastschrift<br/> FNAL: Letztmalige Lastschrift.
+     *
+     * @enum ["FRST","OOFF","FNAL","RCUR"]
      */
     public function setSequenceType(string $sequence_type): void
     {
         $this->data['sequence_type'] = $sequence_type;
     }
 
+    /**
+     * @enum ["FRST","OOFF","FNAL","RCUR"]
+     */
     public function getSequenceType(): string
     {
         return $this->attr('sequence_type');
@@ -268,11 +278,17 @@ class SEPAPayment implements ToArrayInterface
         return $this->attr('updated_at');
     }
 
+    /**
+     * @enum ["DEBIT","CREDIT"]
+     */
     public function setType(string $type): void
     {
         $this->data['type'] = $type;
     }
 
+    /**
+     * @enum ["DEBIT","CREDIT"]
+     */
     public function getType(): string
     {
         return $this->attr('type');

@@ -18,12 +18,17 @@ class ServiceDate implements ToArrayInterface
 
     /**
      * With DEFAULT no other fields are required and this message will be printed: 'Invoice date coincides with the time of supply'.<br/> For SERVICE or DELIVERY exactly one of the following fields must be set: date, date_from and date_to or text.
+     *
+     * @enum ["DEFAULT","SERVICE","DELIVERY"]
      */
     public function setType(string $type): void
     {
         $this->data['type'] = $type;
     }
 
+    /**
+     * @enum ["DEFAULT","SERVICE","DELIVERY"]
+     */
     public function getType(): string
     {
         return $this->attr('type');

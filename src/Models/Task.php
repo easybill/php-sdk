@@ -16,11 +16,17 @@ class Task implements ToArrayInterface
         $this->data = $data;
     }
 
+    /**
+     * @enum ["CALL","EMAIL","FAX","LUNCH","MEETING","TRAVEL","CUSTOM"]
+     */
     public function setCategory(?string $category): void
     {
         $this->data['category'] = $category;
     }
 
+    /**
+     * @enum ["CALL","EMAIL","FAX","LUNCH","MEETING","TRAVEL","CUSTOM"]
+     */
     public function getCategory(): ?string
     {
         return $this->attr('category');
@@ -130,11 +136,17 @@ class Task implements ToArrayInterface
         return $this->attr('position_id');
     }
 
+    /**
+     * @enum ["LOW","NORMAL","HIGH"]
+     */
     public function setPriority(string $priority): void
     {
         $this->data['priority'] = $priority;
     }
 
+    /**
+     * @enum ["LOW","NORMAL","HIGH"]
+     */
     public function getPriority(): string
     {
         return $this->attr('priority');
@@ -160,11 +172,17 @@ class Task implements ToArrayInterface
         return $this->attr('start_at');
     }
 
+    /**
+     * @enum ["WAITING","PROCESSING","DONE","CANCEL"]
+     */
     public function setStatus(string $status): void
     {
         $this->data['status'] = $status;
     }
 
+    /**
+     * @enum ["WAITING","PROCESSING","DONE","CANCEL"]
+     */
     public function getStatus(): string
     {
         return $this->attr('status');

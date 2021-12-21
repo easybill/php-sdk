@@ -82,11 +82,17 @@ class DocumentPosition implements ToArrayInterface
         return $this->attr('unit');
     }
 
+    /**
+     * @enum ["POSITION","POSITION_NOCALC","TEXT"]
+     */
     public function setType(string $type): void
     {
         $this->data['type'] = $type;
     }
 
+    /**
+     * @enum ["POSITION","POSITION_NOCALC","TEXT"]
+     */
     public function getType(): string
     {
         return $this->attr('type');
@@ -140,11 +146,17 @@ class DocumentPosition implements ToArrayInterface
         return $this->attr('discount');
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function setDiscountType(?string $discount_type): void
     {
         $this->data['discount_type'] = $discount_type;
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function getDiscountType(): ?string
     {
         return $this->attr('discount_type');
@@ -238,16 +250,25 @@ class DocumentPosition implements ToArrayInterface
         return $this->attr('cost_price_charge');
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function getCostPriceChargeType(): string
     {
         return $this->attr('cost_price_charge_type');
     }
 
+    /**
+     * @enum ["PRODUCT","SERVICE","UNDEFINED"]
+     */
     public function setItemType(string $itemType): void
     {
         $this->data['itemType'] = $itemType;
     }
 
+    /**
+     * @enum ["PRODUCT","SERVICE","UNDEFINED"]
+     */
     public function getItemType(): string
     {
         return $this->attr('itemType');

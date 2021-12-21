@@ -17,6 +17,9 @@ class CustomerSnapshot implements ToArrayInterface
         $this->data = $data;
     }
 
+    /**
+     * @enum [1,2,3,4,5,6,7,8]
+     */
     public function getAcquireOptions(): ?int
     {
         return $this->attr('acquire_options');
@@ -80,6 +83,9 @@ class CustomerSnapshot implements ToArrayInterface
         return $this->attr('cash_discount');
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function getCashDiscountType(): ?string
     {
         return $this->attr('cash_discount_type');
@@ -155,6 +161,9 @@ class CustomerSnapshot implements ToArrayInterface
         return $this->attr('delivery_personal');
     }
 
+    /**
+     * @enum [0,1,2,3,4,5,6]
+     */
     public function getDeliverySalutation(): int
     {
         return $this->attr('delivery_salutation');
@@ -263,6 +272,9 @@ class CustomerSnapshot implements ToArrayInterface
         return $this->attr('number');
     }
 
+    /**
+     * @enum [1,2,3,5]
+     */
     public function getPaymentOptions(): ?int
     {
         return $this->attr('payment_options');
@@ -308,16 +320,25 @@ class CustomerSnapshot implements ToArrayInterface
         return $this->attr('postbox_zip_code');
     }
 
+    /**
+     * @enum ["SALEPRICE2","SALEPRICE3","SALEPRICE4","SALEPRICE5","SALEPRICE6","SALEPRICE7","SALEPRICE8","SALEPRICE9","SALEPRICE10"]
+     */
     public function getSalePriceLevel(): ?string
     {
         return $this->attr('sale_price_level');
     }
 
+    /**
+     * @enum [0,1,2,3,4,5,6]
+     */
     public function getSalutation(): int
     {
         return $this->attr('salutation');
     }
 
+    /**
+     * @enum ["BASIC","COR1","COMPANY","NULL"]
+     */
     public function getSepaAgreement(): ?string
     {
         return $this->attr('sepa_agreement');
@@ -368,6 +389,9 @@ class CustomerSnapshot implements ToArrayInterface
         return $this->attr('court_registry_number');
     }
 
+    /**
+     * @enum ["nStb","nStbUstID","nStbNoneUstID","nStbIm","revc","IG","AL","sStfr","NULL"]
+     */
     public function getTaxOptions(): ?string
     {
         return $this->attr('tax_options');
@@ -388,6 +412,9 @@ class CustomerSnapshot implements ToArrayInterface
         return $this->attr('zip_code');
     }
 
+    /**
+     * @enum ["default","zugferd1","zugferd2","xrechnung","xrechnung_xml"]
+     */
     public function getDocumentPdfType(): string
     {
         return $this->attr('documentPdfType');

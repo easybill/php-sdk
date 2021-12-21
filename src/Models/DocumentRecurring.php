@@ -29,21 +29,33 @@ class DocumentRecurring implements ToArrayInterface
         return $this->attrDate('next_date');
     }
 
+    /**
+     * @enum ["DAILY","WEEKLY","MONTHLY","YEARLY"]
+     */
     public function setFrequency(string $frequency): void
     {
         $this->data['frequency'] = $frequency;
     }
 
+    /**
+     * @enum ["DAILY","WEEKLY","MONTHLY","YEARLY"]
+     */
     public function getFrequency(): string
     {
         return $this->attr('frequency');
     }
 
+    /**
+     * @enum ["LASTDAYOFMONTH"]
+     */
     public function setFrequencySpecial(?string $frequency_special): void
     {
         $this->data['frequency_special'] = $frequency_special;
     }
 
+    /**
+     * @enum ["LASTDAYOFMONTH"]
+     */
     public function getFrequencySpecial(): ?string
     {
         return $this->attr('frequency_special');
@@ -72,11 +84,17 @@ class DocumentRecurring implements ToArrayInterface
         return $this->attr('end_date_or_count');
     }
 
+    /**
+     * @enum ["RUNNING","PAUSE","STOP","WAITING"]
+     */
     public function setStatus(string $status): void
     {
         $this->data['status'] = $status;
     }
 
+    /**
+     * @enum ["RUNNING","PAUSE","STOP","WAITING"]
+     */
     public function getStatus(): string
     {
         return $this->attr('status');
@@ -102,11 +120,17 @@ class DocumentRecurring implements ToArrayInterface
         return $this->attr('is_notify');
     }
 
+    /**
+     * @enum ["EMAIL","FAX","POST"]
+     */
     public function setSendAs(?string $send_as): void
     {
         $this->data['send_as'] = $send_as;
     }
 
+    /**
+     * @enum ["EMAIL","FAX","POST"]
+     */
     public function getSendAs(): ?string
     {
         return $this->attr('send_as');
@@ -134,12 +158,17 @@ class DocumentRecurring implements ToArrayInterface
 
     /**
      * Option is used to determine what date is used for the payment if is_paid is true. "next_valid_date" selects the next workday in regards to the created date of the document if the date falls on a saturday or sunday.
+     *
+     * @enum ["created_date","due_date","next_valid_date"]
      */
     public function setPaidDateOption(string $paid_date_option): void
     {
         $this->data['paid_date_option'] = $paid_date_option;
     }
 
+    /**
+     * @enum ["created_date","due_date","next_valid_date"]
+     */
     public function getPaidDateOption(): string
     {
         return $this->attr('paid_date_option');
@@ -155,21 +184,33 @@ class DocumentRecurring implements ToArrayInterface
         return $this->attr('is_sepa');
     }
 
+    /**
+     * @enum ["CORE","COR1","B2B"]
+     */
     public function setSepaLocalInstrument(?string $sepa_local_instrument): void
     {
         $this->data['sepa_local_instrument'] = $sepa_local_instrument;
     }
 
+    /**
+     * @enum ["CORE","COR1","B2B"]
+     */
     public function getSepaLocalInstrument(): ?string
     {
         return $this->attr('sepa_local_instrument');
     }
 
+    /**
+     * @enum ["FRST","OOFF","FNAL","RCUR"]
+     */
     public function setSepaSequenceType(?string $sepa_sequence_type): void
     {
         $this->data['sepa_sequence_type'] = $sepa_sequence_type;
     }
 
+    /**
+     * @enum ["FRST","OOFF","FNAL","RCUR"]
+     */
     public function getSepaSequenceType(): ?string
     {
         return $this->attr('sepa_sequence_type');
@@ -197,12 +238,17 @@ class DocumentRecurring implements ToArrayInterface
 
     /**
      * The document type that will be generated. Can not be changed on existing documents.
+     *
+     * @enum ["INVOICE","CREDIT","ORDER","OFFER"]
      */
     public function setTargetType(string $target_type): void
     {
         $this->data['target_type'] = $target_type;
     }
 
+    /**
+     * @enum ["INVOICE","CREDIT","ORDER","OFFER"]
+     */
     public function getTargetType(): string
     {
         return $this->attr('target_type');

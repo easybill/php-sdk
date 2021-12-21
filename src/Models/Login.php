@@ -76,11 +76,17 @@ class Login implements ToArrayInterface
         return $this->attr('email_signature');
     }
 
+    /**
+     * @enum ["ADMIN","ASSISTANT"]
+     */
     public function setLoginType(string $login_type): void
     {
         $this->data['login_type'] = $login_type;
     }
 
+    /**
+     * @enum ["ADMIN","ASSISTANT"]
+     */
     public function getLoginType(): string
     {
         return $this->attr('login_type');

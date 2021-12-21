@@ -18,12 +18,17 @@ class Customer implements ToArrayInterface
 
     /**
      * 1 = Empfehlung eines anderen Kunden, 2 = Zeitungsanzeige, 3 = Eigene Akquisition, 4 = Mitarbeiter Akquisition, 5 = Google, 6 = Gelbe Seiten, 7 = Kostenlose Internet Plattform, 8 = Bezahlte Internet Plattform.
+     *
+     * @enum [1,2,3,4,5,6,7,8]
      */
     public function setAcquireOptions(?int $acquire_options): void
     {
         $this->data['acquire_options'] = $acquire_options;
     }
 
+    /**
+     * @enum [1,2,3,4,5,6,7,8]
+     */
     public function getAcquireOptions(): ?int
     {
         return $this->attr('acquire_options');
@@ -137,11 +142,17 @@ class Customer implements ToArrayInterface
         return $this->attr('cash_discount');
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function setCashDiscountType(?string $cash_discount_type): void
     {
         $this->data['cash_discount_type'] = $cash_discount_type;
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function getCashDiscountType(): ?string
     {
         return $this->attr('cash_discount_type');
@@ -279,12 +290,17 @@ class Customer implements ToArrayInterface
 
     /**
      * 0 = nothing, 1 = Mr, 2 = Mrs, 3 = Company, 4 = Mr & Mrs, 5 = Married couple, 6 = Family.
+     *
+     * @enum [0,1,2,3,4,5,6]
      */
     public function setDeliverySalutation(int $delivery_salutation): void
     {
         $this->data['delivery_salutation'] = $delivery_salutation;
     }
 
+    /**
+     * @enum [0,1,2,3,4,5,6]
+     */
     public function getDeliverySalutation(): int
     {
         return $this->attr('delivery_salutation');
@@ -494,12 +510,17 @@ class Customer implements ToArrayInterface
 
     /**
      * 1 = Stets pünktliche Zahlung, 2 = überwiegend pünktliche Zahlung, 3 = überwiegend verspätete Zahlung, 5 = Grundsätzlich verspätete Zahlung.
+     *
+     * @enum [1,2,3,5]
      */
     public function setPaymentOptions(?int $payment_options): void
     {
         $this->data['payment_options'] = $payment_options;
     }
 
+    /**
+     * @enum [1,2,3,5]
+     */
     public function getPaymentOptions(): ?int
     {
         return $this->attr('payment_options');
@@ -585,11 +606,17 @@ class Customer implements ToArrayInterface
         return $this->attr('postbox_zip_code');
     }
 
+    /**
+     * @enum ["SALEPRICE2","SALEPRICE3","SALEPRICE4","SALEPRICE5","SALEPRICE6","SALEPRICE7","SALEPRICE8","SALEPRICE9","SALEPRICE10"]
+     */
     public function setSalePriceLevel(?string $sale_price_level): void
     {
         $this->data['sale_price_level'] = $sale_price_level;
     }
 
+    /**
+     * @enum ["SALEPRICE2","SALEPRICE3","SALEPRICE4","SALEPRICE5","SALEPRICE6","SALEPRICE7","SALEPRICE8","SALEPRICE9","SALEPRICE10"]
+     */
     public function getSalePriceLevel(): ?string
     {
         return $this->attr('sale_price_level');
@@ -597,12 +624,17 @@ class Customer implements ToArrayInterface
 
     /**
      * 0 = nothing, 1 = Mr, 2 = Mrs, 3 = Company, 4 = Mr & Mrs, 5 = Married couple, 6 = Family.
+     *
+     * @enum [0,1,2,3,4,5,6]
      */
     public function setSalutation(int $salutation): void
     {
         $this->data['salutation'] = $salutation;
     }
 
+    /**
+     * @enum [0,1,2,3,4,5,6]
+     */
     public function getSalutation(): int
     {
         return $this->attr('salutation');
@@ -610,12 +642,17 @@ class Customer implements ToArrayInterface
 
     /**
      * BASIC = SEPA-Basislastschrift, COR1 = SEPA-Basislastschrift COR1, COMPANY = SEPA-Firmenlastschrift, NULL = Noch kein Mandat erteilt.
+     *
+     * @enum ["BASIC","COR1","COMPANY","NULL"]
      */
     public function setSepaAgreement(?string $sepa_agreement): void
     {
         $this->data['sepa_agreement'] = $sepa_agreement;
     }
 
+    /**
+     * @enum ["BASIC","COR1","COMPANY","NULL"]
+     */
     public function getSepaAgreement(): ?string
     {
         return $this->attr('sepa_agreement');
@@ -713,12 +750,17 @@ class Customer implements ToArrayInterface
 
     /**
      * nStb = Nicht steuerbar (Drittland), nStbUstID = Nicht steuerbar (EU mit USt-IdNr.), nStbNoneUstID = Nicht steuerbar (EU ohne USt-IdNr.), revc = Steuerschuldwechsel §13b (Inland), IG = Innergemeinschaftliche Lieferung, AL = Ausfuhrlieferung, sStfr = sonstige Steuerbefreiung, NULL = Umsatzsteuerpflichtig.
+     *
+     * @enum ["nStb","nStbUstID","nStbNoneUstID","nStbIm","revc","IG","AL","sStfr","NULL"]
      */
     public function setTaxOptions(?string $tax_options): void
     {
         $this->data['tax_options'] = $tax_options;
     }
 
+    /**
+     * @enum ["nStb","nStbUstID","nStbNoneUstID","nStbIm","revc","IG","AL","sStfr","NULL"]
+     */
     public function getTaxOptions(): ?string
     {
         return $this->attr('tax_options');
@@ -756,12 +798,17 @@ class Customer implements ToArrayInterface
 
     /**
      * Type of PDF to use when sending a Document to the Customer.
+     *
+     * @enum ["default","zugferd1","zugferd2","xrechnung","xrechnung_xml"]
      */
     public function setDocumentPdfType(string $documentPdfType): void
     {
         $this->data['documentPdfType'] = $documentPdfType;
     }
 
+    /**
+     * @enum ["default","zugferd1","zugferd2","xrechnung","xrechnung_xml"]
+     */
     public function getDocumentPdfType(): string
     {
         return $this->attr('documentPdfType');

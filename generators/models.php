@@ -92,6 +92,7 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
         $propertyInfo['x-nullable'] = $propertyInfo['x-nullable'] ?? false;
         $propertyInfo['items'] = $propertyInfo['items'] ?? [];
         $propertyInfo['format'] = $propertyInfo['format'] ?? '';
+        $propertyInfo['enum'] = $propertyInfo['enum'] ?? [];
 
         echo '==> ' . $className . '::' . $propertyName . "\n";
 
@@ -126,6 +127,9 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             if ($propertyInfo['x-nullable']) {
                 $property->setNullable();
             }
+            if ($propertyInfo['enum']) {
+                $setter->addComment('@enum ' . json_encode($propertyInfo['enum'], JSON_THROW_ON_ERROR));
+            }
         }
 
         $getter = $class->addMethod('get' . $methodeName);
@@ -145,6 +149,9 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             $getter->setBody('return $this->attrDate(\'' . $propertyName . '\');');
         } else {
             $getter->setBody('return $this->attr(\'' . $propertyName . '\');');
+        }
+        if ($propertyInfo['enum']) {
+            $getter->addComment('@enum ' . json_encode($propertyInfo['enum'], JSON_THROW_ON_ERROR));
         }
     }
 

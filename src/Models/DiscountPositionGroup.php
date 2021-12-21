@@ -56,12 +56,17 @@ class DiscountPositionGroup implements ToArrayInterface
 
     /**
      * AMOUNT subtracts the value in "discount" from the total<br/> QUANTITY subtracts the value in "discount" multiplied by quantity<br/> PERCENT uses the value in "discount" as a percentage<br/> FIX sets the value in "discount" as the new price.
+     *
+     * @enum ["AMOUNT","PERCENT","QUANTITY","FIX"]
      */
     public function setDiscountType(string $discount_type): void
     {
         $this->data['discount_type'] = $discount_type;
     }
 
+    /**
+     * @enum ["AMOUNT","PERCENT","QUANTITY","FIX"]
+     */
     public function getDiscountType(): string
     {
         return $this->attr('discount_type');

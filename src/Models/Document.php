@@ -61,12 +61,17 @@ class Document implements ToArrayInterface
 
     /**
      * 0 === Net, 1 === Gross.
+     *
+     * @enum [0,1]
      */
     public function setCalcVatFrom(int $calc_vat_from): void
     {
         $this->data['calc_vat_from'] = $calc_vat_from;
     }
 
+    /**
+     * @enum [0,1]
+     */
     public function getCalcVatFrom(): int
     {
         return $this->attr('calc_vat_from');
@@ -177,11 +182,17 @@ class Document implements ToArrayInterface
         return $this->attr('discount');
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function setDiscountType(?string $discount_type): void
     {
         $this->data['discount_type'] = $discount_type;
     }
 
+    /**
+     * @enum ["PERCENT","AMOUNT"]
+     */
     public function getDiscountType(): ?string
     {
         return $this->attr('discount_type');
@@ -475,12 +486,17 @@ class Document implements ToArrayInterface
 
     /**
      * This value can only be used in document type DELIVERY, ORDER, CHARGE or OFFER. NULL is default = not set.
+     *
+     * @enum ["ACCEPT","DONE","DROPSHIPPING","CANCEL"]
      */
     public function setStatus(?string $status): void
     {
         $this->data['status'] = $status;
     }
 
+    /**
+     * @enum ["ACCEPT","DONE","DROPSHIPPING","CANCEL"]
+     */
     public function getStatus(): ?string
     {
         return $this->attr('status');
@@ -531,12 +547,17 @@ class Document implements ToArrayInterface
 
     /**
      * Can only set on create.
+     *
+     * @enum ["INVOICE","RECURRING","CREDIT","OFFER","REMINDER","DUNNING","STORNO","STORNO_CREDIT","DELIVERY","PDF","CHARGE","CHARGE_CONFIRM","LETTER","ORDER","PROFORMA_INVOICE","STORNO_PROFORMA_INVOICE"]
      */
     public function setType(string $type): void
     {
         $this->data['type'] = $type;
     }
 
+    /**
+     * @enum ["INVOICE","RECURRING","CREDIT","OFFER","REMINDER","DUNNING","STORNO","STORNO_CREDIT","DELIVERY","PDF","CHARGE","CHARGE_CONFIRM","LETTER","ORDER","PROFORMA_INVOICE","STORNO_PROFORMA_INVOICE"]
+     */
     public function getType(): string
     {
         return $this->attr('type');
@@ -582,12 +603,17 @@ class Document implements ToArrayInterface
 
     /**
      * NULL: Normal steuerbar<br/> nStb: Nicht steuerbar (Drittland)<br/> nStbUstID: Nicht steuerbar (EU mit USt-IdNr.)<br/> nStbNoneUstID: Nicht steuerbar (EU ohne USt-IdNr.)<br/> nStbIm: Nicht steuerbarer Innenumsatz<br/> revc: Steuerschuldwechsel §13b (Inland)<br/> IG: Innergemeinschaftliche Lieferung<br/> AL: Ausfuhrlieferung<br/> sStfr: sonstige Steuerbefreiung<br/> smallBusiness: Kleinunternehmen (Keine MwSt.).
+     *
+     * @enum ["NULL","nStb","nStbUstID","nStbNoneUstID","nStbIm","revc","IG","AL","sStfr","smallBusiness"]
      */
     public function setVatOption(?string $vat_option): void
     {
         $this->data['vat_option'] = $vat_option;
     }
 
+    /**
+     * @enum ["NULL","nStb","nStbUstID","nStbNoneUstID","nStbIm","revc","IG","AL","sStfr","smallBusiness"]
+     */
     public function getVatOption(): ?string
     {
         return $this->attr('vat_option');

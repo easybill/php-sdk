@@ -16,11 +16,17 @@ class WebHook implements ToArrayInterface
         $this->data = $data;
     }
 
+    /**
+     * @enum ["form","json"]
+     */
     public function setContentType(string $content_type): void
     {
         $this->data['content_type'] = $content_type;
     }
 
+    /**
+     * @enum ["form","json"]
+     */
     public function getContentType(): string
     {
         return $this->attr('content_type');

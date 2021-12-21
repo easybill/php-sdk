@@ -103,11 +103,17 @@ class Project implements ToArrayInterface
         return $this->attr('note');
     }
 
+    /**
+     * @enum ["OPEN","DONE","CANCEL"]
+     */
     public function setStatus(string $status): void
     {
         $this->data['status'] = $status;
     }
 
+    /**
+     * @enum ["OPEN","DONE","CANCEL"]
+     */
     public function getStatus(): string
     {
         return $this->attr('status');
@@ -123,11 +129,17 @@ class Project implements ToArrayInterface
         return $this->attrDate('due_at');
     }
 
+    /**
+     * @enum ["ALWAYS","ONCE","NEVER"]
+     */
     public function setBudgetNotifyFrequency(string $budget_notify_frequency): void
     {
         $this->data['budget_notify_frequency'] = $budget_notify_frequency;
     }
 
+    /**
+     * @enum ["ALWAYS","ONCE","NEVER"]
+     */
     public function getBudgetNotifyFrequency(): string
     {
         return $this->attr('budget_notify_frequency');
