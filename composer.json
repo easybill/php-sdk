@@ -1,6 +1,6 @@
 {
   "name": "easybill/php-sdk",
-  "description": "easybill PHP SDK (API)",
+  "description": "easybill PHP SDK (REST API)",
   "keywords": [
     "PHP",
     "easybill",
