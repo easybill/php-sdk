@@ -34,4 +34,4 @@ jobs:
                     composer install --no-interaction --prefer-dist --no-progress ${{ matrix.dependencies }}
             -   name: Run tests
                 run: |
-                    php vendor/bin/phpunit
+                    php vendor/bin/phpunit tests
