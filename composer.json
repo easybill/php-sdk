@@ -48,6 +48,7 @@
   },
   "scripts-descriptions": {
     "sdk:models": "Gnerate models from swagger.json file.",
-    "sdk:cs-fix": "Run php-cs-fixer to reformat php files."
+    "sdk:cs-fix": "Run php-cs-fixer to reformat php files.",
+    "sdk:test": "Run test with PHPUnit"
   }
 }
