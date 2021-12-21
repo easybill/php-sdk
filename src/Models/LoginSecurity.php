@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace easybill\SDK\Models;
 
 /**
- * Auto-generated with `composer sdk:models`
+ * Auto-generated with `composer sdk:models`.
+ *
+ * @version swagger 1.68.0
+ * @version rest v1
  * This object is only displayed if your request the login resource as an admin. Otherwise this property will be null.
  */
 class LoginSecurity implements ToArrayInterface

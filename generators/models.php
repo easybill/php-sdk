@@ -72,6 +72,8 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
     $file->setStrictTypes();
     $class = $file->addClass(classWithNamespace($className));
     $class->addComment('Auto-generated with `composer sdk:models`');
+    $class->addComment('@version swagger ' . $swagger['info']['version']);
+    $class->addComment('@version rest v1');
 
     if ('' !== $classInfo['description']) {
         $class->addComment($classInfo['description']);
