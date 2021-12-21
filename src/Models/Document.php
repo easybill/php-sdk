@@ -18,7 +18,7 @@ class Document implements ToArrayInterface
 
     public function getAddress(): DocumentAddress
     {
-        return $this->getInstance('address', \easybill\SDK\Models\DocumentAddress::class);
+        return $this->attrInstance('address', \easybill\SDK\Models\DocumentAddress::class);
     }
 
     /**
@@ -26,22 +26,22 @@ class Document implements ToArrayInterface
      */
     public function getAttachmentIds(): array
     {
-        return $this->get('attachment_ids');
+        return $this->attr('attachment_ids');
     }
 
     public function getLabelAddress(): DocumentAddress
     {
-        return $this->getInstance('label_address', \easybill\SDK\Models\DocumentAddress::class);
+        return $this->attrInstance('label_address', \easybill\SDK\Models\DocumentAddress::class);
     }
 
     public function getAmount(): int
     {
-        return $this->get('amount');
+        return $this->attr('amount');
     }
 
     public function getAmountNet(): int
     {
-        return $this->get('amount_net');
+        return $this->attr('amount_net');
     }
 
     public function setBankDebitForm(?string $bank_debit_form): void
@@ -51,12 +51,12 @@ class Document implements ToArrayInterface
 
     public function getBankDebitForm(): ?string
     {
-        return $this->get('bank_debit_form');
+        return $this->attr('bank_debit_form');
     }
 
     public function getBillingCountry(): string
     {
-        return $this->get('billing_country');
+        return $this->attr('billing_country');
     }
 
     /**
@@ -69,12 +69,12 @@ class Document implements ToArrayInterface
 
     public function getCalcVatFrom(): int
     {
-        return $this->get('calc_vat_from');
+        return $this->attr('calc_vat_from');
     }
 
     public function getCancelId(): int
     {
-        return $this->get('cancel_id');
+        return $this->attr('cancel_id');
     }
 
     public function setCashAllowance(?float $cash_allowance): void
@@ -84,7 +84,7 @@ class Document implements ToArrayInterface
 
     public function getCashAllowance(): ?float
     {
-        return $this->get('cash_allowance');
+        return $this->attr('cash_allowance');
     }
 
     public function setCashAllowanceDays(?int $cash_allowance_days): void
@@ -94,7 +94,7 @@ class Document implements ToArrayInterface
 
     public function getCashAllowanceDays(): ?int
     {
-        return $this->get('cash_allowance_days');
+        return $this->attr('cash_allowance_days');
     }
 
     public function setCashAllowanceText(?string $cash_allowance_text): void
@@ -104,7 +104,7 @@ class Document implements ToArrayInterface
 
     public function getCashAllowanceText(): ?string
     {
-        return $this->get('cash_allowance_text');
+        return $this->attr('cash_allowance_text');
     }
 
     public function setContactId(?int $contact_id): void
@@ -114,7 +114,7 @@ class Document implements ToArrayInterface
 
     public function getContactId(): ?int
     {
-        return $this->get('contact_id');
+        return $this->attr('contact_id');
     }
 
     public function setContactLabel(string $contact_label): void
@@ -124,7 +124,7 @@ class Document implements ToArrayInterface
 
     public function getContactLabel(): string
     {
-        return $this->get('contact_label');
+        return $this->attr('contact_label');
     }
 
     public function setContactText(string $contact_text): void
@@ -134,12 +134,12 @@ class Document implements ToArrayInterface
 
     public function getContactText(): string
     {
-        return $this->get('contact_text');
+        return $this->attr('contact_text');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
     public function setCurrency(string $currency): void
@@ -149,7 +149,7 @@ class Document implements ToArrayInterface
 
     public function getCurrency(): string
     {
-        return $this->get('currency');
+        return $this->attr('currency');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -159,12 +159,12 @@ class Document implements ToArrayInterface
 
     public function getCustomerId(): ?int
     {
-        return $this->get('customer_id');
+        return $this->attr('customer_id');
     }
 
     public function getCustomerSnapshot(): CustomerSnapshot
     {
-        return $this->getInstance('customer_snapshot', \easybill\SDK\Models\CustomerSnapshot::class);
+        return $this->attrInstance('customer_snapshot', \easybill\SDK\Models\CustomerSnapshot::class);
     }
 
     public function setDiscount(?string $discount): void
@@ -174,7 +174,7 @@ class Document implements ToArrayInterface
 
     public function getDiscount(): ?string
     {
-        return $this->get('discount');
+        return $this->attr('discount');
     }
 
     public function setDiscountType(?string $discount_type): void
@@ -184,27 +184,27 @@ class Document implements ToArrayInterface
 
     public function getDiscountType(): ?string
     {
-        return $this->get('discount_type');
+        return $this->attr('discount_type');
     }
 
-    public function setDocumentDate(string $document_date): void
+    public function setDocumentDate(\DateTimeImmutable $document_date): void
     {
         $this->data['document_date'] = $document_date;
     }
 
-    public function getDocumentDate(): string
+    public function getDocumentDate(): \DateTimeImmutable
     {
-        return $this->get('document_date');
+        return $this->attrDate('document_date');
     }
 
-    public function getDueDate(): string
+    public function getDueDate(): \DateTimeImmutable
     {
-        return $this->get('due_date');
+        return $this->attrDate('due_date');
     }
 
-    public function getEditedAt(): string
+    public function getEditedAt(): \DateTimeImmutable
     {
-        return $this->get('edited_at');
+        return $this->attr('edited_at');
     }
 
     public function setExternalId(?string $external_id): void
@@ -214,7 +214,7 @@ class Document implements ToArrayInterface
 
     public function getExternalId(): ?string
     {
-        return $this->get('external_id');
+        return $this->attr('external_id');
     }
 
     public function setReplicaUrl(?string $replica_url): void
@@ -224,7 +224,7 @@ class Document implements ToArrayInterface
 
     public function getReplicaUrl(): ?string
     {
-        return $this->get('replica_url');
+        return $this->attr('replica_url');
     }
 
     /**
@@ -237,7 +237,7 @@ class Document implements ToArrayInterface
 
     public function getGracePeriod(): ?int
     {
-        return $this->get('grace_period');
+        return $this->attr('grace_period');
     }
 
     /**
@@ -250,12 +250,12 @@ class Document implements ToArrayInterface
 
     public function getDueInDays(): ?int
     {
-        return $this->get('due_in_days');
+        return $this->attr('due_in_days');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setIsArchive(bool $is_archive): void
@@ -265,12 +265,12 @@ class Document implements ToArrayInterface
 
     public function getIsArchive(): bool
     {
-        return $this->get('is_archive');
+        return $this->attr('is_archive');
     }
 
     public function getIsDraft(): bool
     {
-        return $this->get('is_draft');
+        return $this->attr('is_draft');
     }
 
     /**
@@ -283,12 +283,12 @@ class Document implements ToArrayInterface
 
     public function getIsReplica(): bool
     {
-        return $this->get('is_replica');
+        return $this->attr('is_replica');
     }
 
     public function getIsCold(): bool
     {
-        return $this->get('is_cold');
+        return $this->attr('is_cold');
     }
 
     /**
@@ -301,20 +301,20 @@ class Document implements ToArrayInterface
 
     public function getIsOss(): bool
     {
-        return $this->get('is_oss');
+        return $this->attr('is_oss');
     }
 
     /**
      * Signals when the document should be moved to the long term archive.
      */
-    public function setColdstorageDueDate(?string $coldstorage_due_date): void
+    public function setColdstorageDueDate(?\DateTimeImmutable $coldstorage_due_date): void
     {
         $this->data['coldstorage_due_date'] = $coldstorage_due_date;
     }
 
-    public function getColdstorageDueDate(): ?string
+    public function getColdstorageDueDate(): ?\DateTimeImmutable
     {
-        return $this->get('coldstorage_due_date');
+        return $this->attrDate('coldstorage_due_date');
     }
 
     /**
@@ -322,7 +322,7 @@ class Document implements ToArrayInterface
      */
     public function getItemNotes(): array
     {
-        return $this->get('item_notes');
+        return $this->attr('item_notes');
     }
 
     public function setItems(array $items): void
@@ -335,12 +335,12 @@ class Document implements ToArrayInterface
      */
     public function getItems(): array
     {
-        return $this->get('items');
+        return $this->attr('items');
     }
 
     public function getLastPostboxId(): int
     {
-        return $this->get('last_postbox_id');
+        return $this->attr('last_postbox_id');
     }
 
     /**
@@ -353,7 +353,7 @@ class Document implements ToArrayInterface
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setNumber(?string $number): void
@@ -363,7 +363,7 @@ class Document implements ToArrayInterface
 
     public function getNumber(): ?string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     public function setOrderNumber(string $order_number): void
@@ -373,7 +373,7 @@ class Document implements ToArrayInterface
 
     public function getOrderNumber(): string
     {
-        return $this->get('order_number');
+        return $this->attr('order_number');
     }
 
     public function setBuyerReference(string $buyer_reference): void
@@ -383,22 +383,22 @@ class Document implements ToArrayInterface
 
     public function getBuyerReference(): string
     {
-        return $this->get('buyer_reference');
+        return $this->attr('buyer_reference');
     }
 
     public function getPaidAmount(): int
     {
-        return $this->get('paid_amount');
+        return $this->attr('paid_amount');
     }
 
-    public function getPaidAt(): string
+    public function getPaidAt(): \DateTimeImmutable
     {
-        return $this->get('paid_at');
+        return $this->attrDate('paid_at');
     }
 
     public function getPdfPages(): int
     {
-        return $this->get('pdf_pages');
+        return $this->attr('pdf_pages');
     }
 
     /**
@@ -411,7 +411,7 @@ class Document implements ToArrayInterface
 
     public function getPdfTemplate(): string
     {
-        return $this->get('pdf_template');
+        return $this->attr('pdf_template');
     }
 
     public function setProjectId(?int $project_id): void
@@ -421,7 +421,7 @@ class Document implements ToArrayInterface
 
     public function getProjectId(): ?int
     {
-        return $this->get('project_id');
+        return $this->attr('project_id');
     }
 
     /**
@@ -434,7 +434,7 @@ class Document implements ToArrayInterface
 
     public function getRecurringOptions(): DocumentRecurring
     {
-        return $this->getInstance('recurring_options', \easybill\SDK\Models\DocumentRecurring::class);
+        return $this->attrInstance('recurring_options', \easybill\SDK\Models\DocumentRecurring::class);
     }
 
     /**
@@ -447,7 +447,7 @@ class Document implements ToArrayInterface
 
     public function getRefId(): ?int
     {
-        return $this->get('ref_id');
+        return $this->attr('ref_id');
     }
 
     /**
@@ -460,7 +460,7 @@ class Document implements ToArrayInterface
 
     public function getServiceDate(): ServiceDate
     {
-        return $this->getInstance('service_date', \easybill\SDK\Models\ServiceDate::class);
+        return $this->attrInstance('service_date', \easybill\SDK\Models\ServiceDate::class);
     }
 
     public function setShippingCountry(?string $shipping_country): void
@@ -470,7 +470,7 @@ class Document implements ToArrayInterface
 
     public function getShippingCountry(): ?string
     {
-        return $this->get('shipping_country');
+        return $this->attr('shipping_country');
     }
 
     /**
@@ -483,7 +483,7 @@ class Document implements ToArrayInterface
 
     public function getStatus(): ?string
     {
-        return $this->get('status');
+        return $this->attr('status');
     }
 
     public function setText(string $text): void
@@ -493,7 +493,7 @@ class Document implements ToArrayInterface
 
     public function getText(): string
     {
-        return $this->get('text');
+        return $this->attr('text');
     }
 
     public function setTextPrefix(string $text_prefix): void
@@ -503,7 +503,7 @@ class Document implements ToArrayInterface
 
     public function getTextPrefix(): string
     {
-        return $this->get('text_prefix');
+        return $this->attr('text_prefix');
     }
 
     /**
@@ -516,7 +516,7 @@ class Document implements ToArrayInterface
 
     public function getTextTax(): ?string
     {
-        return $this->get('text_tax');
+        return $this->attr('text_tax');
     }
 
     public function setTitle(?string $title): void
@@ -526,7 +526,7 @@ class Document implements ToArrayInterface
 
     public function getTitle(): ?string
     {
-        return $this->get('title');
+        return $this->attr('title');
     }
 
     /**
@@ -539,7 +539,7 @@ class Document implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 
     /**
@@ -552,7 +552,7 @@ class Document implements ToArrayInterface
 
     public function getUseShippingAddress(): bool
     {
-        return $this->get('use_shipping_address');
+        return $this->attr('use_shipping_address');
     }
 
     public function setVatCountry(?string $vat_country): void
@@ -562,12 +562,12 @@ class Document implements ToArrayInterface
 
     public function getVatCountry(): ?string
     {
-        return $this->get('vat_country');
+        return $this->attr('vat_country');
     }
 
     public function getVatId(): string
     {
-        return $this->get('vat_id');
+        return $this->attr('vat_id');
     }
 
     public function setFulfillmentCountry(?string $fulfillment_country): void
@@ -577,7 +577,7 @@ class Document implements ToArrayInterface
 
     public function getFulfillmentCountry(): ?string
     {
-        return $this->get('fulfillment_country');
+        return $this->attr('fulfillment_country');
     }
 
     /**
@@ -590,6 +590,6 @@ class Document implements ToArrayInterface
 
     public function getVatOption(): ?string
     {
-        return $this->get('vat_option');
+        return $this->attr('vat_option');
     }
 }

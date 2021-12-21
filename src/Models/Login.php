@@ -18,7 +18,7 @@ class Login implements ToArrayInterface
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setFirstName(string $first_name): void
@@ -28,7 +28,7 @@ class Login implements ToArrayInterface
 
     public function getFirstName(): string
     {
-        return $this->get('first_name');
+        return $this->attr('first_name');
     }
 
     public function setLastName(string $last_name): void
@@ -38,12 +38,12 @@ class Login implements ToArrayInterface
 
     public function getLastName(): string
     {
-        return $this->get('last_name');
+        return $this->attr('last_name');
     }
 
     public function getDisplayName(): string
     {
-        return $this->get('display_name');
+        return $this->attr('display_name');
     }
 
     public function setPhone(string $phone): void
@@ -53,7 +53,7 @@ class Login implements ToArrayInterface
 
     public function getPhone(): string
     {
-        return $this->get('phone');
+        return $this->attr('phone');
     }
 
     public function setEmail(string $email): void
@@ -63,7 +63,7 @@ class Login implements ToArrayInterface
 
     public function getEmail(): string
     {
-        return $this->get('email');
+        return $this->attr('email');
     }
 
     public function setEmailSignature(string $email_signature): void
@@ -73,7 +73,7 @@ class Login implements ToArrayInterface
 
     public function getEmailSignature(): string
     {
-        return $this->get('email_signature');
+        return $this->attr('email_signature');
     }
 
     public function setLoginType(string $login_type): void
@@ -83,7 +83,7 @@ class Login implements ToArrayInterface
 
     public function getLoginType(): string
     {
-        return $this->get('login_type');
+        return $this->attr('login_type');
     }
 
     public function setLocale(string $locale): void
@@ -93,7 +93,7 @@ class Login implements ToArrayInterface
 
     public function getLocale(): string
     {
-        return $this->get('locale');
+        return $this->attr('locale');
     }
 
     public function setTimeZone(string $time_zone): void
@@ -103,7 +103,7 @@ class Login implements ToArrayInterface
 
     public function getTimeZone(): string
     {
-        return $this->get('time_zone');
+        return $this->attr('time_zone');
     }
 
     public function setSecurity(LoginSecurity $security): void
@@ -113,6 +113,6 @@ class Login implements ToArrayInterface
 
     public function getSecurity(): LoginSecurity
     {
-        return $this->getInstance('security', \easybill\SDK\Models\LoginSecurity::class);
+        return $this->attrInstance('security', \easybill\SDK\Models\LoginSecurity::class);
     }
 }

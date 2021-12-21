@@ -17,9 +17,9 @@ class Attachment implements ToArrayInterface
         $this->data = $data;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attrDate('created_at');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -29,7 +29,7 @@ class Attachment implements ToArrayInterface
 
     public function getCustomerId(): ?int
     {
-        return $this->get('customer_id');
+        return $this->attr('customer_id');
     }
 
     public function setDocumentId(?int $document_id): void
@@ -39,17 +39,17 @@ class Attachment implements ToArrayInterface
 
     public function getDocumentId(): ?int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     public function getFileName(): string
     {
-        return $this->get('file_name');
+        return $this->attr('file_name');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setProjectId(?int $project_id): void
@@ -59,11 +59,11 @@ class Attachment implements ToArrayInterface
 
     public function getProjectId(): ?int
     {
-        return $this->get('project_id');
+        return $this->attr('project_id');
     }
 
     public function getSize(): int
     {
-        return $this->get('size');
+        return $this->attr('size');
     }
 }

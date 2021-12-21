@@ -23,12 +23,12 @@ class PositionGroup implements ToArrayInterface
 
     public function getDescription(): ?string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setName(string $name): void
@@ -38,7 +38,7 @@ class PositionGroup implements ToArrayInterface
 
     public function getName(): string
     {
-        return $this->get('name');
+        return $this->attr('name');
     }
 
     public function setNumber(string $number): void
@@ -48,16 +48,16 @@ class PositionGroup implements ToArrayInterface
 
     public function getNumber(): string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     public function getDisplayName(): string
     {
-        return $this->get('display_name');
+        return $this->attr('display_name');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 }

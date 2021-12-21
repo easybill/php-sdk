@@ -23,7 +23,7 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getTo(): string
     {
-        return $this->get('to');
+        return $this->attr('to');
     }
 
     public function setCc(string $cc): void
@@ -33,7 +33,7 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getCc(): string
     {
-        return $this->get('cc');
+        return $this->attr('cc');
     }
 
     public function setFrom(string $from): void
@@ -43,7 +43,7 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getFrom(): string
     {
-        return $this->get('from');
+        return $this->attr('from');
     }
 
     public function setSubject(string $subject): void
@@ -53,7 +53,7 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getSubject(): string
     {
-        return $this->get('subject');
+        return $this->attr('subject');
     }
 
     public function setMessage(string $message): void
@@ -63,17 +63,17 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getMessage(): string
     {
-        return $this->get('message');
+        return $this->attr('message');
     }
 
-    public function setDate(string $date): void
+    public function setDate(\DateTimeImmutable $date): void
     {
         $this->data['date'] = $date;
     }
 
-    public function getDate(): string
+    public function getDate(): \DateTimeImmutable
     {
-        return $this->get('date');
+        return $this->attrDate('date');
     }
 
     /**
@@ -86,7 +86,7 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getDocumentFileType(): ?string
     {
-        return $this->get('document_file_type');
+        return $this->attr('document_file_type');
     }
 
     /**
@@ -107,6 +107,6 @@ class PostBoxRequest implements ToArrayInterface
 
     public function getPostSendType(): string
     {
-        return $this->get('post_send_type');
+        return $this->attr('post_send_type');
     }
 }

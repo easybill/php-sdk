@@ -18,7 +18,7 @@ class Position implements ToArrayInterface
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setType(string $type): void
@@ -28,7 +28,7 @@ class Position implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 
     public function setNumber(string $number): void
@@ -38,7 +38,7 @@ class Position implements ToArrayInterface
 
     public function getNumber(): string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     /**
@@ -51,7 +51,7 @@ class Position implements ToArrayInterface
 
     public function getDescription(): string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     /**
@@ -64,7 +64,7 @@ class Position implements ToArrayInterface
 
     public function getDocumentNote(): string
     {
-        return $this->get('document_note');
+        return $this->attr('document_note');
     }
 
     /**
@@ -77,7 +77,7 @@ class Position implements ToArrayInterface
 
     public function getNote(): ?string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     public function setUnit(?string $unit): void
@@ -87,7 +87,7 @@ class Position implements ToArrayInterface
 
     public function getUnit(): ?string
     {
-        return $this->get('unit');
+        return $this->attr('unit');
     }
 
     /**
@@ -100,7 +100,7 @@ class Position implements ToArrayInterface
 
     public function getExportIdentifier(): ?string
     {
-        return $this->get('export_identifier');
+        return $this->attr('export_identifier');
     }
 
     public function setExportIdentifierExtended(PositionExportIdentifierExtended $export_identifier_extended): void
@@ -110,12 +110,12 @@ class Position implements ToArrayInterface
 
     public function getExportIdentifierExtended(): PositionExportIdentifierExtended
     {
-        return $this->getInstance('export_identifier_extended', \easybill\SDK\Models\PositionExportIdentifierExtended::class);
+        return $this->attrInstance('export_identifier_extended', \easybill\SDK\Models\PositionExportIdentifierExtended::class);
     }
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setPriceType(string $price_type): void
@@ -125,7 +125,7 @@ class Position implements ToArrayInterface
 
     public function getPriceType(): string
     {
-        return $this->get('price_type');
+        return $this->attr('price_type');
     }
 
     public function setVatPercent(float $vat_percent): void
@@ -135,7 +135,7 @@ class Position implements ToArrayInterface
 
     public function getVatPercent(): float
     {
-        return $this->get('vat_percent');
+        return $this->attr('vat_percent');
     }
 
     /**
@@ -148,7 +148,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice(): float
     {
-        return $this->get('sale_price');
+        return $this->attr('sale_price');
     }
 
     /**
@@ -161,7 +161,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice2(): ?float
     {
-        return $this->get('sale_price2');
+        return $this->attr('sale_price2');
     }
 
     /**
@@ -174,7 +174,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice3(): ?float
     {
-        return $this->get('sale_price3');
+        return $this->attr('sale_price3');
     }
 
     /**
@@ -187,7 +187,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice4(): ?float
     {
-        return $this->get('sale_price4');
+        return $this->attr('sale_price4');
     }
 
     /**
@@ -200,7 +200,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice5(): ?float
     {
-        return $this->get('sale_price5');
+        return $this->attr('sale_price5');
     }
 
     /**
@@ -213,7 +213,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice6(): ?float
     {
-        return $this->get('sale_price6');
+        return $this->attr('sale_price6');
     }
 
     /**
@@ -226,7 +226,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice7(): ?float
     {
-        return $this->get('sale_price7');
+        return $this->attr('sale_price7');
     }
 
     /**
@@ -239,7 +239,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice8(): ?float
     {
-        return $this->get('sale_price8');
+        return $this->attr('sale_price8');
     }
 
     /**
@@ -252,7 +252,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice9(): ?float
     {
-        return $this->get('sale_price9');
+        return $this->attr('sale_price9');
     }
 
     /**
@@ -265,7 +265,7 @@ class Position implements ToArrayInterface
 
     public function getSalePrice10(): ?float
     {
-        return $this->get('sale_price10');
+        return $this->attr('sale_price10');
     }
 
     /**
@@ -278,7 +278,7 @@ class Position implements ToArrayInterface
 
     public function getCostPrice(): ?float
     {
-        return $this->get('cost_price');
+        return $this->attr('cost_price');
     }
 
     public function setExportCost1(?string $export_cost1): void
@@ -288,7 +288,7 @@ class Position implements ToArrayInterface
 
     public function getExportCost1(): ?string
     {
-        return $this->get('export_cost1');
+        return $this->attr('export_cost1');
     }
 
     public function setExportCost2(?string $export_cost2): void
@@ -298,7 +298,7 @@ class Position implements ToArrayInterface
 
     public function getExportCost2(): ?string
     {
-        return $this->get('export_cost2');
+        return $this->attr('export_cost2');
     }
 
     public function setGroupId(?int $group_id): void
@@ -308,7 +308,7 @@ class Position implements ToArrayInterface
 
     public function getGroupId(): ?int
     {
-        return $this->get('group_id');
+        return $this->attr('group_id');
     }
 
     /**
@@ -321,12 +321,12 @@ class Position implements ToArrayInterface
 
     public function getStock(): string
     {
-        return $this->get('stock');
+        return $this->attr('stock');
     }
 
     public function getStockCount(): int
     {
-        return $this->get('stock_count');
+        return $this->attr('stock_count');
     }
 
     /**
@@ -339,7 +339,7 @@ class Position implements ToArrayInterface
 
     public function getStockLimitNotify(): bool
     {
-        return $this->get('stock_limit_notify');
+        return $this->attr('stock_limit_notify');
     }
 
     /**
@@ -352,7 +352,7 @@ class Position implements ToArrayInterface
 
     public function getStockLimitNotifyFrequency(): string
     {
-        return $this->get('stock_limit_notify_frequency');
+        return $this->attr('stock_limit_notify_frequency');
     }
 
     public function setStockLimit(int $stock_limit): void
@@ -362,7 +362,7 @@ class Position implements ToArrayInterface
 
     public function getStockLimit(): int
     {
-        return $this->get('stock_limit');
+        return $this->attr('stock_limit');
     }
 
     /**
@@ -375,6 +375,6 @@ class Position implements ToArrayInterface
 
     public function getQuantity(): ?float
     {
-        return $this->get('quantity');
+        return $this->attr('quantity');
     }
 }

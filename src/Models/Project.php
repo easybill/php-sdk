@@ -26,7 +26,7 @@ class Project implements ToArrayInterface
 
     public function getBudgetAmount(): int
     {
-        return $this->get('budget_amount');
+        return $this->attr('budget_amount');
     }
 
     /**
@@ -39,7 +39,7 @@ class Project implements ToArrayInterface
 
     public function getBudgetTime(): int
     {
-        return $this->get('budget_time');
+        return $this->attr('budget_time');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -49,7 +49,7 @@ class Project implements ToArrayInterface
 
     public function getCustomerId(): ?int
     {
-        return $this->get('customer_id');
+        return $this->attr('customer_id');
     }
 
     /**
@@ -62,12 +62,12 @@ class Project implements ToArrayInterface
 
     public function getHourlyRate(): float
     {
-        return $this->get('hourly_rate');
+        return $this->attr('hourly_rate');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     /**
@@ -80,7 +80,7 @@ class Project implements ToArrayInterface
 
     public function getLoginId(): ?int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setName(string $name): void
@@ -90,7 +90,7 @@ class Project implements ToArrayInterface
 
     public function getName(): string
     {
-        return $this->get('name');
+        return $this->attr('name');
     }
 
     public function setNote(?string $note): void
@@ -100,7 +100,7 @@ class Project implements ToArrayInterface
 
     public function getNote(): ?string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     public function setStatus(string $status): void
@@ -110,17 +110,17 @@ class Project implements ToArrayInterface
 
     public function getStatus(): string
     {
-        return $this->get('status');
+        return $this->attr('status');
     }
 
-    public function setDueAt(?string $due_at): void
+    public function setDueAt(?\DateTimeImmutable $due_at): void
     {
         $this->data['due_at'] = $due_at;
     }
 
-    public function getDueAt(): ?string
+    public function getDueAt(): ?\DateTimeImmutable
     {
-        return $this->get('due_at');
+        return $this->attrDate('due_at');
     }
 
     public function setBudgetNotifyFrequency(string $budget_notify_frequency): void
@@ -130,16 +130,16 @@ class Project implements ToArrayInterface
 
     public function getBudgetNotifyFrequency(): string
     {
-        return $this->get('budget_notify_frequency');
+        return $this->attr('budget_notify_frequency');
     }
 
     public function getConsumedTime(): int
     {
-        return $this->get('consumed_time');
+        return $this->attr('consumed_time');
     }
 
     public function getConsumedAmount(): int
     {
-        return $this->get('consumed_amount');
+        return $this->attr('consumed_amount');
     }
 }

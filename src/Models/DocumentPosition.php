@@ -23,7 +23,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getNumber(): ?string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     public function setDescription(?string $description): void
@@ -33,7 +33,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getDescription(): ?string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     /**
@@ -46,7 +46,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getDocumentNote(): string
     {
-        return $this->get('document_note');
+        return $this->attr('document_note');
     }
 
     public function setQuantity(float $quantity): void
@@ -56,7 +56,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getQuantity(): float
     {
-        return $this->get('quantity');
+        return $this->attr('quantity');
     }
 
     /**
@@ -69,7 +69,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getQuantityStr(): string
     {
-        return $this->get('quantity_str');
+        return $this->attr('quantity_str');
     }
 
     public function setUnit(?string $unit): void
@@ -79,7 +79,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getUnit(): ?string
     {
-        return $this->get('unit');
+        return $this->attr('unit');
     }
 
     public function setType(string $type): void
@@ -89,7 +89,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 
     /**
@@ -102,7 +102,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getPosition(): int
     {
-        return $this->get('position');
+        return $this->attr('position');
     }
 
     public function setSinglePriceNet(?float $single_price_net): void
@@ -112,12 +112,12 @@ class DocumentPosition implements ToArrayInterface
 
     public function getSinglePriceNet(): ?float
     {
-        return $this->get('single_price_net');
+        return $this->attr('single_price_net');
     }
 
     public function getSinglePriceGross(): float
     {
-        return $this->get('single_price_gross');
+        return $this->attr('single_price_gross');
     }
 
     public function setVatPercent(float $vat_percent): void
@@ -127,7 +127,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getVatPercent(): float
     {
-        return $this->get('vat_percent');
+        return $this->attr('vat_percent');
     }
 
     public function setDiscount(?float $discount): void
@@ -137,7 +137,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getDiscount(): ?float
     {
-        return $this->get('discount');
+        return $this->attr('discount');
     }
 
     public function setDiscountType(?string $discount_type): void
@@ -147,7 +147,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getDiscountType(): ?string
     {
-        return $this->get('discount_type');
+        return $this->attr('discount_type');
     }
 
     /**
@@ -160,32 +160,32 @@ class DocumentPosition implements ToArrayInterface
 
     public function getPositionId(): ?int
     {
-        return $this->get('position_id');
+        return $this->attr('position_id');
     }
 
     public function getTotalPriceNet(): float
     {
-        return $this->get('total_price_net');
+        return $this->attr('total_price_net');
     }
 
     public function getTotalPriceGross(): float
     {
-        return $this->get('total_price_gross');
+        return $this->attr('total_price_gross');
     }
 
     public function getTotalVat(): float
     {
-        return $this->get('total_vat');
+        return $this->attr('total_vat');
     }
 
     public function getSerialNumberId(): string
     {
-        return $this->get('serial_number_id');
+        return $this->attr('serial_number_id');
     }
 
     public function getSerialNumber(): string
     {
-        return $this->get('serial_number');
+        return $this->attr('serial_number');
     }
 
     public function setBookingAccount(?string $booking_account): void
@@ -195,7 +195,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getBookingAccount(): ?string
     {
-        return $this->get('booking_account');
+        return $this->attr('booking_account');
     }
 
     public function setExportCost1(?string $export_cost_1): void
@@ -205,7 +205,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getExportCost1(): ?string
     {
-        return $this->get('export_cost_1');
+        return $this->attr('export_cost_1');
     }
 
     public function setExportCost2(?string $export_cost_2): void
@@ -215,7 +215,7 @@ class DocumentPosition implements ToArrayInterface
 
     public function getExportCost2(): ?string
     {
-        return $this->get('export_cost_2');
+        return $this->attr('export_cost_2');
     }
 
     public function setCostPriceNet(?float $cost_price_net): void
@@ -225,22 +225,22 @@ class DocumentPosition implements ToArrayInterface
 
     public function getCostPriceNet(): ?float
     {
-        return $this->get('cost_price_net');
+        return $this->attr('cost_price_net');
     }
 
     public function getCostPriceTotal(): float
     {
-        return $this->get('cost_price_total');
+        return $this->attr('cost_price_total');
     }
 
     public function getCostPriceCharge(): float
     {
-        return $this->get('cost_price_charge');
+        return $this->attr('cost_price_charge');
     }
 
     public function getCostPriceChargeType(): string
     {
-        return $this->get('cost_price_charge_type');
+        return $this->attr('cost_price_charge_type');
     }
 
     public function setItemType(string $itemType): void
@@ -250,11 +250,11 @@ class DocumentPosition implements ToArrayInterface
 
     public function getItemType(): string
     {
-        return $this->get('itemType');
+        return $this->attr('itemType');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 }

@@ -19,14 +19,14 @@ class DocumentRecurring implements ToArrayInterface
     /**
      * Must be in the future.
      */
-    public function setNextDate(string $next_date): void
+    public function setNextDate(\DateTimeImmutable $next_date): void
     {
         $this->data['next_date'] = $next_date;
     }
 
-    public function getNextDate(): string
+    public function getNextDate(): \DateTimeImmutable
     {
-        return $this->get('next_date');
+        return $this->attrDate('next_date');
     }
 
     public function setFrequency(string $frequency): void
@@ -36,7 +36,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getFrequency(): string
     {
-        return $this->get('frequency');
+        return $this->attr('frequency');
     }
 
     public function setFrequencySpecial(?string $frequency_special): void
@@ -46,7 +46,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getFrequencySpecial(): ?string
     {
-        return $this->get('frequency_special');
+        return $this->attr('frequency_special');
     }
 
     public function setInterval(int $interval): void
@@ -56,7 +56,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getInterval(): int
     {
-        return $this->get('interval');
+        return $this->attr('interval');
     }
 
     /**
@@ -69,7 +69,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getEndDateOrCount(): ?string
     {
-        return $this->get('end_date_or_count');
+        return $this->attr('end_date_or_count');
     }
 
     public function setStatus(string $status): void
@@ -79,7 +79,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getStatus(): string
     {
-        return $this->get('status');
+        return $this->attr('status');
     }
 
     public function setAsDraft(bool $as_draft): void
@@ -89,7 +89,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getAsDraft(): bool
     {
-        return $this->get('as_draft');
+        return $this->attr('as_draft');
     }
 
     public function setIsNotify(bool $is_notify): void
@@ -99,7 +99,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getIsNotify(): bool
     {
-        return $this->get('is_notify');
+        return $this->attr('is_notify');
     }
 
     public function setSendAs(?string $send_as): void
@@ -109,7 +109,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getSendAs(): ?string
     {
-        return $this->get('send_as');
+        return $this->attr('send_as');
     }
 
     public function setIsSign(bool $is_sign): void
@@ -119,7 +119,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getIsSign(): bool
     {
-        return $this->get('is_sign');
+        return $this->attr('is_sign');
     }
 
     public function setIsPaid(bool $is_paid): void
@@ -129,7 +129,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getIsPaid(): bool
     {
-        return $this->get('is_paid');
+        return $this->attr('is_paid');
     }
 
     /**
@@ -142,7 +142,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getPaidDateOption(): string
     {
-        return $this->get('paid_date_option');
+        return $this->attr('paid_date_option');
     }
 
     public function setIsSepa(bool $is_sepa): void
@@ -152,7 +152,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getIsSepa(): bool
     {
-        return $this->get('is_sepa');
+        return $this->attr('is_sepa');
     }
 
     public function setSepaLocalInstrument(?string $sepa_local_instrument): void
@@ -162,7 +162,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getSepaLocalInstrument(): ?string
     {
-        return $this->get('sepa_local_instrument');
+        return $this->attr('sepa_local_instrument');
     }
 
     public function setSepaSequenceType(?string $sepa_sequence_type): void
@@ -172,7 +172,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getSepaSequenceType(): ?string
     {
-        return $this->get('sepa_sequence_type');
+        return $this->attr('sepa_sequence_type');
     }
 
     public function setSepaReference(?string $sepa_reference): void
@@ -182,7 +182,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getSepaReference(): ?string
     {
-        return $this->get('sepa_reference');
+        return $this->attr('sepa_reference');
     }
 
     public function setSepaRemittanceInformation(?string $sepa_remittance_information): void
@@ -192,7 +192,7 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getSepaRemittanceInformation(): ?string
     {
-        return $this->get('sepa_remittance_information');
+        return $this->attr('sepa_remittance_information');
     }
 
     /**
@@ -205,6 +205,6 @@ class DocumentRecurring implements ToArrayInterface
 
     public function getTargetType(): string
     {
-        return $this->get('target_type');
+        return $this->attr('target_type');
     }
 }

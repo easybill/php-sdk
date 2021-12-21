@@ -26,7 +26,7 @@ class Customer implements ToArrayInterface
 
     public function getAcquireOptions(): ?int
     {
-        return $this->get('acquire_options');
+        return $this->attr('acquire_options');
     }
 
     /**
@@ -34,7 +34,7 @@ class Customer implements ToArrayInterface
      */
     public function getAdditionalGroupsIds(): array
     {
-        return $this->get('additional_groups_ids');
+        return $this->attr('additional_groups_ids');
     }
 
     public function setBankAccount(?string $bank_account): void
@@ -44,7 +44,7 @@ class Customer implements ToArrayInterface
 
     public function getBankAccount(): ?string
     {
-        return $this->get('bank_account');
+        return $this->attr('bank_account');
     }
 
     public function setBankAccountOwner(?string $bank_account_owner): void
@@ -54,7 +54,7 @@ class Customer implements ToArrayInterface
 
     public function getBankAccountOwner(): ?string
     {
-        return $this->get('bank_account_owner');
+        return $this->attr('bank_account_owner');
     }
 
     public function setBankBic(?string $bank_bic): void
@@ -64,7 +64,7 @@ class Customer implements ToArrayInterface
 
     public function getBankBic(): ?string
     {
-        return $this->get('bank_bic');
+        return $this->attr('bank_bic');
     }
 
     public function setBankCode(?string $bank_code): void
@@ -74,7 +74,7 @@ class Customer implements ToArrayInterface
 
     public function getBankCode(): ?string
     {
-        return $this->get('bank_code');
+        return $this->attr('bank_code');
     }
 
     public function setBankIban(?string $bank_iban): void
@@ -84,7 +84,7 @@ class Customer implements ToArrayInterface
 
     public function getBankIban(): ?string
     {
-        return $this->get('bank_iban');
+        return $this->attr('bank_iban');
     }
 
     public function setBankName(?string $bank_name): void
@@ -94,17 +94,17 @@ class Customer implements ToArrayInterface
 
     public function getBankName(): ?string
     {
-        return $this->get('bank_name');
+        return $this->attr('bank_name');
     }
 
-    public function setBirthDate(?string $birth_date): void
+    public function setBirthDate(?\DateTimeImmutable $birth_date): void
     {
         $this->data['birth_date'] = $birth_date;
     }
 
-    public function getBirthDate(): ?string
+    public function getBirthDate(): ?\DateTimeImmutable
     {
-        return $this->get('birth_date');
+        return $this->attrDate('birth_date');
     }
 
     public function setCashAllowance(?float $cash_allowance): void
@@ -114,7 +114,7 @@ class Customer implements ToArrayInterface
 
     public function getCashAllowance(): ?float
     {
-        return $this->get('cash_allowance');
+        return $this->attr('cash_allowance');
     }
 
     public function setCashAllowanceDays(int $cash_allowance_days): void
@@ -124,7 +124,7 @@ class Customer implements ToArrayInterface
 
     public function getCashAllowanceDays(): int
     {
-        return $this->get('cash_allowance_days');
+        return $this->attr('cash_allowance_days');
     }
 
     public function setCashDiscount(?float $cash_discount): void
@@ -134,7 +134,7 @@ class Customer implements ToArrayInterface
 
     public function getCashDiscount(): ?float
     {
-        return $this->get('cash_discount');
+        return $this->attr('cash_discount');
     }
 
     public function setCashDiscountType(?string $cash_discount_type): void
@@ -144,7 +144,7 @@ class Customer implements ToArrayInterface
 
     public function getCashDiscountType(): ?string
     {
-        return $this->get('cash_discount_type');
+        return $this->attr('cash_discount_type');
     }
 
     public function setCity(?string $city): void
@@ -154,7 +154,7 @@ class Customer implements ToArrayInterface
 
     public function getCity(): ?string
     {
-        return $this->get('city');
+        return $this->attr('city');
     }
 
     public function setState(string $state): void
@@ -164,7 +164,7 @@ class Customer implements ToArrayInterface
 
     public function getState(): string
     {
-        return $this->get('state');
+        return $this->attr('state');
     }
 
     public function setCompanyName(?string $company_name): void
@@ -174,7 +174,7 @@ class Customer implements ToArrayInterface
 
     public function getCompanyName(): ?string
     {
-        return $this->get('company_name');
+        return $this->attr('company_name');
     }
 
     public function setCountry(string $country): void
@@ -184,17 +184,17 @@ class Customer implements ToArrayInterface
 
     public function getCountry(): string
     {
-        return $this->get('country');
+        return $this->attr('country');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attrDate('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->get('updated_at');
+        return $this->attr('updated_at');
     }
 
     public function setDeliveryTitle(string $delivery_title): void
@@ -204,7 +204,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryTitle(): string
     {
-        return $this->get('delivery_title');
+        return $this->attr('delivery_title');
     }
 
     public function setDeliveryCity(?string $delivery_city): void
@@ -214,7 +214,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryCity(): ?string
     {
-        return $this->get('delivery_city');
+        return $this->attr('delivery_city');
     }
 
     public function setDeliveryState(string $delivery_state): void
@@ -224,7 +224,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryState(): string
     {
-        return $this->get('delivery_state');
+        return $this->attr('delivery_state');
     }
 
     public function setDeliveryCompanyName(?string $delivery_company_name): void
@@ -234,7 +234,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryCompanyName(): ?string
     {
-        return $this->get('delivery_company_name');
+        return $this->attr('delivery_company_name');
     }
 
     public function setDeliveryCountry(?string $delivery_country): void
@@ -244,7 +244,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryCountry(): ?string
     {
-        return $this->get('delivery_country');
+        return $this->attr('delivery_country');
     }
 
     public function setDeliveryFirstName(?string $delivery_first_name): void
@@ -254,7 +254,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryFirstName(): ?string
     {
-        return $this->get('delivery_first_name');
+        return $this->attr('delivery_first_name');
     }
 
     public function setDeliveryLastName(?string $delivery_last_name): void
@@ -264,7 +264,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryLastName(): ?string
     {
-        return $this->get('delivery_last_name');
+        return $this->attr('delivery_last_name');
     }
 
     public function setDeliveryPersonal(bool $delivery_personal): void
@@ -274,7 +274,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryPersonal(): bool
     {
-        return $this->get('delivery_personal');
+        return $this->attr('delivery_personal');
     }
 
     /**
@@ -287,7 +287,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliverySalutation(): int
     {
-        return $this->get('delivery_salutation');
+        return $this->attr('delivery_salutation');
     }
 
     public function setDeliveryStreet(?string $delivery_street): void
@@ -297,7 +297,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryStreet(): ?string
     {
-        return $this->get('delivery_street');
+        return $this->attr('delivery_street');
     }
 
     public function setDeliverySuffix1(?string $delivery_suffix_1): void
@@ -307,7 +307,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliverySuffix1(): ?string
     {
-        return $this->get('delivery_suffix_1');
+        return $this->attr('delivery_suffix_1');
     }
 
     public function setDeliverySuffix2(?string $delivery_suffix_2): void
@@ -317,7 +317,7 @@ class Customer implements ToArrayInterface
 
     public function getDeliverySuffix2(): ?string
     {
-        return $this->get('delivery_suffix_2');
+        return $this->attr('delivery_suffix_2');
     }
 
     public function setDeliveryZipCode(?string $delivery_zip_code): void
@@ -327,12 +327,12 @@ class Customer implements ToArrayInterface
 
     public function getDeliveryZipCode(): ?string
     {
-        return $this->get('delivery_zip_code');
+        return $this->attr('delivery_zip_code');
     }
 
     public function getDisplayName(): string
     {
-        return $this->get('display_name');
+        return $this->attr('display_name');
     }
 
     public function setEmails(array $emails): void
@@ -345,7 +345,7 @@ class Customer implements ToArrayInterface
      */
     public function getEmails(): array
     {
-        return $this->get('emails');
+        return $this->attr('emails');
     }
 
     public function setFax(?string $fax): void
@@ -355,7 +355,7 @@ class Customer implements ToArrayInterface
 
     public function getFax(): ?string
     {
-        return $this->get('fax');
+        return $this->attr('fax');
     }
 
     public function setFirstName(?string $first_name): void
@@ -365,7 +365,7 @@ class Customer implements ToArrayInterface
 
     public function getFirstName(): ?string
     {
-        return $this->get('first_name');
+        return $this->attr('first_name');
     }
 
     /**
@@ -378,7 +378,7 @@ class Customer implements ToArrayInterface
 
     public function getGracePeriod(): ?int
     {
-        return $this->get('grace_period');
+        return $this->attr('grace_period');
     }
 
     /**
@@ -391,7 +391,7 @@ class Customer implements ToArrayInterface
 
     public function getDueInDays(): ?int
     {
-        return $this->get('due_in_days');
+        return $this->attr('due_in_days');
     }
 
     public function setGroupId(?int $group_id): void
@@ -401,12 +401,12 @@ class Customer implements ToArrayInterface
 
     public function getGroupId(): ?int
     {
-        return $this->get('group_id');
+        return $this->attr('group_id');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setInfo1(?string $info_1): void
@@ -416,7 +416,7 @@ class Customer implements ToArrayInterface
 
     public function getInfo1(): ?string
     {
-        return $this->get('info_1');
+        return $this->attr('info_1');
     }
 
     public function setInfo2(?string $info_2): void
@@ -426,7 +426,7 @@ class Customer implements ToArrayInterface
 
     public function getInfo2(): ?string
     {
-        return $this->get('info_2');
+        return $this->attr('info_2');
     }
 
     public function setInternet(?string $internet): void
@@ -436,7 +436,7 @@ class Customer implements ToArrayInterface
 
     public function getInternet(): ?string
     {
-        return $this->get('internet');
+        return $this->attr('internet');
     }
 
     public function setLastName(?string $last_name): void
@@ -446,7 +446,7 @@ class Customer implements ToArrayInterface
 
     public function getLastName(): ?string
     {
-        return $this->get('last_name');
+        return $this->attr('last_name');
     }
 
     public function setLoginId(int $login_id): void
@@ -456,7 +456,7 @@ class Customer implements ToArrayInterface
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setMobile(?string $mobile): void
@@ -466,7 +466,7 @@ class Customer implements ToArrayInterface
 
     public function getMobile(): ?string
     {
-        return $this->get('mobile');
+        return $this->attr('mobile');
     }
 
     public function setNote(?string $note): void
@@ -476,7 +476,7 @@ class Customer implements ToArrayInterface
 
     public function getNote(): ?string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     /**
@@ -489,7 +489,7 @@ class Customer implements ToArrayInterface
 
     public function getNumber(): string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     /**
@@ -502,7 +502,7 @@ class Customer implements ToArrayInterface
 
     public function getPaymentOptions(): ?int
     {
-        return $this->get('payment_options');
+        return $this->attr('payment_options');
     }
 
     public function setPersonal(bool $personal): void
@@ -512,7 +512,7 @@ class Customer implements ToArrayInterface
 
     public function getPersonal(): bool
     {
-        return $this->get('personal');
+        return $this->attr('personal');
     }
 
     public function setPhone1(?string $phone_1): void
@@ -522,7 +522,7 @@ class Customer implements ToArrayInterface
 
     public function getPhone1(): ?string
     {
-        return $this->get('phone_1');
+        return $this->attr('phone_1');
     }
 
     public function setPhone2(?string $phone_2): void
@@ -532,7 +532,7 @@ class Customer implements ToArrayInterface
 
     public function getPhone2(): ?string
     {
-        return $this->get('phone_2');
+        return $this->attr('phone_2');
     }
 
     public function setPostbox(?string $postbox): void
@@ -542,7 +542,7 @@ class Customer implements ToArrayInterface
 
     public function getPostbox(): ?string
     {
-        return $this->get('postbox');
+        return $this->attr('postbox');
     }
 
     public function setPostboxCity(?string $postbox_city): void
@@ -552,7 +552,7 @@ class Customer implements ToArrayInterface
 
     public function getPostboxCity(): ?string
     {
-        return $this->get('postbox_city');
+        return $this->attr('postbox_city');
     }
 
     public function setPostboxState(string $postbox_state): void
@@ -562,7 +562,7 @@ class Customer implements ToArrayInterface
 
     public function getPostboxState(): string
     {
-        return $this->get('postbox_state');
+        return $this->attr('postbox_state');
     }
 
     public function setPostboxCountry(?string $postbox_country): void
@@ -572,7 +572,7 @@ class Customer implements ToArrayInterface
 
     public function getPostboxCountry(): ?string
     {
-        return $this->get('postbox_country');
+        return $this->attr('postbox_country');
     }
 
     public function setPostboxZipCode(?string $postbox_zip_code): void
@@ -582,7 +582,7 @@ class Customer implements ToArrayInterface
 
     public function getPostboxZipCode(): ?string
     {
-        return $this->get('postbox_zip_code');
+        return $this->attr('postbox_zip_code');
     }
 
     public function setSalePriceLevel(?string $sale_price_level): void
@@ -592,7 +592,7 @@ class Customer implements ToArrayInterface
 
     public function getSalePriceLevel(): ?string
     {
-        return $this->get('sale_price_level');
+        return $this->attr('sale_price_level');
     }
 
     /**
@@ -605,7 +605,7 @@ class Customer implements ToArrayInterface
 
     public function getSalutation(): int
     {
-        return $this->get('salutation');
+        return $this->attr('salutation');
     }
 
     /**
@@ -618,17 +618,17 @@ class Customer implements ToArrayInterface
 
     public function getSepaAgreement(): ?string
     {
-        return $this->get('sepa_agreement');
+        return $this->attr('sepa_agreement');
     }
 
-    public function setSepaAgreementDate(?string $sepa_agreement_date): void
+    public function setSepaAgreementDate(?\DateTimeImmutable $sepa_agreement_date): void
     {
         $this->data['sepa_agreement_date'] = $sepa_agreement_date;
     }
 
-    public function getSepaAgreementDate(): ?string
+    public function getSepaAgreementDate(): ?\DateTimeImmutable
     {
-        return $this->get('sepa_agreement_date');
+        return $this->attrDate('sepa_agreement_date');
     }
 
     public function setSepaMandateReference(?string $sepa_mandate_reference): void
@@ -638,17 +638,17 @@ class Customer implements ToArrayInterface
 
     public function getSepaMandateReference(): ?string
     {
-        return $this->get('sepa_mandate_reference');
+        return $this->attr('sepa_mandate_reference');
     }
 
-    public function setSinceDate(?string $since_date): void
+    public function setSinceDate(?\DateTimeImmutable $since_date): void
     {
         $this->data['since_date'] = $since_date;
     }
 
-    public function getSinceDate(): ?string
+    public function getSinceDate(): ?\DateTimeImmutable
     {
-        return $this->get('since_date');
+        return $this->attrDate('since_date');
     }
 
     public function setStreet(?string $street): void
@@ -658,7 +658,7 @@ class Customer implements ToArrayInterface
 
     public function getStreet(): ?string
     {
-        return $this->get('street');
+        return $this->attr('street');
     }
 
     public function setSuffix1(?string $suffix_1): void
@@ -668,7 +668,7 @@ class Customer implements ToArrayInterface
 
     public function getSuffix1(): ?string
     {
-        return $this->get('suffix_1');
+        return $this->attr('suffix_1');
     }
 
     public function setSuffix2(?string $suffix_2): void
@@ -678,7 +678,7 @@ class Customer implements ToArrayInterface
 
     public function getSuffix2(): ?string
     {
-        return $this->get('suffix_2');
+        return $this->attr('suffix_2');
     }
 
     public function setTaxNumber(?string $tax_number): void
@@ -688,7 +688,7 @@ class Customer implements ToArrayInterface
 
     public function getTaxNumber(): ?string
     {
-        return $this->get('tax_number');
+        return $this->attr('tax_number');
     }
 
     public function setCourt(?string $court): void
@@ -698,7 +698,7 @@ class Customer implements ToArrayInterface
 
     public function getCourt(): ?string
     {
-        return $this->get('court');
+        return $this->attr('court');
     }
 
     public function setCourtRegistryNumber(?string $court_registry_number): void
@@ -708,7 +708,7 @@ class Customer implements ToArrayInterface
 
     public function getCourtRegistryNumber(): ?string
     {
-        return $this->get('court_registry_number');
+        return $this->attr('court_registry_number');
     }
 
     /**
@@ -721,7 +721,7 @@ class Customer implements ToArrayInterface
 
     public function getTaxOptions(): ?string
     {
-        return $this->get('tax_options');
+        return $this->attr('tax_options');
     }
 
     public function setTitle(?string $title): void
@@ -731,7 +731,7 @@ class Customer implements ToArrayInterface
 
     public function getTitle(): ?string
     {
-        return $this->get('title');
+        return $this->attr('title');
     }
 
     public function setVatIdentifier(?string $vat_identifier): void
@@ -741,7 +741,7 @@ class Customer implements ToArrayInterface
 
     public function getVatIdentifier(): ?string
     {
-        return $this->get('vat_identifier');
+        return $this->attr('vat_identifier');
     }
 
     public function setZipCode(?string $zip_code): void
@@ -751,7 +751,7 @@ class Customer implements ToArrayInterface
 
     public function getZipCode(): ?string
     {
-        return $this->get('zip_code');
+        return $this->attr('zip_code');
     }
 
     /**
@@ -764,7 +764,7 @@ class Customer implements ToArrayInterface
 
     public function getDocumentPdfType(): string
     {
-        return $this->get('documentPdfType');
+        return $this->attr('documentPdfType');
     }
 
     /**
@@ -777,7 +777,7 @@ class Customer implements ToArrayInterface
 
     public function getBuyerReference(): string
     {
-        return $this->get('buyer_reference');
+        return $this->attr('buyer_reference');
     }
 
     /**
@@ -790,6 +790,6 @@ class Customer implements ToArrayInterface
 
     public function getForeignSupplierNumber(): string
     {
-        return $this->get('foreign_supplier_number');
+        return $this->attr('foreign_supplier_number');
     }
 }

@@ -19,66 +19,66 @@ class DocumentAddress implements ToArrayInterface
 
     public function getSalutation(): int
     {
-        return $this->get('salutation');
+        return $this->attr('salutation');
     }
 
     public function getPersonal(): bool
     {
-        return $this->get('personal');
+        return $this->attr('personal');
     }
 
     public function getTitle(): string
     {
-        return $this->get('title');
+        return $this->attr('title');
     }
 
     public function getFirstName(): string
     {
-        return $this->get('first_name');
+        return $this->attr('first_name');
     }
 
     public function getLastName(): string
     {
-        return $this->get('last_name');
+        return $this->attr('last_name');
     }
 
     public function getSuffix1(): string
     {
-        return $this->get('suffix_1');
+        return $this->attr('suffix_1');
     }
 
     public function getSuffix2(): string
     {
-        return $this->get('suffix_2');
+        return $this->attr('suffix_2');
     }
 
     public function getCompanyName(): string
     {
-        return $this->get('company_name');
+        return $this->attr('company_name');
     }
 
     public function getStreet(): string
     {
-        return $this->get('street');
+        return $this->attr('street');
     }
 
     public function getZipCode(): string
     {
-        return $this->get('zip_code');
+        return $this->attr('zip_code');
     }
 
     public function getCity(): string
     {
-        return $this->get('city');
+        return $this->attr('city');
     }
 
     public function getState(): string
     {
-        return $this->get('state');
+        return $this->attr('state');
     }
 
     public function getCountry(): string
     {
-        return $this->get('country');
+        return $this->attr('country');
     }
 }

@@ -23,7 +23,7 @@ class Contact implements ToArrayInterface
 
     public function getCity(): string
     {
-        return $this->get('city');
+        return $this->attr('city');
     }
 
     public function setState(string $state): void
@@ -33,7 +33,7 @@ class Contact implements ToArrayInterface
 
     public function getState(): string
     {
-        return $this->get('state');
+        return $this->attr('state');
     }
 
     public function setCompanyName(?string $company_name): void
@@ -43,7 +43,7 @@ class Contact implements ToArrayInterface
 
     public function getCompanyName(): ?string
     {
-        return $this->get('company_name');
+        return $this->attr('company_name');
     }
 
     /**
@@ -56,7 +56,7 @@ class Contact implements ToArrayInterface
 
     public function getCountry(): string
     {
-        return $this->get('country');
+        return $this->attr('country');
     }
 
     public function setDepartment(?string $department): void
@@ -66,7 +66,7 @@ class Contact implements ToArrayInterface
 
     public function getDepartment(): ?string
     {
-        return $this->get('department');
+        return $this->attr('department');
     }
 
     public function setEmails(array $emails): void
@@ -79,7 +79,7 @@ class Contact implements ToArrayInterface
      */
     public function getEmails(): array
     {
-        return $this->get('emails');
+        return $this->attr('emails');
     }
 
     public function setFax(?string $fax): void
@@ -89,7 +89,7 @@ class Contact implements ToArrayInterface
 
     public function getFax(): ?string
     {
-        return $this->get('fax');
+        return $this->attr('fax');
     }
 
     public function setFirstName(?string $first_name): void
@@ -99,12 +99,12 @@ class Contact implements ToArrayInterface
 
     public function getFirstName(): ?string
     {
-        return $this->get('first_name');
+        return $this->attr('first_name');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setLastName(?string $last_name): void
@@ -114,12 +114,12 @@ class Contact implements ToArrayInterface
 
     public function getLastName(): ?string
     {
-        return $this->get('last_name');
+        return $this->attr('last_name');
     }
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setMobile(?string $mobile): void
@@ -129,7 +129,7 @@ class Contact implements ToArrayInterface
 
     public function getMobile(): ?string
     {
-        return $this->get('mobile');
+        return $this->attr('mobile');
     }
 
     public function setNote(?string $note): void
@@ -139,7 +139,7 @@ class Contact implements ToArrayInterface
 
     public function getNote(): ?string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     public function setPersonal(bool $personal): void
@@ -149,7 +149,7 @@ class Contact implements ToArrayInterface
 
     public function getPersonal(): bool
     {
-        return $this->get('personal');
+        return $this->attr('personal');
     }
 
     public function setPhone1(?string $phone_1): void
@@ -159,7 +159,7 @@ class Contact implements ToArrayInterface
 
     public function getPhone1(): ?string
     {
-        return $this->get('phone_1');
+        return $this->attr('phone_1');
     }
 
     public function setPhone2(?string $phone_2): void
@@ -169,7 +169,7 @@ class Contact implements ToArrayInterface
 
     public function getPhone2(): ?string
     {
-        return $this->get('phone_2');
+        return $this->attr('phone_2');
     }
 
     /**
@@ -182,7 +182,7 @@ class Contact implements ToArrayInterface
 
     public function getSalutation(): int
     {
-        return $this->get('salutation');
+        return $this->attr('salutation');
     }
 
     public function setStreet(string $street): void
@@ -192,7 +192,7 @@ class Contact implements ToArrayInterface
 
     public function getStreet(): string
     {
-        return $this->get('street');
+        return $this->attr('street');
     }
 
     public function setSuffix1(?string $suffix_1): void
@@ -202,7 +202,7 @@ class Contact implements ToArrayInterface
 
     public function getSuffix1(): ?string
     {
-        return $this->get('suffix_1');
+        return $this->attr('suffix_1');
     }
 
     public function setSuffix2(?string $suffix_2): void
@@ -212,7 +212,7 @@ class Contact implements ToArrayInterface
 
     public function getSuffix2(): ?string
     {
-        return $this->get('suffix_2');
+        return $this->attr('suffix_2');
     }
 
     public function setTitle(?string $title): void
@@ -222,7 +222,7 @@ class Contact implements ToArrayInterface
 
     public function getTitle(): ?string
     {
-        return $this->get('title');
+        return $this->attr('title');
     }
 
     public function setZipCode(?string $zip_code): void
@@ -232,16 +232,16 @@ class Contact implements ToArrayInterface
 
     public function getZipCode(): ?string
     {
-        return $this->get('zip_code');
+        return $this->attr('zip_code');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->get('updated_at');
+        return $this->attr('updated_at');
     }
 }

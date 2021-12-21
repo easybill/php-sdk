@@ -19,16 +19,16 @@ class LoginSecurity implements ToArrayInterface
 
     public function getTwoFactorEnabled(): bool
     {
-        return $this->get('two_factor_enabled');
+        return $this->attr('two_factor_enabled');
     }
 
     public function getRecoveryCodesEnabled(): bool
     {
-        return $this->get('recovery_codes_enabled');
+        return $this->attr('recovery_codes_enabled');
     }
 
     public function getNotifyOnNewLoginEnabled(): bool
     {
-        return $this->get('notify_on_new_login_enabled');
+        return $this->attr('notify_on_new_login_enabled');
     }
 }

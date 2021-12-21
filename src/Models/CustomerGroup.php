@@ -23,7 +23,7 @@ class CustomerGroup implements ToArrayInterface
 
     public function getName(): string
     {
-        return $this->get('name');
+        return $this->attr('name');
     }
 
     public function setDescription(?string $description): void
@@ -33,7 +33,7 @@ class CustomerGroup implements ToArrayInterface
 
     public function getDescription(): ?string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     /**
@@ -46,16 +46,16 @@ class CustomerGroup implements ToArrayInterface
 
     public function getNumber(): string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     public function getDisplayName(): string
     {
-        return $this->get('display_name');
+        return $this->attr('display_name');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 }

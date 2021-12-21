@@ -26,12 +26,12 @@ class SEPAPayment implements ToArrayInterface
 
     public function getAmount(): int
     {
-        return $this->get('amount');
+        return $this->attr('amount');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
     /**
@@ -44,7 +44,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getCreditorBic(): ?string
     {
-        return $this->get('creditor_bic');
+        return $this->attr('creditor_bic');
     }
 
     /**
@@ -57,7 +57,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getCreditorIban(): ?string
     {
-        return $this->get('creditor_iban');
+        return $this->attr('creditor_iban');
     }
 
     /**
@@ -70,7 +70,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getCreditorName(): ?string
     {
-        return $this->get('creditor_name');
+        return $this->attr('creditor_name');
     }
 
     /**
@@ -83,7 +83,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDebitorBic(): ?string
     {
-        return $this->get('debitor_bic');
+        return $this->attr('debitor_bic');
     }
 
     /**
@@ -96,7 +96,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDebitorIban(): ?string
     {
-        return $this->get('debitor_iban');
+        return $this->attr('debitor_iban');
     }
 
     /**
@@ -109,7 +109,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDebitorName(): ?string
     {
-        return $this->get('debitor_name');
+        return $this->attr('debitor_name');
     }
 
     /**
@@ -122,7 +122,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDebitorAddressLine1(): string
     {
-        return $this->get('debitor_address_line_1');
+        return $this->attr('debitor_address_line_1');
     }
 
     /**
@@ -135,7 +135,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDebitorAddressLine2(): string
     {
-        return $this->get('debitor_address_line2');
+        return $this->attr('debitor_address_line2');
     }
 
     /**
@@ -148,7 +148,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDebitorCountry(): string
     {
-        return $this->get('debitor_country');
+        return $this->attr('debitor_country');
     }
 
     public function setDocumentId(int $document_id): void
@@ -158,30 +158,30 @@ class SEPAPayment implements ToArrayInterface
 
     public function getDocumentId(): int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     /**
      * If a date is set, this record is marked as exported.
      */
-    public function setExportAt(?string $export_at): void
+    public function setExportAt(?\DateTimeImmutable $export_at): void
     {
         $this->data['export_at'] = $export_at;
     }
 
-    public function getExportAt(): ?string
+    public function getExportAt(): ?\DateTimeImmutable
     {
-        return $this->get('export_at');
+        return $this->attr('export_at');
     }
 
     public function getExportError(): string
     {
-        return $this->get('export_error');
+        return $this->attr('export_error');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     /**
@@ -194,17 +194,17 @@ class SEPAPayment implements ToArrayInterface
 
     public function getLocalInstrument(): string
     {
-        return $this->get('local_instrument');
+        return $this->attr('local_instrument');
     }
 
-    public function setMandateDateOfSignature(string $mandate_date_of_signature): void
+    public function setMandateDateOfSignature(\DateTimeImmutable $mandate_date_of_signature): void
     {
         $this->data['mandate_date_of_signature'] = $mandate_date_of_signature;
     }
 
-    public function getMandateDateOfSignature(): string
+    public function getMandateDateOfSignature(): \DateTimeImmutable
     {
-        return $this->get('mandate_date_of_signature');
+        return $this->attrDate('mandate_date_of_signature');
     }
 
     public function setMandateId(string $mandate_id): void
@@ -214,7 +214,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getMandateId(): string
     {
-        return $this->get('mandate_id');
+        return $this->attr('mandate_id');
     }
 
     public function setReference(string $reference): void
@@ -224,7 +224,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getReference(): string
     {
-        return $this->get('reference');
+        return $this->attr('reference');
     }
 
     public function setRemittanceInformation(?string $remittance_information): void
@@ -234,20 +234,20 @@ class SEPAPayment implements ToArrayInterface
 
     public function getRemittanceInformation(): ?string
     {
-        return $this->get('remittance_information');
+        return $this->attr('remittance_information');
     }
 
     /**
      * Booking date.
      */
-    public function setRequestedAt(string $requested_at): void
+    public function setRequestedAt(\DateTimeImmutable $requested_at): void
     {
         $this->data['requested_at'] = $requested_at;
     }
 
-    public function getRequestedAt(): string
+    public function getRequestedAt(): \DateTimeImmutable
     {
-        return $this->get('requested_at');
+        return $this->attrDate('requested_at');
     }
 
     /**
@@ -260,12 +260,12 @@ class SEPAPayment implements ToArrayInterface
 
     public function getSequenceType(): string
     {
-        return $this->get('sequence_type');
+        return $this->attr('sequence_type');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->get('updated_at');
+        return $this->attr('updated_at');
     }
 
     public function setType(string $type): void
@@ -275,6 +275,6 @@ class SEPAPayment implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 }

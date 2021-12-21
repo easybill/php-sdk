@@ -16,39 +16,39 @@ class TimeTracking implements ToArrayInterface
         $this->data = $data;
     }
 
-    public function setClearedAt(?string $cleared_at): void
+    public function setClearedAt(?\DateTimeImmutable $cleared_at): void
     {
         $this->data['cleared_at'] = $cleared_at;
     }
 
-    public function getClearedAt(): ?string
+    public function getClearedAt(): ?\DateTimeImmutable
     {
-        return $this->get('cleared_at');
+        return $this->attr('cleared_at');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
-    public function setDateFromAt(?string $date_from_at): void
+    public function setDateFromAt(?\DateTimeImmutable $date_from_at): void
     {
         $this->data['date_from_at'] = $date_from_at;
     }
 
-    public function getDateFromAt(): ?string
+    public function getDateFromAt(): ?\DateTimeImmutable
     {
-        return $this->get('date_from_at');
+        return $this->attr('date_from_at');
     }
 
-    public function setDateThruAt(?string $date_thru_at): void
+    public function setDateThruAt(?\DateTimeImmutable $date_thru_at): void
     {
         $this->data['date_thru_at'] = $date_thru_at;
     }
 
-    public function getDateThruAt(): ?string
+    public function getDateThruAt(): ?\DateTimeImmutable
     {
-        return $this->get('date_thru_at');
+        return $this->attr('date_thru_at');
     }
 
     public function setDescription(string $description): void
@@ -58,7 +58,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getDescription(): string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     /**
@@ -71,12 +71,12 @@ class TimeTracking implements ToArrayInterface
 
     public function getHourlyRate(): float
     {
-        return $this->get('hourly_rate');
+        return $this->attr('hourly_rate');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setNote(?string $note): void
@@ -86,7 +86,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getNote(): ?string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     /**
@@ -99,7 +99,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getNumber(): ?string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     public function setPositionId(?int $position_id): void
@@ -109,7 +109,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getPositionId(): ?int
     {
-        return $this->get('position_id');
+        return $this->attr('position_id');
     }
 
     public function setProjectId(?int $project_id): void
@@ -119,7 +119,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getProjectId(): ?int
     {
-        return $this->get('project_id');
+        return $this->attr('project_id');
     }
 
     /**
@@ -132,7 +132,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getLoginId(): ?int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     /**
@@ -145,6 +145,6 @@ class TimeTracking implements ToArrayInterface
 
     public function getTimerValue(): ?int
     {
-        return $this->get('timer_value');
+        return $this->attr('timer_value');
     }
 }

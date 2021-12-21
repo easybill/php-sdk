@@ -15,26 +15,57 @@ trait Data
                 return $val->toArray();
             }
 
+            if ($val instanceof \DateTimeInterface) {
+                return $val->format('Y-m-d H:i:s');
+            }
+
             return $val;
         }, $this->data);
     }
 
-    protected function get(string $key): mixed
+    protected function attr(string $key): mixed
     {
         if (!array_key_exists($key, $this->data)) {
-            throw new \RuntimeException(sprintf('Key "%s" not exists in $data', $key));
+            throw new \RuntimeException(sprintf('Attr "%s" not found in $data', $key));
         }
 
         return $this->data[$key];
     }
 
-    protected function getInstance(string $key, string $className): mixed
+    protected function attrInstance(string $key, string $className): mixed
     {
-        $data = $this->get($key);
+        $data = $this->attr($key);
         if ($data instanceof $className) {
             return $data;
         }
 
         return $this->data[$key] = new $className($data);
+    }
+
+    protected function attrDate(string $key): ?\DateTimeImmutable
+    {
+        $data = $this->attr($key);
+        if ($data instanceof \DateTimeImmutable) {
+            return $data;
+        }
+        if (null === $data) {
+            return null;
+        }
+
+        return $this->data[$key] = \DateTimeImmutable::createFromFormat('!Y-m-d', $data, new \DateTimeZone('Europe/Berlin'));
+    }
+
+    protected function attrDateTime(string $key): ?\DateTimeImmutable
+    {
+        $data = $this->attr($key);
+        if ($data instanceof \DateTimeImmutable) {
+            return $data;
+        }
+
+        if (null === $data) {
+            return null;
+        }
+
+        return $this->data[$key] = \DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $data, new \DateTimeZone('Europe/Berlin'));
     }
 }

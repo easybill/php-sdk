@@ -23,12 +23,12 @@ class DiscountPositionGroup implements ToArrayInterface
 
     public function getPositionGroupId(): int
     {
-        return $this->get('position_group_id');
+        return $this->attr('position_group_id');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setCustomerId(int $customer_id): void
@@ -38,7 +38,7 @@ class DiscountPositionGroup implements ToArrayInterface
 
     public function getCustomerId(): int
     {
-        return $this->get('customer_id');
+        return $this->attr('customer_id');
     }
 
     /**
@@ -51,7 +51,7 @@ class DiscountPositionGroup implements ToArrayInterface
 
     public function getDiscount(): int
     {
-        return $this->get('discount');
+        return $this->attr('discount');
     }
 
     /**
@@ -64,6 +64,6 @@ class DiscountPositionGroup implements ToArrayInterface
 
     public function getDiscountType(): string
     {
-        return $this->get('discount_type');
+        return $this->attr('discount_type');
     }
 }

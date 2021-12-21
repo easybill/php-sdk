@@ -23,7 +23,7 @@ class DocumentPayment implements ToArrayInterface
 
     public function getAmount(): int
     {
-        return $this->get('amount');
+        return $this->attr('amount');
     }
 
     public function setDocumentId(int $document_id): void
@@ -33,12 +33,12 @@ class DocumentPayment implements ToArrayInterface
 
     public function getDocumentId(): int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setIsOverdueFee(bool $is_overdue_fee): void
@@ -48,12 +48,12 @@ class DocumentPayment implements ToArrayInterface
 
     public function getIsOverdueFee(): bool
     {
-        return $this->get('is_overdue_fee');
+        return $this->attr('is_overdue_fee');
     }
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setNotice(string $notice): void
@@ -63,17 +63,17 @@ class DocumentPayment implements ToArrayInterface
 
     public function getNotice(): string
     {
-        return $this->get('notice');
+        return $this->attr('notice');
     }
 
-    public function setPaymentAt(string $payment_at): void
+    public function setPaymentAt(\DateTimeImmutable $payment_at): void
     {
         $this->data['payment_at'] = $payment_at;
     }
 
-    public function getPaymentAt(): string
+    public function getPaymentAt(): \DateTimeImmutable
     {
-        return $this->get('payment_at');
+        return $this->attrDate('payment_at');
     }
 
     public function setType(string $type): void
@@ -83,7 +83,7 @@ class DocumentPayment implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 
     public function setProvider(string $provider): void
@@ -93,7 +93,7 @@ class DocumentPayment implements ToArrayInterface
 
     public function getProvider(): string
     {
-        return $this->get('provider');
+        return $this->attr('provider');
     }
 
     public function setReference(string $reference): void
@@ -103,6 +103,6 @@ class DocumentPayment implements ToArrayInterface
 
     public function getReference(): string
     {
-        return $this->get('reference');
+        return $this->attr('reference');
     }
 }

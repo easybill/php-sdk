@@ -23,7 +23,7 @@ class Task implements ToArrayInterface
 
     public function getCategory(): ?string
     {
-        return $this->get('category');
+        return $this->attr('category');
     }
 
     /**
@@ -36,12 +36,12 @@ class Task implements ToArrayInterface
 
     public function getCategoryCustom(): ?string
     {
-        return $this->get('category_custom');
+        return $this->attr('category_custom');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -51,7 +51,7 @@ class Task implements ToArrayInterface
 
     public function getCustomerId(): ?int
     {
-        return $this->get('customer_id');
+        return $this->attr('customer_id');
     }
 
     public function setDescription(?string $description): void
@@ -61,7 +61,7 @@ class Task implements ToArrayInterface
 
     public function getDescription(): ?string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     public function setDocumentId(?int $document_id): void
@@ -71,30 +71,30 @@ class Task implements ToArrayInterface
 
     public function getDocumentId(): ?int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     /**
      * The deadline.
      */
-    public function setEndAt(?string $end_at): void
+    public function setEndAt(?\DateTimeImmutable $end_at): void
     {
         $this->data['end_at'] = $end_at;
     }
 
-    public function getEndAt(): ?string
+    public function getEndAt(): ?\DateTimeImmutable
     {
-        return $this->get('end_at');
+        return $this->attr('end_at');
     }
 
-    public function getFinishAt(): ?string
+    public function getFinishAt(): ?\DateTimeImmutable
     {
-        return $this->get('finish_at');
+        return $this->attr('finish_at');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     /**
@@ -107,7 +107,7 @@ class Task implements ToArrayInterface
 
     public function getLoginId(): ?int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setName(string $name): void
@@ -117,7 +117,7 @@ class Task implements ToArrayInterface
 
     public function getName(): string
     {
-        return $this->get('name');
+        return $this->attr('name');
     }
 
     public function setPositionId(?int $position_id): void
@@ -127,7 +127,7 @@ class Task implements ToArrayInterface
 
     public function getPositionId(): ?int
     {
-        return $this->get('position_id');
+        return $this->attr('position_id');
     }
 
     public function setPriority(string $priority): void
@@ -137,7 +137,7 @@ class Task implements ToArrayInterface
 
     public function getPriority(): string
     {
-        return $this->get('priority');
+        return $this->attr('priority');
     }
 
     public function setProjectId(?int $project_id): void
@@ -147,17 +147,17 @@ class Task implements ToArrayInterface
 
     public function getProjectId(): ?int
     {
-        return $this->get('project_id');
+        return $this->attr('project_id');
     }
 
-    public function setStartAt(?string $start_at): void
+    public function setStartAt(?\DateTimeImmutable $start_at): void
     {
         $this->data['start_at'] = $start_at;
     }
 
-    public function getStartAt(): ?string
+    public function getStartAt(): ?\DateTimeImmutable
     {
-        return $this->get('start_at');
+        return $this->attr('start_at');
     }
 
     public function setStatus(string $status): void
@@ -167,7 +167,7 @@ class Task implements ToArrayInterface
 
     public function getStatus(): string
     {
-        return $this->get('status');
+        return $this->attr('status');
     }
 
     public function setStatusPercent(?int $status_percent): void
@@ -177,6 +177,6 @@ class Task implements ToArrayInterface
 
     public function getStatusPercent(): ?int
     {
-        return $this->get('status_percent');
+        return $this->attr('status_percent');
     }
 }

@@ -18,12 +18,12 @@ class TextTemplate implements ToArrayInterface
 
     public function getCanModify(): bool
     {
-        return $this->get('can_modify');
+        return $this->attr('can_modify');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setText(string $text): void
@@ -33,7 +33,7 @@ class TextTemplate implements ToArrayInterface
 
     public function getText(): string
     {
-        return $this->get('text');
+        return $this->attr('text');
     }
 
     public function setTitle(string $title): void
@@ -43,6 +43,6 @@ class TextTemplate implements ToArrayInterface
 
     public function getTitle(): string
     {
-        return $this->get('title');
+        return $this->attr('title');
     }
 }

@@ -23,7 +23,7 @@ class PDFTemplate implements ToArrayInterface
 
     public function getId(): string
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setName(string $name): void
@@ -33,7 +33,7 @@ class PDFTemplate implements ToArrayInterface
 
     public function getName(): string
     {
-        return $this->get('name');
+        return $this->attr('name');
     }
 
     public function setPdfTemplate(string $pdf_template): void
@@ -43,7 +43,7 @@ class PDFTemplate implements ToArrayInterface
 
     public function getPdfTemplate(): string
     {
-        return $this->get('pdf_template');
+        return $this->attr('pdf_template');
     }
 
     public function setDocumentType(string $document_type): void
@@ -53,6 +53,6 @@ class PDFTemplate implements ToArrayInterface
 
     public function getDocumentType(): string
     {
-        return $this->get('document_type');
+        return $this->attr('document_type');
     }
 }

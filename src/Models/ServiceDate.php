@@ -26,37 +26,37 @@ class ServiceDate implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 
-    public function setDate(?string $date): void
+    public function setDate(?\DateTimeImmutable $date): void
     {
         $this->data['date'] = $date;
     }
 
-    public function getDate(): ?string
+    public function getDate(): ?\DateTimeImmutable
     {
-        return $this->get('date');
+        return $this->attrDate('date');
     }
 
-    public function setDateFrom(?string $date_from): void
+    public function setDateFrom(?\DateTimeImmutable $date_from): void
     {
         $this->data['date_from'] = $date_from;
     }
 
-    public function getDateFrom(): ?string
+    public function getDateFrom(): ?\DateTimeImmutable
     {
-        return $this->get('date_from');
+        return $this->attrDate('date_from');
     }
 
-    public function setDateTo(?string $date_to): void
+    public function setDateTo(?\DateTimeImmutable $date_to): void
     {
         $this->data['date_to'] = $date_to;
     }
 
-    public function getDateTo(): ?string
+    public function getDateTo(): ?\DateTimeImmutable
     {
-        return $this->get('date_to');
+        return $this->attrDate('date_to');
     }
 
     public function setText(?string $text): void
@@ -66,6 +66,6 @@ class ServiceDate implements ToArrayInterface
 
     public function getText(): ?string
     {
-        return $this->get('text');
+        return $this->attr('text');
     }
 }

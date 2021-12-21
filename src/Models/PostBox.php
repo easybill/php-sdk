@@ -18,7 +18,7 @@ class PostBox implements ToArrayInterface
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setDocumentId(int $document_id): void
@@ -28,7 +28,7 @@ class PostBox implements ToArrayInterface
 
     public function getDocumentId(): int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     public function setTo(string $to): void
@@ -38,7 +38,7 @@ class PostBox implements ToArrayInterface
 
     public function getTo(): string
     {
-        return $this->get('to');
+        return $this->attr('to');
     }
 
     public function setCc(string $cc): void
@@ -48,7 +48,7 @@ class PostBox implements ToArrayInterface
 
     public function getCc(): string
     {
-        return $this->get('cc');
+        return $this->attr('cc');
     }
 
     public function setFrom(string $from): void
@@ -58,7 +58,7 @@ class PostBox implements ToArrayInterface
 
     public function getFrom(): string
     {
-        return $this->get('from');
+        return $this->attr('from');
     }
 
     public function setSubject(string $subject): void
@@ -68,7 +68,7 @@ class PostBox implements ToArrayInterface
 
     public function getSubject(): string
     {
-        return $this->get('subject');
+        return $this->attr('subject');
     }
 
     public function setMessage(string $message): void
@@ -78,37 +78,37 @@ class PostBox implements ToArrayInterface
 
     public function getMessage(): string
     {
-        return $this->get('message');
+        return $this->attr('message');
     }
 
-    public function setDate(string $date): void
+    public function setDate(\DateTimeImmutable $date): void
     {
         $this->data['date'] = $date;
     }
 
-    public function getDate(): string
+    public function getDate(): \DateTimeImmutable
     {
-        return $this->get('date');
+        return $this->attrDate('date');
     }
 
-    public function setCreatedAt(string $created_at): void
+    public function setCreatedAt(\DateTimeImmutable $created_at): void
     {
         $this->data['created_at'] = $created_at;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
-    public function setProcessedAt(string $processed_at): void
+    public function setProcessedAt(\DateTimeImmutable $processed_at): void
     {
         $this->data['processed_at'] = $processed_at;
     }
 
-    public function getProcessedAt(): string
+    public function getProcessedAt(): \DateTimeImmutable
     {
-        return $this->get('processed_at');
+        return $this->attr('processed_at');
     }
 
     public function setSendBySelf(bool $send_by_self): void
@@ -118,7 +118,7 @@ class PostBox implements ToArrayInterface
 
     public function getSendBySelf(): bool
     {
-        return $this->get('send_by_self');
+        return $this->attr('send_by_self');
     }
 
     public function setSendWithAttachment(bool $send_with_attachment): void
@@ -128,7 +128,7 @@ class PostBox implements ToArrayInterface
 
     public function getSendWithAttachment(): bool
     {
-        return $this->get('send_with_attachment');
+        return $this->attr('send_with_attachment');
     }
 
     public function setType(string $type): void
@@ -138,7 +138,7 @@ class PostBox implements ToArrayInterface
 
     public function getType(): string
     {
-        return $this->get('type');
+        return $this->attr('type');
     }
 
     public function setStatus(string $status): void
@@ -148,7 +148,7 @@ class PostBox implements ToArrayInterface
 
     public function getStatus(): string
     {
-        return $this->get('status');
+        return $this->attr('status');
     }
 
     public function setStatusMsg(string $status_msg): void
@@ -158,12 +158,12 @@ class PostBox implements ToArrayInterface
 
     public function getStatusMsg(): string
     {
-        return $this->get('status_msg');
+        return $this->attr('status_msg');
     }
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function setDocumentFileType(?string $document_file_type): void
@@ -173,7 +173,7 @@ class PostBox implements ToArrayInterface
 
     public function getDocumentFileType(): ?string
     {
-        return $this->get('document_file_type');
+        return $this->attr('document_file_type');
     }
 
     /**
@@ -194,11 +194,11 @@ class PostBox implements ToArrayInterface
 
     public function getPostSendType(): string
     {
-        return $this->get('post_send_type');
+        return $this->attr('post_send_type');
     }
 
     public function getTrackingIdentifier(): string
     {
-        return $this->get('tracking_identifier');
+        return $this->attr('tracking_identifier');
     }
 }

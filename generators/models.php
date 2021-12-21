@@ -91,6 +91,7 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
         $propertyInfo['type'] = trim($propertyInfo['type'] ?? '');
         $propertyInfo['x-nullable'] = $propertyInfo['x-nullable'] ?? false;
         $propertyInfo['items'] = $propertyInfo['items'] ?? [];
+        $propertyInfo['format'] = $propertyInfo['format'] ?? '';
 
         echo '==> ' . $className . '::' . $propertyName . "\n";
 
@@ -101,6 +102,13 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             $type = classWithNamespace(classNameFromRef($propertyInfo['$ref']));
             $propertyInfo['readOnly'] = $swagger['definitions'][classNameFromRef($propertyInfo['$ref'])]['readOnly'] ?? false;
             $isObject = true;
+        }
+
+        if (
+            'date' === $propertyInfo['format']
+            || 'date-time' === $propertyInfo['format']
+        ) {
+            $type = DateTimeImmutable::class;
         }
 
         $methodeName = str_replace('_', '', ucwords($propertyName, '_'));
@@ -132,9 +140,11 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             $getter->addComment('@return \\' . classWithNamespace(classNameFromRef($propertyInfo['items']['$ref'])) . '[]');
         }
         if ($isObject) {
-            $getter->setBody('return $this->getInstance(\'' . $propertyName . '\', \\' . $type . '::class);');
+            $getter->setBody('return $this->attrInstance(\'' . $propertyName . '\', \\' . $type . '::class);');
+        } elseif ('date' === $propertyInfo['format']) {
+            $getter->setBody('return $this->attrDate(\'' . $propertyName . '\');');
         } else {
-            $getter->setBody('return $this->get(\'' . $propertyName . '\');');
+            $getter->setBody('return $this->attr(\'' . $propertyName . '\');');
         }
     }
 

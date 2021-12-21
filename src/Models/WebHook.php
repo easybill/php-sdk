@@ -23,7 +23,7 @@ class WebHook implements ToArrayInterface
 
     public function getContentType(): string
     {
-        return $this->get('content_type');
+        return $this->attr('content_type');
     }
 
     public function setDescription(string $description): void
@@ -33,7 +33,7 @@ class WebHook implements ToArrayInterface
 
     public function getDescription(): string
     {
-        return $this->get('description');
+        return $this->attr('description');
     }
 
     public function setEvents(array $events): void
@@ -46,12 +46,12 @@ class WebHook implements ToArrayInterface
      */
     public function getEvents(): array
     {
-        return $this->get('events');
+        return $this->attr('events');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setIsActive(bool $is_active): void
@@ -61,12 +61,12 @@ class WebHook implements ToArrayInterface
 
     public function getIsActive(): bool
     {
-        return $this->get('is_active');
+        return $this->attr('is_active');
     }
 
     public function getLastResponse(): WebHookLastResponse
     {
-        return $this->getInstance('last_response', \easybill\SDK\Models\WebHookLastResponse::class);
+        return $this->attrInstance('last_response', \easybill\SDK\Models\WebHookLastResponse::class);
     }
 
     public function setSecret(string $secret): void
@@ -76,7 +76,7 @@ class WebHook implements ToArrayInterface
 
     public function getSecret(): string
     {
-        return $this->get('secret');
+        return $this->attr('secret');
     }
 
     public function setUrl(string $url): void
@@ -86,6 +86,6 @@ class WebHook implements ToArrayInterface
 
     public function getUrl(): string
     {
-        return $this->get('url');
+        return $this->attr('url');
     }
 }

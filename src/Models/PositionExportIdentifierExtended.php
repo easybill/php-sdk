@@ -26,7 +26,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getNULL(): ?string
     {
-        return $this->get('NULL');
+        return $this->attr('NULL');
     }
 
     /**
@@ -39,7 +39,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getNStb(): ?string
     {
-        return $this->get('nStb');
+        return $this->attr('nStb');
     }
 
     /**
@@ -52,7 +52,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getNStbUstID(): ?string
     {
-        return $this->get('nStbUstID');
+        return $this->attr('nStbUstID');
     }
 
     /**
@@ -65,7 +65,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getNStbNoneUstID(): ?string
     {
-        return $this->get('nStbNoneUstID');
+        return $this->attr('nStbNoneUstID');
     }
 
     /**
@@ -78,7 +78,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getNStbIm(): ?string
     {
-        return $this->get('nStbIm');
+        return $this->attr('nStbIm');
     }
 
     /**
@@ -91,7 +91,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getRevc(): ?string
     {
-        return $this->get('revc');
+        return $this->attr('revc');
     }
 
     /**
@@ -104,7 +104,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getIG(): ?string
     {
-        return $this->get('IG');
+        return $this->attr('IG');
     }
 
     /**
@@ -117,7 +117,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getAL(): ?string
     {
-        return $this->get('AL');
+        return $this->attr('AL');
     }
 
     /**
@@ -130,7 +130,7 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getSStfr(): ?string
     {
-        return $this->get('sStfr');
+        return $this->attr('sStfr');
     }
 
     /**
@@ -143,6 +143,6 @@ class PositionExportIdentifierExtended implements ToArrayInterface
 
     public function getSmallBusiness(): ?string
     {
-        return $this->get('smallBusiness');
+        return $this->attr('smallBusiness');
     }
 }

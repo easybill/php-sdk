@@ -18,7 +18,7 @@ class Stock implements ToArrayInterface
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setNote(string $note): void
@@ -28,7 +28,7 @@ class Stock implements ToArrayInterface
 
     public function getNote(): string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     public function setStockCount(int $stock_count): void
@@ -38,7 +38,7 @@ class Stock implements ToArrayInterface
 
     public function getStockCount(): int
     {
-        return $this->get('stock_count');
+        return $this->attr('stock_count');
     }
 
     public function setPositionId(int $position_id): void
@@ -48,17 +48,17 @@ class Stock implements ToArrayInterface
 
     public function getPositionId(): int
     {
-        return $this->get('position_id');
+        return $this->attr('position_id');
     }
 
     public function getDocumentId(): ?int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     public function getDocumentPositionId(): ?int
     {
-        return $this->get('document_position_id');
+        return $this->attr('document_position_id');
     }
 
     public function setStoredAt(?string $stored_at): void
@@ -68,16 +68,16 @@ class Stock implements ToArrayInterface
 
     public function getStoredAt(): ?string
     {
-        return $this->get('stored_at');
+        return $this->attr('stored_at');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->get('updated_at');
+        return $this->attr('updated_at');
     }
 }

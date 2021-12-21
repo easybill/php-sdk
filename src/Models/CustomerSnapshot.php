@@ -19,7 +19,7 @@ class CustomerSnapshot implements ToArrayInterface
 
     public function getAcquireOptions(): ?int
     {
-        return $this->get('acquire_options');
+        return $this->attr('acquire_options');
     }
 
     /**
@@ -27,162 +27,162 @@ class CustomerSnapshot implements ToArrayInterface
      */
     public function getAdditionalGroupsIds(): array
     {
-        return $this->get('additional_groups_ids');
+        return $this->attr('additional_groups_ids');
     }
 
     public function getBankAccount(): ?string
     {
-        return $this->get('bank_account');
+        return $this->attr('bank_account');
     }
 
     public function getBankAccountOwner(): ?string
     {
-        return $this->get('bank_account_owner');
+        return $this->attr('bank_account_owner');
     }
 
     public function getBankBic(): ?string
     {
-        return $this->get('bank_bic');
+        return $this->attr('bank_bic');
     }
 
     public function getBankCode(): ?string
     {
-        return $this->get('bank_code');
+        return $this->attr('bank_code');
     }
 
     public function getBankIban(): ?string
     {
-        return $this->get('bank_iban');
+        return $this->attr('bank_iban');
     }
 
     public function getBankName(): ?string
     {
-        return $this->get('bank_name');
+        return $this->attr('bank_name');
     }
 
-    public function getBirthDate(): ?string
+    public function getBirthDate(): ?\DateTimeImmutable
     {
-        return $this->get('birth_date');
+        return $this->attrDate('birth_date');
     }
 
     public function getCashAllowance(): ?float
     {
-        return $this->get('cash_allowance');
+        return $this->attr('cash_allowance');
     }
 
     public function getCashAllowanceDays(): int
     {
-        return $this->get('cash_allowance_days');
+        return $this->attr('cash_allowance_days');
     }
 
     public function getCashDiscount(): ?float
     {
-        return $this->get('cash_discount');
+        return $this->attr('cash_discount');
     }
 
     public function getCashDiscountType(): ?string
     {
-        return $this->get('cash_discount_type');
+        return $this->attr('cash_discount_type');
     }
 
     public function getCity(): ?string
     {
-        return $this->get('city');
+        return $this->attr('city');
     }
 
     public function getState(): string
     {
-        return $this->get('state');
+        return $this->attr('state');
     }
 
     public function getCompanyName(): ?string
     {
-        return $this->get('company_name');
+        return $this->attr('company_name');
     }
 
     public function getCountry(): string
     {
-        return $this->get('country');
+        return $this->attr('country');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->get('created_at');
+        return $this->attrDate('created_at');
     }
 
     public function getUpdatedAt(): string
     {
-        return $this->get('updated_at');
+        return $this->attr('updated_at');
     }
 
     public function getDeliveryTitle(): string
     {
-        return $this->get('delivery_title');
+        return $this->attr('delivery_title');
     }
 
     public function getDeliveryCity(): ?string
     {
-        return $this->get('delivery_city');
+        return $this->attr('delivery_city');
     }
 
     public function getDeliveryState(): string
     {
-        return $this->get('delivery_state');
+        return $this->attr('delivery_state');
     }
 
     public function getDeliveryCompanyName(): ?string
     {
-        return $this->get('delivery_company_name');
+        return $this->attr('delivery_company_name');
     }
 
     public function getDeliveryCountry(): ?string
     {
-        return $this->get('delivery_country');
+        return $this->attr('delivery_country');
     }
 
     public function getDeliveryFirstName(): ?string
     {
-        return $this->get('delivery_first_name');
+        return $this->attr('delivery_first_name');
     }
 
     public function getDeliveryLastName(): ?string
     {
-        return $this->get('delivery_last_name');
+        return $this->attr('delivery_last_name');
     }
 
     public function getDeliveryPersonal(): bool
     {
-        return $this->get('delivery_personal');
+        return $this->attr('delivery_personal');
     }
 
     public function getDeliverySalutation(): int
     {
-        return $this->get('delivery_salutation');
+        return $this->attr('delivery_salutation');
     }
 
     public function getDeliveryStreet(): ?string
     {
-        return $this->get('delivery_street');
+        return $this->attr('delivery_street');
     }
 
     public function getDeliverySuffix1(): ?string
     {
-        return $this->get('delivery_suffix_1');
+        return $this->attr('delivery_suffix_1');
     }
 
     public function getDeliverySuffix2(): ?string
     {
-        return $this->get('delivery_suffix_2');
+        return $this->attr('delivery_suffix_2');
     }
 
     public function getDeliveryZipCode(): ?string
     {
-        return $this->get('delivery_zip_code');
+        return $this->attr('delivery_zip_code');
     }
 
     public function getDisplayName(): string
     {
-        return $this->get('display_name');
+        return $this->attr('display_name');
     }
 
     /**
@@ -190,216 +190,216 @@ class CustomerSnapshot implements ToArrayInterface
      */
     public function getEmails(): array
     {
-        return $this->get('emails');
+        return $this->attr('emails');
     }
 
     public function getFax(): ?string
     {
-        return $this->get('fax');
+        return $this->attr('fax');
     }
 
     public function getFirstName(): ?string
     {
-        return $this->get('first_name');
+        return $this->attr('first_name');
     }
 
     public function getGracePeriod(): ?int
     {
-        return $this->get('grace_period');
+        return $this->attr('grace_period');
     }
 
     public function getDueInDays(): ?int
     {
-        return $this->get('due_in_days');
+        return $this->attr('due_in_days');
     }
 
     public function getGroupId(): ?int
     {
-        return $this->get('group_id');
+        return $this->attr('group_id');
     }
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function getInfo1(): ?string
     {
-        return $this->get('info_1');
+        return $this->attr('info_1');
     }
 
     public function getInfo2(): ?string
     {
-        return $this->get('info_2');
+        return $this->attr('info_2');
     }
 
     public function getInternet(): ?string
     {
-        return $this->get('internet');
+        return $this->attr('internet');
     }
 
     public function getLastName(): ?string
     {
-        return $this->get('last_name');
+        return $this->attr('last_name');
     }
 
     public function getLoginId(): int
     {
-        return $this->get('login_id');
+        return $this->attr('login_id');
     }
 
     public function getMobile(): ?string
     {
-        return $this->get('mobile');
+        return $this->attr('mobile');
     }
 
     public function getNote(): ?string
     {
-        return $this->get('note');
+        return $this->attr('note');
     }
 
     public function getNumber(): string
     {
-        return $this->get('number');
+        return $this->attr('number');
     }
 
     public function getPaymentOptions(): ?int
     {
-        return $this->get('payment_options');
+        return $this->attr('payment_options');
     }
 
     public function getPersonal(): bool
     {
-        return $this->get('personal');
+        return $this->attr('personal');
     }
 
     public function getPhone1(): ?string
     {
-        return $this->get('phone_1');
+        return $this->attr('phone_1');
     }
 
     public function getPhone2(): ?string
     {
-        return $this->get('phone_2');
+        return $this->attr('phone_2');
     }
 
     public function getPostbox(): ?string
     {
-        return $this->get('postbox');
+        return $this->attr('postbox');
     }
 
     public function getPostboxCity(): ?string
     {
-        return $this->get('postbox_city');
+        return $this->attr('postbox_city');
     }
 
     public function getPostboxState(): string
     {
-        return $this->get('postbox_state');
+        return $this->attr('postbox_state');
     }
 
     public function getPostboxCountry(): ?string
     {
-        return $this->get('postbox_country');
+        return $this->attr('postbox_country');
     }
 
     public function getPostboxZipCode(): ?string
     {
-        return $this->get('postbox_zip_code');
+        return $this->attr('postbox_zip_code');
     }
 
     public function getSalePriceLevel(): ?string
     {
-        return $this->get('sale_price_level');
+        return $this->attr('sale_price_level');
     }
 
     public function getSalutation(): int
     {
-        return $this->get('salutation');
+        return $this->attr('salutation');
     }
 
     public function getSepaAgreement(): ?string
     {
-        return $this->get('sepa_agreement');
+        return $this->attr('sepa_agreement');
     }
 
-    public function getSepaAgreementDate(): ?string
+    public function getSepaAgreementDate(): ?\DateTimeImmutable
     {
-        return $this->get('sepa_agreement_date');
+        return $this->attrDate('sepa_agreement_date');
     }
 
     public function getSepaMandateReference(): ?string
     {
-        return $this->get('sepa_mandate_reference');
+        return $this->attr('sepa_mandate_reference');
     }
 
-    public function getSinceDate(): ?string
+    public function getSinceDate(): ?\DateTimeImmutable
     {
-        return $this->get('since_date');
+        return $this->attrDate('since_date');
     }
 
     public function getStreet(): ?string
     {
-        return $this->get('street');
+        return $this->attr('street');
     }
 
     public function getSuffix1(): ?string
     {
-        return $this->get('suffix_1');
+        return $this->attr('suffix_1');
     }
 
     public function getSuffix2(): ?string
     {
-        return $this->get('suffix_2');
+        return $this->attr('suffix_2');
     }
 
     public function getTaxNumber(): ?string
     {
-        return $this->get('tax_number');
+        return $this->attr('tax_number');
     }
 
     public function getCourt(): ?string
     {
-        return $this->get('court');
+        return $this->attr('court');
     }
 
     public function getCourtRegistryNumber(): ?string
     {
-        return $this->get('court_registry_number');
+        return $this->attr('court_registry_number');
     }
 
     public function getTaxOptions(): ?string
     {
-        return $this->get('tax_options');
+        return $this->attr('tax_options');
     }
 
     public function getTitle(): ?string
     {
-        return $this->get('title');
+        return $this->attr('title');
     }
 
     public function getVatIdentifier(): ?string
     {
-        return $this->get('vat_identifier');
+        return $this->attr('vat_identifier');
     }
 
     public function getZipCode(): ?string
     {
-        return $this->get('zip_code');
+        return $this->attr('zip_code');
     }
 
     public function getDocumentPdfType(): string
     {
-        return $this->get('documentPdfType');
+        return $this->attr('documentPdfType');
     }
 
     public function getBuyerReference(): string
     {
-        return $this->get('buyer_reference');
+        return $this->attr('buyer_reference');
     }
 
     public function getForeignSupplierNumber(): string
     {
-        return $this->get('foreign_supplier_number');
+        return $this->attr('foreign_supplier_number');
     }
 }

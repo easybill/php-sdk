@@ -16,18 +16,18 @@ class WebHookLastResponse implements ToArrayInterface
         $this->data = $data;
     }
 
-    public function getDate(): string
+    public function getDate(): \DateTimeImmutable
     {
-        return $this->get('date');
+        return $this->attr('date');
     }
 
     public function getCode(): int
     {
-        return $this->get('code');
+        return $this->attr('code');
     }
 
     public function getResponse(): string
     {
-        return $this->get('response');
+        return $this->attr('response');
     }
 }

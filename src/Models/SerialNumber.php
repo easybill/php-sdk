@@ -18,7 +18,7 @@ class SerialNumber implements ToArrayInterface
 
     public function getId(): int
     {
-        return $this->get('id');
+        return $this->attr('id');
     }
 
     public function setSerialNumber(string $serial_number): void
@@ -28,7 +28,7 @@ class SerialNumber implements ToArrayInterface
 
     public function getSerialNumber(): string
     {
-        return $this->get('serial_number');
+        return $this->attr('serial_number');
     }
 
     public function setPositionId(int $position_id): void
@@ -38,26 +38,26 @@ class SerialNumber implements ToArrayInterface
 
     public function getPositionId(): int
     {
-        return $this->get('position_id');
+        return $this->attr('position_id');
     }
 
     public function getDocumentId(): ?int
     {
-        return $this->get('document_id');
+        return $this->attr('document_id');
     }
 
     public function getDocumentPositionId(): ?int
     {
-        return $this->get('document_position_id');
+        return $this->attr('document_position_id');
     }
 
     public function getUsedAt(): ?string
     {
-        return $this->get('used_at');
+        return $this->attr('used_at');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->get('created_at');
+        return $this->attr('created_at');
     }
 }
