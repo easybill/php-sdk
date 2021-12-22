@@ -1,8 +1,8 @@
 <?php
 
-namespace easybill\SDK\Tests\Models;
+namespace Easybill\SDK\Tests\Models;
 
-use easybill\SDK\Models\Customer;
+use Easybill\SDK\Models\Customer;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 

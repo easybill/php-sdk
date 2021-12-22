@@ -1,8 +1,8 @@
 <?php
 
-namespace easybill\SDK\HttpClient;
+namespace Easybill\SDK\HttpClient;
 
-use easybill\SDK\HttpClientInterface;
+use Easybill\SDK\HttpClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;

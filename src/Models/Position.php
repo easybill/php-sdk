@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace easybill\SDK\Models;
+namespace Easybill\SDK\Models;
 
 /**
  * Auto-generated with `composer sdk:models`.
@@ -119,7 +119,7 @@ class Position implements ToArrayInterface
 
     public function getExportIdentifierExtended(): PositionExportIdentifierExtended
     {
-        return $this->attrInstance('export_identifier_extended', \easybill\SDK\Models\PositionExportIdentifierExtended::class);
+        return $this->attrInstance('export_identifier_extended', \Easybill\SDK\Models\PositionExportIdentifierExtended::class);
     }
 
     public function getLoginId(): int

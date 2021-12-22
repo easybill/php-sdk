@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace easybill\SDK\Models;
+namespace Easybill\SDK\Models;
 
 /**
  * Auto-generated with `composer sdk:models`.
@@ -75,7 +75,7 @@ class WebHook implements ToArrayInterface
 
     public function getLastResponse(): WebHookLastResponse
     {
-        return $this->attrInstance('last_response', \easybill\SDK\Models\WebHookLastResponse::class);
+        return $this->attrInstance('last_response', \Easybill\SDK\Models\WebHookLastResponse::class);
     }
 
     public function setSecret(string $secret): void

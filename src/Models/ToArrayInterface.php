@@ -1,6 +1,6 @@
 <?php
 
-namespace easybill\SDK\Models;
+namespace Easybill\SDK\Models;
 
 interface ToArrayInterface
 {

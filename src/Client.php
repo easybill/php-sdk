@@ -1,9 +1,9 @@
 <?php
 
-namespace easybill\SDK;
+namespace Easybill\SDK;
 
-use easybill\SDK\HttpClient\BaseHttpClient;
-use easybill\SDK\HttpClient\GuzzleHttpClient;
+use Easybill\SDK\HttpClient\BaseHttpClient;
+use Easybill\SDK\HttpClient\GuzzleHttpClient;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

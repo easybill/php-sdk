@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace easybill\SDK\Models;
+namespace Easybill\SDK\Models;
 
 /**
  * Auto-generated with `composer sdk:models`.
@@ -21,7 +21,7 @@ class Document implements ToArrayInterface
 
     public function getAddress(): DocumentAddress
     {
-        return $this->attrInstance('address', \easybill\SDK\Models\DocumentAddress::class);
+        return $this->attrInstance('address', \Easybill\SDK\Models\DocumentAddress::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class Document implements ToArrayInterface
 
     public function getLabelAddress(): DocumentAddress
     {
-        return $this->attrInstance('label_address', \easybill\SDK\Models\DocumentAddress::class);
+        return $this->attrInstance('label_address', \Easybill\SDK\Models\DocumentAddress::class);
     }
 
     public function getAmount(): int
@@ -172,7 +172,7 @@ class Document implements ToArrayInterface
 
     public function getCustomerSnapshot(): CustomerSnapshot
     {
-        return $this->attrInstance('customer_snapshot', \easybill\SDK\Models\CustomerSnapshot::class);
+        return $this->attrInstance('customer_snapshot', \Easybill\SDK\Models\CustomerSnapshot::class);
     }
 
     public function setDiscount(?string $discount): void
@@ -451,7 +451,7 @@ class Document implements ToArrayInterface
 
     public function getRecurringOptions(): DocumentRecurring
     {
-        return $this->attrInstance('recurring_options', \easybill\SDK\Models\DocumentRecurring::class);
+        return $this->attrInstance('recurring_options', \Easybill\SDK\Models\DocumentRecurring::class);
     }
 
     /**
@@ -477,7 +477,7 @@ class Document implements ToArrayInterface
 
     public function getServiceDate(): ServiceDate
     {
-        return $this->attrInstance('service_date', \easybill\SDK\Models\ServiceDate::class);
+        return $this->attrInstance('service_date', \Easybill\SDK\Models\ServiceDate::class);
     }
 
     public function setShippingCountry(?string $shipping_country): void

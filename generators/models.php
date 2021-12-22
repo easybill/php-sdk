@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use easybill\SDK\Models\ToArrayInterface;
-use easybill\SDK\Models\Traits\Data;
+use Easybill\SDK\Models\ToArrayInterface;
+use Easybill\SDK\Models\Traits\Data;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -19,7 +19,7 @@ function classNameFromRef(string $ref): string
 
 function classWithNamespace(string $className): string
 {
-    $namespace = str_contains($className, 'ResultList') ? 'easybill\SDK\ResultLists\\' : 'easybill\SDK\Models\\';
+    $namespace = str_contains($className, 'ResultList') ? 'Easybill\SDK\ResultLists\\' : 'Easybill\SDK\Models\\';
 
     return $namespace . $className;
 }

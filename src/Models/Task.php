@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace easybill\SDK\Models;
+namespace Easybill\SDK\Models;
 
 /**
  * Auto-generated with `composer sdk:models`.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace easybill\SDK\Models;
+namespace Easybill\SDK\Models;
 
 /**
  * Auto-generated with `composer sdk:models`.
@@ -122,6 +122,6 @@ class Login implements ToArrayInterface
 
     public function getSecurity(): LoginSecurity
     {
-        return $this->attrInstance('security', \easybill\SDK\Models\LoginSecurity::class);
+        return $this->attrInstance('security', \Easybill\SDK\Models\LoginSecurity::class);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace easybill\SDK;
+namespace Easybill\SDK;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

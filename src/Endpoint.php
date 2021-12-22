@@ -1,6 +1,6 @@
 <?php
 
-namespace easybill\SDK;
+namespace Easybill\SDK;
 
 class Endpoint
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace easybill\SDK\Tests\Models;
+namespace Easybill\SDK\Tests\Models;
 
-use easybill\SDK\Models\Position;
-use easybill\SDK\Models\PositionExportIdentifierExtended;
+use Easybill\SDK\Models\Position;
+use Easybill\SDK\Models\PositionExportIdentifierExtended;
 use PHPUnit\Framework\TestCase;
 
 /**

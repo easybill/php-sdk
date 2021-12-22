@@ -1,8 +1,8 @@
 <?php
 
-namespace easybill\SDK\Models\Traits;
+namespace Easybill\SDK\Models\Traits;
 
-use easybill\SDK\Models\ToArrayInterface;
+use Easybill\SDK\Models\ToArrayInterface;
 
 trait Data
 {

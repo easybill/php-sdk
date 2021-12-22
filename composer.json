@@ -25,12 +25,12 @@
   },
   "autoload": {
     "psr-4": {
-      "easybill\\SDK\\": "src/"
+      "Easybill\\SDK\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "easybill\\SDK\\Tests\\": "tests/"
+      "Easybill\\SDK\\Tests\\": "tests/"
     }
   },
   "require-dev": {

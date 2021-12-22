@@ -1,9 +1,9 @@
 <?php
 
-namespace easybill\SDK\Tests\Models;
+namespace Easybill\SDK\Tests\Models;
 
-use easybill\SDK\Models\Document;
-use easybill\SDK\Models\DocumentPosition;
+use Easybill\SDK\Models\Document;
+use Easybill\SDK\Models\DocumentPosition;
 use PHPUnit\Framework\TestCase;
 
 /**

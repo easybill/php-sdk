@@ -15,9 +15,9 @@ composer require easybill/php-sdk
 ## Usage
 
 ```php
-use easybill\SDK\Client;
-use easybill\SDK\Endpoint;
-use easybill\SDK\Models\Customer;
+use Easybill\SDK\Client;
+use Easybill\SDK\Endpoint;
+use Easybill\SDK\Models\Customer;
 
 $client = new Client(new Endpoint('... your API key ...'));
 
