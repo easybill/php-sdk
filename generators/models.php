@@ -129,6 +129,9 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             if ($propertyInfo['x-nullable']) {
                 $property->setNullable();
             }
+            if ('array' === $type && array_key_exists('$ref', $propertyInfo['items'])) {
+                $setter->addComment('@param ' . classNameFromRef($propertyInfo['items']['$ref']) . '[] $' . $propertyName);
+            }
             if ($propertyInfo['enum']) {
                 $setter->addComment('@enum ' . json_encode($propertyInfo['enum'], JSON_THROW_ON_ERROR));
             }
@@ -143,7 +146,7 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             $getter->addComment('@return ' . typeMap($propertyInfo['items']['type']) . '[]');
         }
         if ('array' === $type && array_key_exists('$ref', $propertyInfo['items'])) {
-            $getter->addComment('@return \\' . classWithNamespace(classNameFromRef($propertyInfo['items']['$ref'])) . '[]');
+            $getter->addComment('@return ' . classNameFromRef($propertyInfo['items']['$ref']) . '[]');
         }
         if ($isObject) {
             $getter->setBody('return $this->attrInstance(\'' . $propertyName . '\', \\' . $type . '::class);');

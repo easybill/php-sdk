@@ -339,13 +339,16 @@ class Document implements ToArrayInterface
         return $this->attr('item_notes');
     }
 
+    /**
+     * @param DocumentPosition[] $items
+     */
     public function setItems(array $items): void
     {
         $this->data['items'] = $items;
     }
 
     /**
-     * @return \easybill\SDK\Models\DocumentPosition[]
+     * @return DocumentPosition[]
      */
     public function getItems(): array
     {
