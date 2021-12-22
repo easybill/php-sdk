@@ -10,16 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class BaseHttpClient implements HttpClientInterface
 {
-    private HttpClientInterface $httpClient;
-    private int $maxApiCallsPerMinute;
-
     /** @var int[] */
     private array $apiCalls = [];
 
-    public function __construct(HttpClientInterface $httpClient, int $maxApiCallsPerMinute = 60)
-    {
-        $this->httpClient = $httpClient;
-        $this->maxApiCallsPerMinute = $maxApiCallsPerMinute;
+    public function __construct(
+        private HttpClientInterface $httpClient,
+        private int $maxApiCallsPerMinute = 60,
+    ) {
     }
 
     public function send(RequestInterface $request, array $options = []): ResponseInterface

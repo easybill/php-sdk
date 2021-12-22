@@ -10,17 +10,17 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
-    private Endpoint $endpoint;
     private HttpClientInterface $httpClient;
-    /** @var string[] */
-    private array $headers;
 
-    public function __construct(Endpoint $endpoint, ?HttpClientInterface $httpClient = null, array $headers = [])
-    {
-        $this->endpoint = $endpoint;
-        $this->headers = $headers;
-
-        if ($httpClient) {
+    /**
+     * @param string[] $headers
+     */
+    public function __construct(
+        private Endpoint $endpoint,
+        ?HttpClientInterface $httpClient = null,
+        private array $headers = [],
+    ) {
+        if (null !== $httpClient) {
             $this->httpClient = $httpClient;
         } else {
             $this->httpClient = new BaseHttpClient(new GuzzleHttpClient());
@@ -28,9 +28,9 @@ class Client
     }
 
     /**
-     * @return mixed|string
+     * @throws \JsonException
      */
-    public function request(string $method, string $uri = '', array $body = null, bool $raw = false)
+    public function request(string $method, string $uri = '', array $body = null, bool $raw = false): string|array
     {
         $request = new Request(
             $method,
@@ -38,7 +38,7 @@ class Client
             array_merge([
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->endpoint->getApiKey(),
-                'User-Agent' => 'easybill-php-sdk (rest-master)',
+                'User-Agent' => 'easybill-php-sdk v4',
             ], $this->headers),
             is_array($body) ? json_encode($body, JSON_THROW_ON_ERROR) : null
         );
