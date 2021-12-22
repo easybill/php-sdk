@@ -349,7 +349,7 @@ class Document implements ToArrayInterface
      */
     public function getItems(): array
     {
-        return $this->attr('items');
+        return $this->attrInstances('items', DocumentPosition::class);
     }
 
     public function getLastPostboxId(): int

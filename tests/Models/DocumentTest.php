@@ -25,4 +25,15 @@ class DocumentTest extends TestCase
 
         static::assertSame(['items' => [['type' => 'POSITION', 'number' => '31337', 'description' => 'Foobar is not Barfoo!']]], $document->toArray());
     }
+
+    public function testPositionsArrayToInstaces(): void
+    {
+        $document = new Document([
+            'items' => [
+                ['number' => '31337'],
+            ],
+        ]);
+
+        static::assertSame('31337', $document->getItems()[0]->getNumber());
+    }
 }

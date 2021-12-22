@@ -49,6 +49,19 @@ trait Data
         return $this->data[$key] = new $className($data);
     }
 
+    protected function attrInstances(string $key, string $className): array
+    {
+        $data = $this->attr($key);
+        if (!is_array($data)) {
+            throw new \RuntimeException(sprintf('Attr "%s" not found an array.', $key));
+        }
+        if ([] === $data) {
+            return $data;
+        }
+
+        return $this->data[$key] = array_map(static fn (object|array $item): object => is_array($item) ? new $className($item) : $item, $data);
+    }
+
     protected function attrDate(string $key): ?\DateTimeImmutable
     {
         $data = $this->attr($key);

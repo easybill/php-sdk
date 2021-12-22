@@ -151,6 +151,8 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             $getter->setBody('return $this->attrDate(\'' . $propertyName . '\');');
         } elseif ('date-time' === $propertyInfo['format']) {
             $getter->setBody('return $this->attrDateTime(\'' . $propertyName . '\');');
+        } elseif ('array' === $type && array_key_exists('$ref', $propertyInfo['items'])) {
+            $getter->setBody('return $this->attrInstances(\'' . $propertyName . '\', ' . classNameFromRef($propertyInfo['items']['$ref']) . '::class);');
         } else {
             $getter->setBody('return $this->attr(\'' . $propertyName . '\');');
         }
