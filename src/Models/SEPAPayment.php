@@ -34,7 +34,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->attr('created_at');
+        return $this->attrDateTime('created_at');
     }
 
     /**
@@ -174,7 +174,7 @@ class SEPAPayment implements ToArrayInterface
 
     public function getExportAt(): ?\DateTimeImmutable
     {
-        return $this->attr('export_at');
+        return $this->attrDateTime('export_at');
     }
 
     public function getExportError(): string

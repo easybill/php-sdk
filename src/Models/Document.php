@@ -147,7 +147,7 @@ class Document implements ToArrayInterface
 
     public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->attr('created_at');
+        return $this->attrDateTime('created_at');
     }
 
     public function setCurrency(string $currency): void
@@ -218,7 +218,7 @@ class Document implements ToArrayInterface
 
     public function getEditedAt(): \DateTimeImmutable
     {
-        return $this->attr('edited_at');
+        return $this->attrDateTime('edited_at');
     }
 
     public function setExternalId(?string $external_id): void

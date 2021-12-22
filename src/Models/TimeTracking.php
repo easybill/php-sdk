@@ -26,12 +26,12 @@ class TimeTracking implements ToArrayInterface
 
     public function getClearedAt(): ?\DateTimeImmutable
     {
-        return $this->attr('cleared_at');
+        return $this->attrDateTime('cleared_at');
     }
 
     public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->attr('created_at');
+        return $this->attrDateTime('created_at');
     }
 
     public function setDateFromAt(?\DateTimeImmutable $date_from_at): void
@@ -41,7 +41,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getDateFromAt(): ?\DateTimeImmutable
     {
-        return $this->attr('date_from_at');
+        return $this->attrDateTime('date_from_at');
     }
 
     public function setDateThruAt(?\DateTimeImmutable $date_thru_at): void
@@ -51,7 +51,7 @@ class TimeTracking implements ToArrayInterface
 
     public function getDateThruAt(): ?\DateTimeImmutable
     {
-        return $this->attr('date_thru_at');
+        return $this->attrDateTime('date_thru_at');
     }
 
     public function setDescription(string $description): void

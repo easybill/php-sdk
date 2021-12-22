@@ -21,7 +21,7 @@ class WebHookLastResponse implements ToArrayInterface
 
     public function getDate(): \DateTimeImmutable
     {
-        return $this->attr('date');
+        return $this->attrDateTime('date');
     }
 
     public function getCode(): int

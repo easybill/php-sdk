@@ -50,7 +50,7 @@ class Task implements ToArrayInterface
 
     public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->attr('created_at');
+        return $this->attrDateTime('created_at');
     }
 
     public function setCustomerId(?int $customer_id): void
@@ -93,12 +93,12 @@ class Task implements ToArrayInterface
 
     public function getEndAt(): ?\DateTimeImmutable
     {
-        return $this->attr('end_at');
+        return $this->attrDateTime('end_at');
     }
 
     public function getFinishAt(): ?\DateTimeImmutable
     {
-        return $this->attr('finish_at');
+        return $this->attrDateTime('finish_at');
     }
 
     public function getId(): int
@@ -172,7 +172,7 @@ class Task implements ToArrayInterface
 
     public function getStartAt(): ?\DateTimeImmutable
     {
-        return $this->attr('start_at');
+        return $this->attrDateTime('start_at');
     }
 
     /**

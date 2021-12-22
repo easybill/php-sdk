@@ -149,6 +149,8 @@ foreach ($swagger['definitions'] as $className => $classInfo) {
             $getter->setBody('return $this->attrInstance(\'' . $propertyName . '\', \\' . $type . '::class);');
         } elseif ('date' === $propertyInfo['format']) {
             $getter->setBody('return $this->attrDate(\'' . $propertyName . '\');');
+        } elseif ('date-time' === $propertyInfo['format']) {
+            $getter->setBody('return $this->attrDateTime(\'' . $propertyName . '\');');
         } else {
             $getter->setBody('return $this->attr(\'' . $propertyName . '\');');
         }

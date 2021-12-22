@@ -101,7 +101,7 @@ class PostBox implements ToArrayInterface
 
     public function getCreatedAt(): \DateTimeImmutable
     {
-        return $this->attr('created_at');
+        return $this->attrDateTime('created_at');
     }
 
     public function setProcessedAt(\DateTimeImmutable $processed_at): void
@@ -111,7 +111,7 @@ class PostBox implements ToArrayInterface
 
     public function getProcessedAt(): \DateTimeImmutable
     {
-        return $this->attr('processed_at');
+        return $this->attrDateTime('processed_at');
     }
 
     public function setSendBySelf(bool $send_by_self): void
