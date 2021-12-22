@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Easybill\SDK\Models\Traits;
 
 use Easybill\SDK\Models\ToArrayInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Easybill\SDK;
 
 use Psr\Http\Message\RequestInterface;
