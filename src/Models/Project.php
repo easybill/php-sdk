@@ -7,7 +7,7 @@ namespace Easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  *
- * @version swagger 1.68.0
+ * @version swagger 1.70.1
  * @version rest v1
  */
 class Project implements ToArrayInterface

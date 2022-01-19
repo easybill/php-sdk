@@ -7,7 +7,7 @@ namespace Easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  *
- * @version swagger 1.68.0
+ * @version swagger 1.70.1
  * @version rest v1
  * If customer_id, project_id and document_id are null, the attachment has a global context and is accessible from the web ui. Keep in mind only to provide one of the four context. You can't attach a file to several context in one request. A error is thrown if you provide two or more context (i. E. sending customer_id, document_id and project_id in combination).
  */

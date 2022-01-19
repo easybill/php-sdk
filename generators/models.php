@@ -7,7 +7,7 @@ use Easybill\SDK\Models\Traits\Data;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$swagger = json_decode(file_get_contents(__DIR__ . '/swagger.json'), true);
+$swagger = json_decode(file_get_contents('https://api.easybill.de/rest/v1/swagger.json'), true);
 
 function classNameFromRef(string $ref): string
 {

@@ -7,7 +7,7 @@ namespace Easybill\SDK\Models;
 /**
  * Auto-generated with `composer sdk:models`.
  *
- * @version swagger 1.68.0
+ * @version swagger 1.70.1
  * @version rest v1
  */
 class Document implements ToArrayInterface
@@ -441,9 +441,6 @@ class Document implements ToArrayInterface
         return $this->attr('project_id');
     }
 
-    /**
-     * This object is only available in document type RECURRING.
-     */
     public function setRecurringOptions(DocumentRecurring $recurring_options): void
     {
         $this->data['recurring_options'] = $recurring_options;
@@ -467,9 +464,6 @@ class Document implements ToArrayInterface
         return $this->attr('ref_id');
     }
 
-    /**
-     * This object is only available in document type INVOICE or CREDIT.
-     */
     public function setServiceDate(ServiceDate $service_date): void
     {
         $this->data['service_date'] = $service_date;
