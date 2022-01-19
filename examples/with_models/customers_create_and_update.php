@@ -10,7 +10,7 @@ use Easybill\SDK\Models\Customer;
 
 $client = new Client(new Endpoint(getenv('API_KEY')));
 
-## Create Customer
+//# Create Customer
 $customerCreate = new Customer();
 $customerCreate->setFirstName('Foo');
 $customerCreate->setLastName('Bar');
@@ -23,7 +23,7 @@ $customer = new Customer($result);
 
 var_dump($customer);
 
-## Update Customer
+//# Update Customer
 $customerUpdate = new Customer();
 $customerUpdate->setCompanyName('FooBar Ltd.');
 
