@@ -1,8 +1,10 @@
 <?php
 
-namespace easybill\SDK\HttpClient;
+declare(strict_types=1);
 
-use easybill\SDK\HttpClientInterface;
+namespace Easybill\SDK\HttpClient;
+
+use Easybill\SDK\HttpClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
@@ -10,16 +12,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class BaseHttpClient implements HttpClientInterface
 {
-    private HttpClientInterface $httpClient;
-    private int $maxApiCallsPerMinute;
-
     /** @var int[] */
     private array $apiCalls = [];
 
-    public function __construct(HttpClientInterface $httpClient, int $maxApiCallsPerMinute = 60)
-    {
-        $this->httpClient = $httpClient;
-        $this->maxApiCallsPerMinute = $maxApiCallsPerMinute;
+    public function __construct(
+        private HttpClientInterface $httpClient,
+        private int $maxApiCallsPerMinute = 60,
+    ) {
     }
 
     public function send(RequestInterface $request, array $options = []): ResponseInterface
@@ -35,9 +34,10 @@ class BaseHttpClient implements HttpClientInterface
 
             return $res;
         } catch (ClientException $clientException) {
-            if ($clientException->getResponse()->getStatusCode() === 429) {
+            if (429 === $clientException->getResponse()->getStatusCode()) {
                 // Too Many Requests, wait and try again.
                 sleep(30);
+
                 return $this->send($request, $options);
             }
 

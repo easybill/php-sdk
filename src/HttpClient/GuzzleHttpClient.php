@@ -1,11 +1,13 @@
 <?php
 
-namespace easybill\SDK\HttpClient;
+declare(strict_types=1);
 
-use easybill\SDK\HttpClientInterface;
+namespace Easybill\SDK\HttpClient;
+
+use Easybill\SDK\HttpClientInterface;
+use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Client;
 
 class GuzzleHttpClient implements HttpClientInterface
 {

@@ -1,6 +1,6 @@
 {
   "name": "easybill/php-sdk",
-  "description": "easybill PHP SDK (API)",
+  "description": "easybill PHP SDK (REST API)",
   "keywords": [
     "PHP",
     "easybill",
@@ -19,16 +19,36 @@
     }
   ],
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^8.0 || ^8.1",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.3"
+    "guzzlehttp/guzzle": "^7.4"
   },
   "autoload": {
     "psr-4": {
-      "easybill\\SDK\\": "src/"
+      "Easybill\\SDK\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Easybill\\SDK\\Tests\\": "tests/"
     }
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.17"
+    "friendsofphp/php-cs-fixer": "^3.4",
+    "nette/php-generator": "^3.6",
+    "phpunit/phpunit": "^9.5"
+  },
+  "scripts": {
+    "sdk:models": [
+      "@php generators/models.php",
+      "@sdk:cs-fix"
+    ],
+    "sdk:cs-fix": "./vendor/bin/php-cs-fixer fix",
+    "sdk:test": "./vendor/bin/phpunit tests"
+  },
+  "scripts-descriptions": {
+    "sdk:models": "Gnerate models from swagger.json file.",
+    "sdk:cs-fix": "Run php-cs-fixer to reformat php files.",
+    "sdk:test": "Run test with PHPUnit"
   }
 }

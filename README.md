@@ -15,19 +15,32 @@ composer require easybill/php-sdk
 ## Usage
 
 ```php
-use easybill\SDK\Client;
-use easybill\SDK\Endpoint;
+use Easybill\SDK\Client;
+use Easybill\SDK\Endpoint;
+use Easybill\SDK\Models\Customer;
 
 $client = new Client(new Endpoint('... your API key ...'));
 
-$result = $client->request('GET', 'documents');
+$customerCreate = new Customer();
+$customerCreate->setFirstName('Foo');
+$customerCreate->setLastName('Bar');
+$customerCreate->setCompanyName('FooBar GmbH');
+$customerCreate->setEmails(['foo.bar@foobar.com']);
 
-print_r($result);
+$result = $client->request('POST', 'customers', $customerCreate->toArray());
+
+$customer = new Customer($result);
+
+var_dump($customer)
 ```
 
 ## More examples
 
-Check the **examples** folder.
+Check the [examples](examples) folder and run:
+
+```shell
+API_KEY=<your_api_key> php examples/customers_01_load-list.php
+```
 
 ## Documentation
 
