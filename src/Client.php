@@ -30,7 +30,7 @@ class Client
     /**
      * @return mixed|string
      */
-    public function request(string $method, string $uri = '', array $body = null, bool $raw = false)
+    public function request(string $method, string $uri = '', ?array $body = null, bool $raw = false)
     {
         $request = new Request(
             $method,
